@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppLightTextStyle" parent="Theme.AppCompat.Light">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center|center_horizontal</item>
+    </style>
+
+    <style name="LightThemeLoadingActivity" parent="Theme.AppCompat.Light">
+        <item name="android:background">@drawable/light_loading_background</item>
+    </style>
+</resources>
