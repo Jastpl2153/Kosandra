@@ -13,6 +13,9 @@ import com.example.kosandra.databinding.ActivityLoadingBinding;
 import java.time.LocalTime;
 import java.util.Random;
 
+/**
+ * The activity responsible for displaying the loading screen and going to the main screen.
+ */
 public class LoadingActivity extends AppCompatActivity {
     private ActivityLoadingBinding binding;
     private LocalTime nowTime = LocalTime.now();
@@ -27,6 +30,7 @@ public class LoadingActivity extends AppCompatActivity {
         binding.greeting.setText(initGreeting());
         binding.quote.setText(randomQuote());
 
+        // We go to the main screen in 6 seconds
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -37,7 +41,11 @@ public class LoadingActivity extends AppCompatActivity {
         }, 6000);
     }
 
-    private String initGreeting(){
+    /**
+     * A method for initializing greetings depending on the time of day.
+     * @return A greeting line.
+     */
+    private String initGreeting() {
         String greeting;
         if (timeOfDay >= 5 && timeOfDay < 12) {
             greeting = getString(R.string.good_morning);
@@ -51,7 +59,11 @@ public class LoadingActivity extends AppCompatActivity {
         return greeting;
     }
 
-    private String randomQuote(){
+    /**
+     * A method for getting a random quote from resources.
+     * @return A random quote in the form of a string.
+     */
+    private String randomQuote() {
         String[] quotesArray = getResources().getStringArray(R.array.quotes_array);
         int randomQuote = new Random().nextInt(quotesArray.length);
         return quotesArray[randomQuote];

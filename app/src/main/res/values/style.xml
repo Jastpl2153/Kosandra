@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Style for text using white color -->
     <style name="AppLightTextStyle" parent="Theme.AppCompat">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -7,10 +8,9 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <!-- Background for download activity -->
     <style name="LightThemeLoadingActivity" parent="Theme.AppCompat.Light.NoActionBar">
-<!--        <item name="android:background">@drawable/light_loading_background</item>-->
+        <!--<item name="android:background">@drawable/light_loading_background</item>-->
         <item name="android:windowBackground">@drawable/background_loading_app</item>
     </style>
 </resources>
-
-<!--<item name="android:gravity">center|center_horizontal</item>-->
