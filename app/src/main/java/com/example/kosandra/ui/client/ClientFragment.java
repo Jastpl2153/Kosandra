@@ -1,4 +1,4 @@
-package com.example.kosandra.ui.home;
+package com.example.kosandra.ui.client;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.kosandra.databinding.FragmentHomeBinding;
+import com.example.kosandra.databinding.FragmentClientBinding;
 
-public class HomeFragment extends Fragment {
+public class ClientFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentClientBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        ClientViewModel clientViewModel =
+                new ViewModelProvider(this).get(ClientViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentClientBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        clientViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

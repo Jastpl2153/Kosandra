@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Kosandra</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_client">Клиент</string>
+    <string name="title_material">Материалы</string>
+    <string name="title_income">Доходы</string>
+    <string name="title_expenses">Расходы</string>
     <string name="good_morning">Доброе утро, Александра!</string>
     <string name="good_afternoon">Добрый день, Александра!</string>
     <string name="good_evening">Добрый вечер, Александра!</string>
