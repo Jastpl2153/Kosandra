@@ -1,4 +1,4 @@
-package com.example.kosandra.ui.dashboard;
+package com.example.kosandra.ui.material;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,18 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.kosandra.databinding.FragmentDashboardBinding;
+import com.example.kosandra.databinding.FragmentMaterialsBinding;
 
-public class DashboardFragment extends Fragment {
+public class MaterialFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentMaterialsBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        MaterialViewModel dashboardViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentMaterialsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
