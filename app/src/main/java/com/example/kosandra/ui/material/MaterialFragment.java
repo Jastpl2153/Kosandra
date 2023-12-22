@@ -12,12 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.kosandra.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
+public class MaterialFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+        MaterialViewModel dashboardViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
