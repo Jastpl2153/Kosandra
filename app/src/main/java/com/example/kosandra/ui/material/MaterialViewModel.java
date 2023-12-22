@@ -1,4 +1,4 @@
-package com.example.kosandra.ui.dashboard;
+package com.example.kosandra.ui.material;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

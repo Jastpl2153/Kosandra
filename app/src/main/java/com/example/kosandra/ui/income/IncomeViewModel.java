@@ -1,14 +1,14 @@
-package com.example.kosandra.ui.notifications;
+package com.example.kosandra.ui.income;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class IncomeViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public IncomeViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is notifications fragment");
     }

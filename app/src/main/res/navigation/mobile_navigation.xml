@@ -13,15 +13,15 @@
 
     <fragment
         android:id="@+id/navigation_material"
-        android:name="com.example.kosandra.ui.dashboard.DashboardFragment"
+        android:name="com.example.kosandra.ui.material.MaterialFragment"
         android:label="@string/title_material"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_materials" />
 
     <fragment
         android:id="@+id/navigation_income"
-        android:name="com.example.kosandra.ui.notifications.NotificationsFragment"
+        android:name="com.example.kosandra.ui.income.IncomeFragment"
         android:label="@string/title_income"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_income" />
 
     <fragment
         android:id="@+id/navigation_expenses"
