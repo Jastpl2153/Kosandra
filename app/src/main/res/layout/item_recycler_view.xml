@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!-- CircleImageView для изображения -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/client_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo"
+        app:civ_border_color="@color/blue_500"
+        app:civ_border_width="2dp" /> <!-- отступ справа от изображения -->
+
+    <!-- TextView для отображения имени -->
+    <TextView
+        android:id="@+id/client_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="@string/name_surname"
+        android:textSize="20sp"
+        android:textStyle="bold" /> <!-- выравнивание по вертикали -->
+</LinearLayout>

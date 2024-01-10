@@ -1,4 +1,4 @@
-package com.example.kosandra.loading;
+package com.example.kosandra.ui.loading;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,7 +38,7 @@ public class LoadingActivity extends AppCompatActivity {
                 startActivity(mainIntent);
                 finish();
             }
-        }, 6000);
+        }, 0);
     }
 
     /**

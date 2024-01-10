@@ -4,29 +4,44 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.kosandra.databinding.FragmentClientBinding;
+import com.example.kosandra.view_model.ClientViewModel;
+
+import java.util.List;
 
 public class ClientFragment extends Fragment {
-
     private FragmentClientBinding binding;
+    private List<Client> clientList;
+    private AdapterRecyclerView adapter;
+    private ClientViewModel clientViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        ClientViewModel clientViewModel =
-                new ViewModelProvider(this).get(ClientViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentClientBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        clientViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        initRecyclerView();
+
+        clientViewModel.getAllClients().observe(getViewLifecycleOwner(), clients -> {
+            if (clients != null) {
+                adapter.setClients(clients);
+            }
+        });
+
         return root;
+    }
+
+    private void initRecyclerView() {
+        clientViewModel = new ViewModelProvider(requireActivity()).get(ClientViewModel.class);
+        adapter = new AdapterRecyclerView();
+        binding.rvClient.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.rvClient.setAdapter(adapter);
     }
 
     @Override
