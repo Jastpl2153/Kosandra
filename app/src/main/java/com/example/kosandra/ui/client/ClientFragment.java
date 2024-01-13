@@ -39,7 +39,7 @@ public class ClientFragment extends Fragment {
 
     private void initRecyclerView() {
         clientViewModel = new ViewModelProvider(requireActivity()).get(ClientViewModel.class);
-        adapter = new AdapterRecyclerView();
+        adapter = new AdapterRecyclerView(clientViewModel);
         binding.rvClient.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvClient.setAdapter(adapter);
     }
