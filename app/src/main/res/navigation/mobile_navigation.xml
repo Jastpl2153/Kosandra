@@ -9,7 +9,13 @@
         android:id="@+id/navigation_client"
         android:name="com.example.kosandra.ui.client.ClientFragment"
         android:label="@string/title_client"
-        tools:layout="@layout/fragment_client" />
+        tools:layout="@layout/fragment_client" >
+        <action
+            android:id="@+id/action_navigation_open_add_client"
+            app:destination="@id/add_client_navigation"
+            app:popUpTo="@id/navigation_client"
+            app:popUpToSaveState="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_material"
@@ -28,4 +34,6 @@
         android:name="com.example.kosandra.ui.expenses.ExpensesFragment"
         android:label="@string/title_expenses"
         tools:layout="@layout/fragment_expenses" />
+
+    <include app:graph="@navigation/add_client_navigation" />
 </navigation>

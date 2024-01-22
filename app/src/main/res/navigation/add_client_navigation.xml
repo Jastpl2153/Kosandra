@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_client_navigation"
+    app:startDestination="@id/clientAddFragment">
+
+    <fragment
+        android:id="@+id/clientAddFragment"
+        android:name="com.example.kosandra.ui.client.ClientAddFragment"
+        android:label="Новый клиент"
+        tools:layout="@layout/fragment_client_add" />
+</navigation>

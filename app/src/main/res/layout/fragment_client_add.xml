@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/nav_view"
+    android:fillViewport="true"
+    tools:context=".ui.client.ClientAddFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/client_image_add"
+            android:layout_width="145dp"
+            android:layout_height="148dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo"
+            app:civ_border_color="@color/blue_500"
+            app:civ_border_width="2dp"
+            tools:layout_editor_absoluteX="138dp"
+            tools:layout_editor_absoluteY="58dp" />
+
+        <EditText
+            android:id="@+id/et_client_name"
+            style="@style/EditTextStyle"
+            android:hint="@string/Enter_name"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/et_client_phone"
+            style="@style/EditTextStyle"
+            android:hint="@string/Enter_phone"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/et_client_birthday"
+            style="@style/EditTextStyle"
+            android:hint="@string/Enter_birthday"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/et__hair_length"
+            style="@style/EditTextStyle"
+            android:hint="@string/Enter_hair_length"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/et__hair_color"
+            style="@style/EditTextStyle"
+            android:hint="@string/Enter_hair_color"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/et__hair_density"
+            style="@style/EditTextStyle"
+            android:hint="@string/Enter_hair_density"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_standard"
+            android:layout_marginBottom="0dp"
+            android:background="@color/gray"
+            android:gravity="left"
+            android:text="@string/number_visit"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/margin_standard"
+            android:layout_marginStart="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_standard"
+            android:layout_marginBottom="@dimen/margin_standard"
+            android:orientation="horizontal">
+
+            <NumberPicker
+                android:id="@+id/number_visit_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="136dp"
+                android:background="@color/gray" />
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/grid_count_visit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray"
+                app:columnCount="5"
+                app:rowCount="2">
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/heart_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="0"
+                    app:layout_columnWeight="1"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/heart_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="1"
+                    app:layout_columnWeight="1"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/heart_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="2"
+                    app:layout_columnWeight="1"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/heart_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="3"
+                    app:layout_columnWeight="1"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/sale_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="4"
+                    app:layout_columnWeight="1"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/heart_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="0"
+                    app:layout_columnWeight="1"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/heart_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="1"
+                    app:layout_columnWeight="1"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/heart_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="2"
+                    app:layout_columnWeight="1"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/heart_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="3"
+                    app:layout_columnWeight="1"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1" />
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/sale_button_selector"
+                    android:checked="false"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_column="4"
+                    app:layout_columnWeight="1"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1" />
+            </androidx.gridlayout.widget.GridLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -10,6 +10,7 @@
     <string name="good_night">Доброй ночи, Александра!</string>
     <string name="name_surname">Имя Фамилия</string>
     <string name="delete">delete</string>
+    <string name="new_client">Новый клиент</string>
     <string-array name="quotes_array">
         <item>"Чем тяжелее подъём, тем прекраснее вид с вершины\". Ник Вуйчич</item>
         <item>«Чтобы достичь успеха, перестаньте гнаться за деньгами, гонитесь за мечтой». Тони Шей</item>
@@ -29,4 +30,14 @@
         <item>«Чтобы дойти до цели, человеку нужно только одно. Идти». Оноре де Бальзак</item>
         <item>«Если ты не собираешься идти до конца, зачем ты вообще это делаешь?». Джо Намат</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Enter_name">Имя Фамилие</string>
+    <string name="Enter_phone">Телефон</string>
+    <string name="Enter_birthday">Дата рождения</string>
+    <string name="Enter_hair_length">Длина волос</string>
+    <string name="Enter_hair_color">Цвет волос</string>
+    <string name="Enter_hair_density">Густота волос</string>
+    <string name="number_visit">Количество посещений</string>
+    <string name="Save">Сохранить</string>
 </resources>
