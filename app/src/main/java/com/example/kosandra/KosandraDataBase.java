@@ -16,7 +16,6 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.concurrent.Executors;
 
 @Database(entities = Client.class, version = 1)
@@ -47,8 +46,8 @@ public abstract class KosandraDataBase extends RoomDatabase {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] byteArray = stream.toByteArray();
 
-                    Client client1 = new Client(byteArray, "Тигр", LocalDate.now(), "+79029442714", 2, 30, "Черный", "Средняя", Map.of("key1", "value1", "key2", "value2"));
-                    Client client2 = new Client(byteArray, "Тигр", LocalDate.now(), "+79029442714", 2, 30, "Черный", "Средняя", Map.of("key1", "value1", "key2", "value2"));
+                    Client client1 = new Client(byteArray, "Тигр", LocalDate.now(), "+79029442714", 2, 30, "Черный", "Средняя", "ss");
+                    Client client2 = new Client(byteArray, "Тигр", LocalDate.now(), "+79029442714", 2, 30, "Черный", "Средняя","ss");
 
                     clientDAO.insert(client1);
                     clientDAO.insert(client2);

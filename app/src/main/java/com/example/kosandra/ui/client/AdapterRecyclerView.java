@@ -108,7 +108,7 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
             translationXAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(@NonNull Animator animation, boolean isReverse) {
-                    item_layout.setBackgroundColor(ContextCompat.getColor(item_layout.getContext(), R.color.blue_100));
+                    item_layout.setBackgroundColor(ContextCompat.getColor(item_layout.getContext(), R.color.blue_200));
                 }
 
                 @Override

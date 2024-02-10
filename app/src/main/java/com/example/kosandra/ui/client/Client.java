@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import java.time.LocalDate;
-import java.util.Map;
 
 @Entity(tableName = "client")
 @TypeConverters(Converters.class)
@@ -24,7 +23,6 @@ public class Client {
 
     private int numberOfVisits;
 
-    @Nullable
     private int hairLength;
 
     @Nullable
@@ -34,11 +32,11 @@ public class Client {
     private String hairDensity;
 
     @Nullable
-    private Map<String, String> conversationDetails;
+    private String conversationDetails;
 
     public Client(byte[] photo, String name, LocalDate dateOfBirth, String numberPhone,
                   int numberOfVisits, int hairLength, @Nullable String hairColor,
-                  @Nullable String hairDensity, @Nullable Map<String, String> conversationDetails) {
+                  @Nullable String hairDensity, @Nullable String conversationDetails) {
         this.photo = photo;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -126,11 +124,11 @@ public class Client {
     }
 
     @Nullable
-    public Map<String, String> getConversationDetails() {
+    public String getConversationDetails() {
         return conversationDetails;
     }
 
-    public void setConversationDetails(@Nullable Map<String, String> conversationDetails) {
+    public void setConversationDetails(@Nullable String conversationDetails) {
         this.conversationDetails = conversationDetails;
     }
 }

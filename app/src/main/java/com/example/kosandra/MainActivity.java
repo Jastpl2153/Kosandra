@@ -10,8 +10,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.kosandra.databinding.ActivityMainBinding;
 
-
-
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
