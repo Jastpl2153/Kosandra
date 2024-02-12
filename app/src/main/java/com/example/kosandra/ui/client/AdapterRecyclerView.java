@@ -1,19 +1,21 @@
 package com.example.kosandra.ui.client;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
-import android.content.res.Resources;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.TypedValue;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,8 +23,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.example.kosandra.R;
 import com.example.kosandra.view_model.ClientViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,10 +84,9 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
             item_layout = itemView.findViewById(R.id.item_layout);
 
             itemView.setOnLongClickListener(this::handleItemLongClick);
-
             itemView.setOnClickListener(v -> handleItemClick());
-
             but_delete.setOnClickListener(v -> handleDeleteClient());
+            client_image.setOnClickListener(v -> viewClientPhoto());
         }
 
         private boolean handleItemLongClick(View v) {
@@ -103,19 +108,7 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
             int offset = item_layout.getWidth() / 5;
 
             ObjectAnimator translationXAnimator = ObjectAnimator.ofFloat(item_layout, "translationX", 0, -offset);
-            translationXAnimator.setDuration(300);
-
-            translationXAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationStart(@NonNull Animator animation, boolean isReverse) {
-                    item_layout.setBackgroundColor(ContextCompat.getColor(item_layout.getContext(), R.color.blue_200));
-                }
-
-                @Override
-                public void onAnimationEnd(@NonNull Animator animation, boolean isReverse) {
-                    but_delete.setVisibility(View.VISIBLE);
-                }
-            });
+            setupAnimator(translationXAnimator, true);
             translationXAnimator.start();
         }
 
@@ -123,21 +116,31 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
             int offset = but_delete.getWidth();
 
             ObjectAnimator translationXAnimator = ObjectAnimator.ofFloat(item_layout, "translationX", -offset, 0);
-            translationXAnimator.setDuration(300);
-            translationXAnimator.addListener(new AnimatorListenerAdapter() {
+            setupAnimator(translationXAnimator, false);
+            translationXAnimator.start();
+        }
+
+        private void setupAnimator(ObjectAnimator animator, boolean isSelected){
+            animator.setDuration(300);
+            animator.addListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationStart(@NonNull Animator animation, boolean isReverse) {
-                    but_delete.setVisibility(View.INVISIBLE);
+                public void onAnimationStart(Animator animation) {
+                    if (isSelected){
+                        item_layout.setBackgroundColor(ContextCompat.getColor(item_layout.getContext(), R.color.blue_200));
+                    } else {
+                        but_delete.setVisibility(View.INVISIBLE);
+                    }
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    if (item_layout.getTranslationX() == 0) {
+                    if (isSelected){
+                        but_delete.setVisibility(View.VISIBLE);
+                    } else {
                         item_layout.setBackgroundColor(ContextCompat.getColor(item_layout.getContext(), R.color.white));
                     }
                 }
             });
-            translationXAnimator.start();
         }
 
         private void handleDeleteClient() {
@@ -154,6 +157,22 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
             item_layout.animate().translationX(0).setDuration(0).start();
             but_delete.setVisibility(View.INVISIBLE);
             item_layout.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), android.R.color.white));
+        }
+
+        private void viewClientPhoto () {
+            if (!isSelected) {
+                int position = getAdapterPosition();
+
+                Dialog dialog = new Dialog(client_image.getContext(), android.R.style.Theme_Material_Dialog_NoActionBar_MinWidth);
+                dialog.setContentView(R.layout.dialog_photo_client);
+
+                SubsamplingScaleImageView imageView = dialog.findViewById(R.id.photo);
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(clients.get(position).getPhoto(), 0, clients.get(position).getPhoto().length);
+                imageView.setImage(ImageSource.bitmap(bitmap));
+
+                dialog.show();
+            }
         }
     }
 }

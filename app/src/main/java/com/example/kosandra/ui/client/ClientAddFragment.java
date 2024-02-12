@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,10 +26,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.example.kosandra.R;
 import com.example.kosandra.databinding.FragmentClientAddBinding;
 import com.example.kosandra.view_model.ClientViewModel;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
@@ -50,7 +51,6 @@ public class ClientAddFragment extends Fragment {
         setupUI();
         listenerActivityPhotoResult();
 
-
         return root;
     }
 
@@ -59,10 +59,10 @@ public class ClientAddFragment extends Fragment {
                 uri -> {
                     if (uri != null) {
                         try {
-                            Picasso.get()
+                            Glide.with(requireContext())
                                     .load(uri)
-                                    .fit()
-                                    .centerCrop()
+                                    .fitCenter()
+                                    .override(758, 1138)
                                     .into(binding.clientImageAdd);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -163,14 +163,30 @@ public class ClientAddFragment extends Fragment {
                 !binding.etClientBirthday.getText().toString().isEmpty();
     }
 
+    private boolean validateClientPhoto(byte[] photo) {
+        if (photo.length < 1048576) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private byte[] getPhotoClient () {
         return CompletableFuture.supplyAsync(() ->
         {
+            int quality = 100;
             BitmapDrawable drawable = (BitmapDrawable) binding.clientImageAdd.getDrawable();
             Bitmap bitmap = drawable.getBitmap();
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            return stream.toByteArray();
+            byte[] photo;
+
+            do {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream);
+                photo = stream.toByteArray();
+                quality -= 10;
+            } while (!validateClientPhoto(photo) && quality >= 0);
+
+            return photo;
         }).join();
     }
 
