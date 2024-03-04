@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +28,8 @@ import androidx.navigation.Navigation;
 import com.bumptech.glide.Glide;
 import com.example.kosandra.R;
 import com.example.kosandra.databinding.FragmentClientAddBinding;
+import com.example.kosandra.entity.Client;
+import com.example.kosandra.ui.client.dialogs.DatePickerHelperDialog;
 import com.example.kosandra.view_model.ClientViewModel;
 
 import java.io.ByteArrayOutputStream;
@@ -105,21 +106,7 @@ public class ClientAddFragment extends Fragment {
     }
 
     private void setupDatePicker() {
-        binding.etClientBirthday.setOnClickListener(v -> listenerDatePickerDialog());
-    }
-
-    private void listenerDatePickerDialog() {
-        final Calendar currentDate = Calendar.getInstance();
-        int year = currentDate.get(Calendar.YEAR);
-        int month = currentDate.get(Calendar.MONTH);
-        int dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, selectedYear, selectedMonth, selectedDayOfMonth) -> {
-            selectedMonth = selectedMonth + 1;
-            String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%d", selectedDayOfMonth, selectedMonth, selectedYear);
-            binding.etClientBirthday.setText(selectedDate);
-        }, year, month, dayOfMonth);
-        datePickerDialog.show();
+        DatePickerHelperDialog.setupDatePicker(binding.etClientBirthday);
     }
 
     private void setupSaveMenu() {
@@ -197,16 +184,11 @@ public class ClientAddFragment extends Fragment {
         return 0;
     }
 
-    private LocalDate parseBirthday() {
-        String birthdayString = binding.etClientBirthday.getText().toString();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(birthdayString, formatter);
-    }
 
     private Client initClient(){
         return new Client( getPhotoClient(),
                 binding.etClientName.getText().toString(),
-                parseBirthday(),
+                DatePickerHelperDialog.parseBirthday(binding.etClientBirthday.getText().toString()),
                 binding.etClientPhone.getText().toString(),
                 binding.numberVisitPicker.getValue(),
                 parseHairLength(),

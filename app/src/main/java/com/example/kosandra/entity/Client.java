@@ -1,36 +1,30 @@
-package com.example.kosandra.ui.client;
+package com.example.kosandra.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
 
 import java.time.LocalDate;
 
 @Entity(tableName = "client")
-@TypeConverters(Converters.class)
-public class Client {
+
+public class Client implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private byte[] photo;
-
     private String name;
-
     private LocalDate dateOfBirth;
-
     private String numberPhone;
-
     private int numberOfVisits;
-
     private int hairLength;
-
     @Nullable
     private String hairColor;
-
     @Nullable
     private String hairDensity;
-
     @Nullable
     private String conversationDetails;
 
@@ -48,6 +42,18 @@ public class Client {
         this.conversationDetails = conversationDetails;
     }
 
+    public Client(Parcel source) {
+        this.id = source.readInt();
+        this.photo = source.createByteArray();
+        this.name = source.readString();
+        this.dateOfBirth = LocalDate.ofEpochDay(source.readLong());
+        this.numberPhone = source.readString();
+        this.numberOfVisits = source.readInt();
+        this.hairLength = source.readInt();
+        this.hairColor = source.readString();
+        this.hairDensity = source.readString();
+        this.conversationDetails = source.readString();
+    }
 
     public int getId() {
         return id;
@@ -131,4 +137,35 @@ public class Client {
     public void setConversationDetails(@Nullable String conversationDetails) {
         this.conversationDetails = conversationDetails;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeByteArray(photo);
+        dest.writeString(name);
+        dest.writeLong(dateOfBirth.toEpochDay());
+        dest.writeString(numberPhone);
+        dest.writeInt(numberOfVisits);
+        dest.writeInt(hairLength);
+        dest.writeString(hairColor);
+        dest.writeString(hairDensity);
+        dest.writeString(conversationDetails);
+    }
+
+    public static final Creator<Client> CREATOR = new Creator<Client>() {
+        @Override
+        public Client createFromParcel(Parcel source) {
+            return new Client(source);
+        }
+
+        @Override
+        public Client[] newArray(int size) {
+            return new Client[0];
+        }
+    };
 }

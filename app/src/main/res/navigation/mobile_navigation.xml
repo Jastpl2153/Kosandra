@@ -15,6 +15,11 @@
             app:destination="@id/add_client_navigation"
             app:popUpTo="@id/navigation_client"
             app:popUpToSaveState="true"/>
+        <action
+            android:id="@+id/action_navigation_open_card_client"
+            app:destination="@id/card_client_navigation"
+            app:popUpTo="@id/navigation_client"
+            app:popUpToSaveState="true"/>
     </fragment>
 
     <fragment
@@ -36,4 +41,6 @@
         tools:layout="@layout/fragment_expenses" />
 
     <include app:graph="@navigation/add_client_navigation" />
+
+    <include app:graph="@navigation/card_client_navigation" />
 </navigation>

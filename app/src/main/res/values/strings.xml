@@ -41,4 +41,23 @@
     <string name="number_visit">Количество посещений</string>
     <string name="Save">Сохранить</string>
     <string name="speak_client">О чем говорили с клиентом?</string>
+    <string name="card_client_visit">Кол. посещений:</string>
+    <string name="card_client_density">Густота волос:</string>
+    <string name="card_client_color">Цвет волос:</string>
+    <string name="card_client_data_birthday">Дата рождения:</string>
+    <string name="card_client_phone">Номер телефона:</string>
+    <string name="card_client_length">Длина волос:</string>
+    <string name="card_client_name">Имя Фамилия:</string>
+    <string name="edit">Изменить</string>
+    <string name="add_hairstyle">Добавить прическу</string>
+    <string name="name_hairstyle">Название прически</string>
+    <string name="date_visit">Дата посещения</string>
+    <string name="time_complete_hairstyle">Время выполнения прически</string>
+    <string name="price_hairstyle">Цена прически</string>
+    <string name="price_materials">Цена материала</string>
+    <string name="weight_materials">Вес материала</string>
+    <string name="list_hairstyle">Список сделанных причесок:</string>
+    <string name="visit"> посещение: </string>
+    <string name="what_talking">О чем говорили:</string>
+    <string name="talk_temes">Обсуждаемые темы</string>
 </resources>
