@@ -1,8 +1,11 @@
 package com.example.kosandra.ui.client;
 
-import android.app.DatePickerDialog;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,7 +16,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.ToggleButton;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -24,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.kosandra.R;
@@ -33,10 +36,6 @@ import com.example.kosandra.ui.client.dialogs.DatePickerHelperDialog;
 import com.example.kosandra.view_model.ClientViewModel;
 
 import java.io.ByteArrayOutputStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 public class ClientAddFragment extends Fragment {
@@ -50,61 +49,43 @@ public class ClientAddFragment extends Fragment {
         View root = binding.getRoot();
 
         setupUI();
-        listenerActivityPhotoResult();
+
 
         return root;
     }
 
+    private void setupUI(){
+        setupAddPhotoClient();
+        setupDatePicker();
+        setupSaveMenu();
+        listenerActivityPhotoResult();
+    }
+
+    private void setupAddPhotoClient(){
+        binding.clientImageAdd.setOnClickListener(v -> openGalleryForImage());
+    }
     private void listenerActivityPhotoResult() {
         getContentLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 uri -> {
                     if (uri != null) {
                         try {
-                            Glide.with(requireContext())
-                                    .load(uri)
-                                    .fitCenter()
-                                    .override(758, 1138)
-                                    .into(binding.clientImageAdd);
+                            loadImage(uri);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 });
     }
-
-    private void setupUI(){
-        setupAddPhotoClient();
-        setupNumberVisitPicker();
-        setupDatePicker();
-        setupSaveMenu();
+    private void loadImage(Uri uri) {
+        Glide.with(requireContext())
+                .load(uri)
+                .fitCenter()
+                .override(758, 1138)
+                .into(binding.clientImageAdd);
     }
-
-    private void setupAddPhotoClient(){
-        binding.clientImageAdd.setOnClickListener(v -> openGalleryForImage());
-    }
-
     private void openGalleryForImage() {
         getContentLauncher.launch("image/*");
     }
-
-    private void setupNumberVisitPicker() {
-        binding.numberVisitPicker.setMinValue(0);
-        binding.numberVisitPicker.setMaxValue(10);
-
-        binding.numberVisitPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {listenerPickerVisit(newVal);});
-    }
-
-    private void listenerPickerVisit (int newVal){
-        for (int i = 0; i < newVal; i++) {
-            ToggleButton toggleButton = (ToggleButton) binding.gridCountVisit.getChildAt(i);
-            toggleButton.setChecked(true);
-        }
-        for (int i = newVal; i < binding.numberVisitPicker.getMaxValue(); i++) {
-            ToggleButton toggleButton = (ToggleButton) binding.gridCountVisit.getChildAt(i);
-            toggleButton.setChecked(false);
-        }
-    }
-
     private void setupDatePicker() {
         DatePickerHelperDialog.setupDatePicker(binding.etClientBirthday);
     }
@@ -158,12 +139,11 @@ public class ClientAddFragment extends Fragment {
         }
     }
 
-    private byte[] getPhotoClient () {
+    private byte[] getPhotoClient() {
         return CompletableFuture.supplyAsync(() ->
         {
             int quality = 100;
-            BitmapDrawable drawable = (BitmapDrawable) binding.clientImageAdd.getDrawable();
-            Bitmap bitmap = drawable.getBitmap();
+            Bitmap bitmap = getDrawable();
             byte[] photo;
 
             do {
@@ -177,24 +157,41 @@ public class ClientAddFragment extends Fragment {
         }).join();
     }
 
+    private Bitmap getDrawable () {
+        Drawable drawable = binding.clientImageAdd.getDrawable();
+        Bitmap bitmap;
+
+        if (drawable instanceof BitmapDrawable){
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) binding.clientImageAdd.getDrawable();
+            bitmap = bitmapDrawable.getBitmap();
+        } else if (drawable instanceof VectorDrawable || drawable instanceof VectorDrawableCompat) {
+            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+        } else {
+            throw new IllegalArgumentException("Unsupported image type");
+        }
+
+        return bitmap;
+    }
+
     private int parseHairLength () {
         if(!binding.etHairLength.getText().toString().isEmpty()) {
             return Integer.parseInt(binding.etHairLength.getText().toString());
         }
         return 0;
     }
-
-
     private Client initClient(){
         return new Client( getPhotoClient(),
                 binding.etClientName.getText().toString(),
                 DatePickerHelperDialog.parseBirthday(binding.etClientBirthday.getText().toString()),
                 binding.etClientPhone.getText().toString(),
-                binding.numberVisitPicker.getValue(),
+                0,
                 parseHairLength(),
-                binding.etHairColor.getText().toString(),
-                binding.etHairDensity.getText().toString(),
-                binding.etConversationDetails.getText().toString());
+                initEmptyFieldString(binding.etHairColor.getText().toString()),
+                initEmptyFieldString(binding.etHairDensity.getText().toString()),
+                initEmptyFieldString(binding.etConversationDetails.getText().toString()));
+    }
+    private String initEmptyFieldString(String text){
+        return text.isEmpty() ? "Не указано" : text;
     }
 
     private void animationEmptyField(EditText text) {

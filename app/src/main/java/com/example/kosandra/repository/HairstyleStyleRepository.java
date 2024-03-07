@@ -42,4 +42,8 @@ public class HairstyleStyleRepository {
         // Получение списка клиентов из базы данных через DAO с использованием LiveData
         return hairstyleLiveData = hairstyleVisitDAO.getAllHairstyles(clientId);
     }
+
+    public LiveData<HairstyleVisit> getHairstyleVisit(int id){
+        return hairstyleVisitDAO.getHairstyleVisit(id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.kosandra.ui.client;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,12 +20,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.example.kosandra.R;
 import com.example.kosandra.databinding.FragmentClientCardBinding;
 import com.example.kosandra.entity.Client;
 import com.example.kosandra.entity.HairstyleVisit;
 import com.example.kosandra.ui.client.adapter.AdapterRVListVisitClient;
-import com.example.kosandra.ui.client.dialogs.AddHairstyleDialog;
+import com.example.kosandra.ui.client.dialogs.AddEditHairstyleDialog;
 import com.example.kosandra.ui.client.dialogs.EditClientDialog;
 import com.example.kosandra.ui.client.interface_recycle_view.ClientCardClickListener;
 import com.example.kosandra.view_model.ClientViewModel;
@@ -50,7 +53,27 @@ public class ClientCardFragment extends Fragment implements ClientCardClickListe
         initRecyclerView();
         observeHairstyleVisits();
         setupMenu();
+        setupViewingImage();
     }
+    private void setupViewingImage() {
+        binding.clientImageCard.setOnClickListener(v -> {
+            Drawable drawable = binding.clientImageCard.getDrawable();
+            if (drawable != null) {
+                showFullScreenImage(drawable);
+            }
+        });
+    }
+
+    private void showFullScreenImage(Drawable drawable) {
+        Dialog dialog = new Dialog(getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.dialog_photo_client);
+        SubsamplingScaleImageView scaleImageView = dialog.findViewById(R.id.photo);
+
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        scaleImageView.setImage(ImageSource.bitmap(bitmap));
+        dialog.show();
+    }
+
     private void getClient(){
         client = getArguments() != null ? getArguments().getParcelable("client") : null;
         if (client != null) {
@@ -112,19 +135,21 @@ public class ClientCardFragment extends Fragment implements ClientCardClickListe
         editClientDialog.show(getParentFragmentManager(), "DialogEditClient");
     }
     private void addHairstyle(){
-        AddHairstyleDialog dialog = new AddHairstyleDialog();
+        AddEditHairstyleDialog dialog = new AddEditHairstyleDialog();
         dialog.setArguments(initBundleClient());
         dialog.show(getParentFragmentManager(), "DialogAddHairstyle");
     }
     private Bundle initBundleClient() {
         Bundle arg = new Bundle();
         arg.putParcelable("client", client);
+        arg.putString("logic", "add");
        return arg;
     }
     @Override
     public void onItemClick(View view, HairstyleVisit hairstyleVisit) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("visit", hairstyleVisit);
+        bundle.putParcelable("client", client);
         Navigation.findNavController(view).navigate(R.id.action_clientCardFragment_to_hairstyleFragment, bundle);
     }
 }

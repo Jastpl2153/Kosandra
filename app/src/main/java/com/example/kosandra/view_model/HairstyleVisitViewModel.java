@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.kosandra.entity.Client;
 import com.example.kosandra.entity.HairstyleVisit;
 import com.example.kosandra.repository.HairstyleStyleRepository;
 
@@ -34,5 +35,9 @@ public class HairstyleVisitViewModel extends AndroidViewModel {
 
     public LiveData<List<HairstyleVisit>> getAllHairstyleClient(int clientId) {
         return allHairstyleClient = repository.getAllHairstyles(clientId);
+    }
+
+    public LiveData<HairstyleVisit> getHairstyleVisit(int id) {
+        return repository.getHairstyleVisit(id);
     }
 }

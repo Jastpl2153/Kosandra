@@ -87,7 +87,7 @@
             android:id="@+id/et_edit_name"
             style="@style/EditTextCardClient"
             android:hint="@string/Enter_name"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             app:layout_column="1"
             app:layout_row="0" />
 
@@ -121,7 +121,7 @@
             android:id="@+id/et_edit_color"
             style="@style/EditTextCardClient"
             android:hint="@string/Enter_hair_color"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             app:layout_column="1"
             app:layout_row="4" />
 
@@ -129,7 +129,7 @@
             android:id="@+id/et_edit_density"
             style="@style/EditTextCardClient"
             android:hint="@string/Enter_hair_density"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             app:layout_column="1"
             app:layout_row="5" />
 

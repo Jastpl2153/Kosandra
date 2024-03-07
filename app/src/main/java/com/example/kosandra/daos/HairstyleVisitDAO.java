@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 
+import com.example.kosandra.entity.Client;
 import com.example.kosandra.entity.HairstyleVisit;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface HairstyleVisitDAO {
 
     @Query("select * from hairstyleVisit where visitId =:clientId")
     LiveData<List<HairstyleVisit>> getAllHairstyles(int clientId);
+
+    @Query("select * from hairstyleVisit where id=:id")
+    LiveData<HairstyleVisit> getHairstyleVisit(int id);
 }

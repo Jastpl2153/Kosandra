@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,4 +8,136 @@
     android:fillViewport="false"
     tools:context=".ui.client.HairstyleFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image_card_hairstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_standard"/>
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:columnCount="2"
+            app:rowCount="6"
+            android:background="@drawable/frame_client_card"
+            android:layout_marginStart="@dimen/margin_standard"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_standard">
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/name_hairstyle"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="0" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/date_visit"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="1" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/time_complete_hairstyle_1"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="2" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/price_hairstyle"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="3" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/price_materials"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="4" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/weight_materials"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="5"
+                android:paddingBottom="45dp"/>
+
+            <TextView
+                android:id="@+id/name_card_hairstyle"
+                style="@style/TextViewStaticCartClient"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/name_hairstyle"
+                android:layout_marginEnd="@dimen/margin_end_card_hairstyle"
+                app:layout_column="1"
+                app:layout_gravity="fill_horizontal"
+                app:layout_row="0" />
+
+            <TextView
+                android:id="@+id/date_card_hairstyle"
+                style="@style/TextViewStaticCartClient"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/date_visit"
+                app:layout_column="1"
+                app:layout_gravity="fill_horizontal"
+                app:layout_row="1" />
+
+            <TextView
+                android:id="@+id/time_card_hairstyle"
+                style="@style/TextViewStaticCartClient"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_end_card_hairstyle"
+                android:text="@string/time_complete_hairstyle"
+                app:layout_column="1"
+                app:layout_gravity="fill_horizontal"
+                app:layout_row="2" />
+
+            <TextView
+                android:id="@+id/price_card_hairstyle"
+                style="@style/TextViewStaticCartClient"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_end_card_hairstyle"
+                android:text="@string/price_hairstyle"
+                app:layout_column="1"
+                app:layout_gravity="fill_horizontal"
+                app:layout_row="3" />
+
+            <TextView
+                android:id="@+id/price_material_card_hairstyle"
+                style="@style/TextViewStaticCartClient"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/price_materials"
+                app:layout_column="1"
+                app:layout_gravity="fill_horizontal"
+                android:layout_marginEnd="@dimen/margin_end_card_hairstyle"
+                app:layout_row="4" />
+
+            <TextView
+                android:id="@+id/weight_card_hairstyle"
+                style="@style/TextViewStaticCartClient"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/weight_materials"
+                app:layout_column="1"
+                app:layout_gravity="fill_horizontal"
+                android:layout_marginEnd="@dimen/margin_end_card_hairstyle"
+                app:layout_row="5" />
+
+        </androidx.gridlayout.widget.GridLayout>
+    </LinearLayout>
 </ScrollView>

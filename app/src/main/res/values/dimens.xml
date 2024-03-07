@@ -5,4 +5,5 @@
     <dimen name="margin_standard">10dp</dimen>
     <dimen name="margin_card_client">20dp</dimen>
     <dimen name="margin_edit_client">10dp</dimen>
+    <dimen name="margin_end_card_hairstyle">13dp</dimen>
 </resources>

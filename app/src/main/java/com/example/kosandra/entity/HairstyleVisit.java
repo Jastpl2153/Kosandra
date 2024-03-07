@@ -14,7 +14,7 @@ import java.time.LocalTime;
         foreignKeys = @ForeignKey(entity = Client.class,
                 parentColumns = "id",
                 childColumns = "visitId",
-                onDelete = ForeignKey.SET_NULL))
+                onDelete = ForeignKey.CASCADE))
 public class HairstyleVisit implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;

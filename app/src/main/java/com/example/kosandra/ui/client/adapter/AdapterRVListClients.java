@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -64,6 +66,10 @@ public class AdapterRVListClients extends RecyclerView.Adapter<AdapterRVListClie
         this.clients.clear();
         this.clients.addAll(clients);
         notifyDataSetChanged();
+    }
+
+    public List<Client> getClients() {
+        return clients;
     }
 
     public class ClientHolder extends RecyclerView.ViewHolder {
