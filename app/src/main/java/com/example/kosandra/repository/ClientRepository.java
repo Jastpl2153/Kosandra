@@ -4,9 +4,9 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.kosandra.KosandraDataBase;
+import com.example.kosandra.db.KosandraDataBase;
 import com.example.kosandra.daos.ClientDAO;
-import com.example.kosandra.ui.client.Client;
+import com.example.kosandra.entity.Client;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -41,5 +41,10 @@ public class ClientRepository {
     public LiveData<List<Client>> getAllClients() {
         // Получение списка клиентов из базы данных через DAO с использованием LiveData
         return clientLiveData;
+    }
+
+    public LiveData<Client> getClient(int id) {
+        // Получение клиент из базы данных по id через DAO с использованием LiveData
+        return clientDAO.getClient(id);
     }
 }

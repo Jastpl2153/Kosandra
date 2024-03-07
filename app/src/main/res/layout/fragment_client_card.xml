@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/nav_view"
+    android:fillViewport="false"
+    tools:context=".ui.client.ClientCardFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/client_image_card"
+            android:layout_width="145dp"
+            android:layout_height="148dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_photo_client"
+            app:civ_border_color="@color/blue_200"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/tx_client_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_standard"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_standard"
+            android:background="@drawable/frame_client_card"
+            app:columnCount="2"
+            app:rowCount="6">
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/card_client_phone"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="0" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/card_client_data_birthday"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="1" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/card_client_length"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="2" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/card_client_color"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="3" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:text="@string/card_client_density"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="4" />
+
+            <TextView
+                style="@style/TextViewStaticCartClient"
+                android:paddingBottom="40dp"
+                android:text="@string/card_client_visit"
+                android:textStyle="bold"
+                app:layout_column="0"
+                app:layout_row="5" />
+
+            <TextView
+                android:id="@+id/tv_client_phone"
+                style="@style/TextViewCartClientDataBase"
+                app:layout_column="1"
+                app:layout_row="0" />
+
+            <TextView
+                android:id="@+id/tv_client_birthday"
+                style="@style/TextViewCartClientDataBase"
+                app:layout_column="1"
+                app:layout_row="1" />
+
+            <TextView
+                android:id="@+id/tv_hair_length"
+                style="@style/TextViewCartClientDataBase"
+                app:layout_column="1"
+                app:layout_row="2" />
+
+            <TextView
+                android:id="@+id/tv_hair_color"
+                style="@style/TextViewCartClientDataBase"
+                app:layout_column="1"
+                app:layout_row="3" />
+
+            <TextView
+                android:id="@+id/tv_hair_density"
+                style="@style/TextViewCartClientDataBase"
+                app:layout_column="1"
+                app:layout_row="4" />
+
+            <TextView
+                android:id="@+id/tv_client_visit"
+                style="@style/TextViewCartClientDataBase"
+                app:layout_column="1"
+                app:layout_row="5" />
+        </androidx.gridlayout.widget.GridLayout>
+
+        <TextView
+            android:id="@+id/tv_speak_client"
+            style="@style/TextViewStaticCartClient"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="@dimen/margin_card_client"
+            android:layout_marginBottom="10dp"
+            android:background="@color/blue_50"
+            android:padding="10dp"/>
+
+        <TextView
+            style="@style/TextViewStaticCartClient"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="@dimen/margin_card_client"
+            android:layout_marginBottom="10dp"
+            android:text="@string/list_hairstyle"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_visit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginStart="@dimen/margin_card_client"
+            android:layout_marginEnd="@dimen/margin_card_client"
+            android:layout_marginBottom="@dimen/margin_card_client" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

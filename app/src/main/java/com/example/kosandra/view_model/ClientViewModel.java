@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.kosandra.repository.ClientRepository;
-import com.example.kosandra.ui.client.Client;
+import com.example.kosandra.entity.Client;
 
 import java.util.List;
 
@@ -35,5 +35,9 @@ public class ClientViewModel extends AndroidViewModel {
 
     public LiveData<List<Client>> getAllClients() {
         return allClient;
+    }
+
+    public LiveData<Client> getClient(int id) {
+        return repository.getClient(id);
     }
 }

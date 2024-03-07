@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="25dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="3dp"
+        app:srcCompat="@drawable/line"
+        tools:layout_editor_absoluteX="128dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <ImageView
+        android:id="@+id/add_photo_hairstyle"
+        android:layout_width="150dp"
+        android:layout_height="225dp"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/image_add_hairstyle" />
+
+    <EditText
+        android:id="@+id/et_name_hairstyle"
+        style="@style/AddHairstyle"
+        android:hint="@string/name_hairstyle"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/et_date_visit"
+        style="@style/AddHairstyle"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/date_visit"
+        android:inputType="none" />
+
+    <EditText
+        android:id="@+id/et_time_complete_hairstyle"
+        style="@style/AddHairstyle"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/time_complete_hairstyle"
+        android:inputType="none" />
+
+    <EditText
+        android:id="@+id/et_price_hairstyle"
+        style="@style/AddHairstyle"
+        android:hint="@string/price_hairstyle"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/et_price_materials"
+        style="@style/AddHairstyle"
+        android:hint="@string/price_materials"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/et_weight_materials"
+        style="@style/AddHairstyle"
+        android:hint="@string/weight_materials"
+        android:inputType="number" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_hairstyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_save" />
+</LinearLayout>
+

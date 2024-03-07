@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.kosandra.ui.client.Client;
+import com.example.kosandra.entity.Client;
 
 import java.util.List;
 
@@ -25,4 +25,7 @@ public interface ClientDAO {
 
     @Query("select * from client")
     LiveData<List<Client>> getAllClients();
+
+    @Query("select * from client where id=:id")
+    LiveData<Client> getClient(int id);
 }
