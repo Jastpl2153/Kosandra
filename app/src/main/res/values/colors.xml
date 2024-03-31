@@ -9,6 +9,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="gray_heart">#ABAAAA</color>
-    <color name="red_heart">#D20000</color>
+    <color name="gray">#ABAAAA</color>
+    <color name="red">#D20000</color>
+    <color name="green">#079402</color>
 </resources>

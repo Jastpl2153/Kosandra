@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_material_navigation"
+    app:startDestination="@id/materialAddFragment">
+
+    <fragment
+        android:id="@+id/materialAddFragment"
+        android:name="com.example.kosandra.ui.material.fragment.MaterialAddFragment"
+        android:label="@string/title_materials_add"
+        tools:layout="@layout/fragment_material_add" />
+</navigation>

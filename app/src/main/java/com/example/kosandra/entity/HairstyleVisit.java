@@ -26,10 +26,12 @@ public class HairstyleVisit implements Parcelable {
     private int materialCost;
     private LocalTime timeSpent;
     private int materialWeight;
+    private String[] codeMaterial;
+    private int[] countMaterial;
 
     public HairstyleVisit(LocalDate visitDate, byte[] photoHairstyle, String haircutName, int visitId,
                           int haircutCost, int materialCost, LocalTime timeSpent,
-                          int materialWeight) {
+                          int materialWeight, String[] codeMaterial, int[] countMaterial) {
         this.visitDate = visitDate;
         this.photoHairstyle = photoHairstyle;
         this.haircutName = haircutName;
@@ -38,6 +40,8 @@ public class HairstyleVisit implements Parcelable {
         this.materialCost = materialCost;
         this.timeSpent = timeSpent;
         this.materialWeight = materialWeight;
+        this.codeMaterial = codeMaterial;
+        this.countMaterial = countMaterial;
     }
 
     public HairstyleVisit(Parcel parcel) {
@@ -50,6 +54,8 @@ public class HairstyleVisit implements Parcelable {
         this.materialCost = parcel.readInt();
         this.timeSpent = LocalTime.ofSecondOfDay(parcel.readLong());
         this.materialWeight = parcel.readInt();
+        this.codeMaterial = parcel.createStringArray();
+        this.countMaterial = parcel.createIntArray();
     }
 
     public LocalDate getVisitDate() {
@@ -124,6 +130,22 @@ public class HairstyleVisit implements Parcelable {
         this.materialWeight = materialWeight;
     }
 
+    public String[] getCodeMaterial() {
+        return codeMaterial;
+    }
+
+    public void setCodeMaterial(String[] codeMaterial) {
+        this.codeMaterial = codeMaterial;
+    }
+
+    public int[] getCountMaterial() {
+        return countMaterial;
+    }
+
+    public void setCountMaterial(int[] countMaterial) {
+        this.countMaterial = countMaterial;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
@@ -135,6 +157,8 @@ public class HairstyleVisit implements Parcelable {
         dest.writeInt(materialCost);
         dest.writeString(timeSpent.toString());
         dest.writeInt(materialWeight);
+        dest.writeStringArray(codeMaterial);
+        dest.writeIntArray(countMaterial);
     }
 
     @Override

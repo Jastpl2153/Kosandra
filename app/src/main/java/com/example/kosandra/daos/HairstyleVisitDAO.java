@@ -8,9 +8,11 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 
-import com.example.kosandra.entity.Client;
+import com.example.kosandra.db.returnSql.SqlIncomeHairstyle;
+import com.example.kosandra.db.returnSql.SqlIncomeHairstyleRangeDate;
 import com.example.kosandra.entity.HairstyleVisit;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Dao
@@ -25,8 +27,25 @@ public interface HairstyleVisitDAO {
     void delete(HairstyleVisit haircut);
 
     @Query("select * from hairstyleVisit where visitId =:clientId")
-    LiveData<List<HairstyleVisit>> getAllHairstyles(int clientId);
+    LiveData<List<HairstyleVisit>> getAllClientHairstyles(int clientId);
 
     @Query("select * from hairstyleVisit where id=:id")
     LiveData<HairstyleVisit> getHairstyleVisit(int id);
+
+    @Query("select * from hairstyleVisit WHERE visitDate >= :startDate AND visitDate <= :endDate")
+    LiveData<List<HairstyleVisit>> getAllDateMaterials(LocalDate startDate, LocalDate endDate);
+
+    @Query("select haircutName, COUNT(*) as cost from hairstyleVisit group by haircutName ORDER BY cost DESC LIMIT 1")
+    LiveData<SqlIncomeHairstyle> getMostPopularHairstyle();
+
+    @Query("select haircutName, SUM(haircutCost) as cost from hairstyleVisit group by haircutName ORDER BY cost DESC LIMIT 1")
+    LiveData<SqlIncomeHairstyle> getMostProfitableHairstyle();
+
+    @Query("SELECT haircutName, SUM(haircutCost) AS cost FROM hairstyleVisit WHERE visitDate >= :startDate AND visitDate <= :endDate GROUP BY haircutName")
+    LiveData<List<SqlIncomeHairstyle>> getHairstyleCostsByDateRangeBarCharts(LocalDate startDate, LocalDate endDate);
+
+    @Query("select haircutName, COUNT(*) as countHairstyle, AVG(haircutCost) as avgPrice from hairstyleVisit WHERE visitDate >= :startDate AND visitDate <= :endDate group by haircutName")
+    LiveData<List<SqlIncomeHairstyleRangeDate>> getHairstyleIncome(LocalDate startDate, LocalDate endDate);
+
+
 }

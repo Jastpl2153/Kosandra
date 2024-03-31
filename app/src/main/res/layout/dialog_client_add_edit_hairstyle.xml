@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.client.dialogs.AddEditHairstyleDialog">
+
+    <LinearLayout
+        android:id="@+id/linear_layout_add_edit_hairstyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_padding_twenty_five">
+
+        <ImageView
+            style="@style/ImageDialogBottom"
+            app:srcCompat="@drawable/ic_dialog_line" />
+
+        <ImageView
+            android:id="@+id/add_edit_photo_hairstyle"
+            android:layout_width="@dimen/layout_width_photo"
+            android:layout_height="@dimen/layout_height_photo"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/image_client_hairstyle_add"
+            android:contentDescription="@string/photo"/>
+
+        <EditText
+            android:id="@+id/et_name_hairstyle"
+            style="@style/EditTextStyle"
+            android:hint="@string/name_hairstyle"
+            android:inputType="text"
+            android:autofillHints="username" />
+
+        <EditText
+            android:id="@+id/et_date_visit"
+            style="@style/EditTextStyle"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/date_visit"
+            android:inputType="date"
+            android:autofillHints="date"/>
+
+        <EditText
+            android:id="@+id/et_time_complete_hairstyle"
+            style="@style/EditTextStyle"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/time_complete_hairstyle"
+            android:inputType="none"
+            android:autofillHints="time"/>
+
+        <EditText
+            android:id="@+id/et_price_hairstyle"
+            style="@style/EditTextStyle"
+            android:hint="@string/price_hairstyle"
+            android:inputType="number"
+            android:autofillHints="number"/>
+
+        <EditText
+            android:id="@+id/et_weight_materials"
+            style="@style/EditTextStyle"
+            android:hint="@string/weight_materials"
+            android:inputType="number"
+            android:autofillHints="number"/>
+
+        <TextView
+            style="@style/TextViewGridLayoutInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/count_use_materials" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/but_minus_use_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_weight="1"
+                android:backgroundTint="@color/blue_500"
+                android:text="@string/minus"
+                android:textColor="@android:color/white"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/but_plus_use_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_weight="1"
+                android:backgroundTint="@color/blue_500"
+                android:text="@string/plus"
+                android:textColor="@android:color/white"
+                style="?android:attr/buttonBarButtonStyle" />
+        </LinearLayout>
+
+        <include layout="@layout/item_client_add_hairstyle_materials" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/save_hairstyle"
+            style="@style/CustomFloatingActionButton"
+            app:srcCompat="@drawable/ic_menu_save"
+            android:contentDescription="@string/save"/>
+
+    </LinearLayout>
+</ScrollView>
+
+

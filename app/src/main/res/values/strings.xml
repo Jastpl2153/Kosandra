@@ -1,16 +1,16 @@
 <resources>
     <string name="app_name">Kosandra</string>
+    //Названия вкладок
     <string name="title_client">Клиент</string>
     <string name="title_material">Материалы</string>
-    <string name="title_income">Доходы</string>
-    <string name="title_expenses">Расходы</string>
-    <string name="good_morning">Доброе утро, Александра!</string>
-    <string name="good_afternoon">Добрый день, Александра!</string>
-    <string name="good_evening">Добрый вечер, Александра!</string>
-    <string name="good_night">Доброй ночи, Александра!</string>
-    <string name="name_surname">Имя Фамилия</string>
-    <string name="delete">delete</string>
-    <string name="new_client">Новый клиент</string>
+    <string name="title_income_expenses">Доходы/Расходы</string>
+    <string name="title_financial_statistics">Расписание</string>
+
+    //Приветсвие при запуске приложения
+    <string name="greeting_good_morning">Доброе утро, Александра!</string>
+    <string name="greeting_good_afternoon">Добрый день, Александра!</string>
+    <string name="greeting_good_evening">Добрый вечер, Александра!</string>
+    <string name="greeting_good_night">Доброй ночи, Александра!</string>
     <string-array name="quotes_array">
         <item>"Чем тяжелее подъём, тем прекраснее вид с вершины\". Ник Вуйчич</item>
         <item>«Чтобы достичь успеха, перестаньте гнаться за деньгами, гонитесь за мечтой». Тони Шей</item>
@@ -30,36 +30,119 @@
         <item>«Чтобы дойти до цели, человеку нужно только одно. Идти». Оноре де Бальзак</item>
         <item>«Если ты не собираешься идти до конца, зачем ты вообще это делаешь?». Джо Намат</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Enter_name">Имя Фамилия</string>
-    <string name="Enter_phone">Телефон</string>
-    <string name="Enter_birthday">Дата рождения</string>
-    <string name="Enter_hair_length">Длина волос</string>
-    <string name="Enter_hair_color">Цвет волос</string>
-    <string name="Enter_hair_density">Густота волос</string>
-    <string name="number_visit">Количество посещений</string>
-    <string name="Save">Сохранить</string>
+
+    //Названия используемых фрагментов для навигации
+    <string name="title_new_client">Новый клиент</string>
+    <string name="title_client_card">Карта клиента</string>
+    <string name="title_information_visit">Информация о посещении</string>
+    <string name="title_materials_add">Добавление материала</string>
+    <string name="title_materials_card">Карта материала</string>
+
+    //Текст используемый во вклажке клиета, добавления, изменения
+    <string name="name_surname">Имя Фамилия:</string>
+    <string name="phone">Номер телефона:</string>
+    <string name="birthday">Дата рождения:</string>
+    <string name="hair_length">Длина волос:</string>
+    <string name="hair_color">Цвет волос:</string>
+    <string name="hair_density">Густота волос:</string>
     <string name="speak_client">О чем говорили с клиентом?</string>
-    <string name="card_client_visit">Кол. посещений:</string>
-    <string name="card_client_density">Густота волос:</string>
-    <string name="card_client_color">Цвет волос:</string>
-    <string name="card_client_data_birthday">Дата рождения:</string>
-    <string name="card_client_phone">Номер телефона:</string>
-    <string name="card_client_length">Длина волос:</string>
-    <string name="card_client_name">Имя Фамилия:</string>
+    <string name="count_visit">Кол. посещений:</string>
+    <string name="list_hairstyle">Список сделанных причесок:</string>
+    <string name="visit"> посещение: </string>
+    <string name="what_talking">О чем говорили:</string>
+    <string name="null_text">0</string>
+
+    //Названия меню
+    <string name="delete">Удалить</string>
+    <string name="save">Сохранить</string>
     <string name="edit">Изменить</string>
     <string name="add_hairstyle">Добавить прическу</string>
+    <string name="edit_hairstyle">Изменить прическу</string>
+    <string name="add">Добавить</string>
+
+    //Текст в вкладках карте прически, добавление, изменение
     <string name="name_hairstyle">Название прически:</string>
     <string name="date_visit">Дата посещения:</string>
     <string name="time_complete_hairstyle">Время выполнения прически:</string>
     <string name="price_hairstyle">Цена прически:</string>
     <string name="price_materials">Цена материала:</string>
     <string name="weight_materials">Вес материала:</string>
-    <string name="list_hairstyle">Список сделанных причесок:</string>
-    <string name="visit"> посещение: </string>
-    <string name="what_talking">О чем говорили:</string>
-    <string name="talk_temes">Обсуждаемые темы</string>
     <string name="time_complete_hairstyle_1">Время выполнения:</string>
-    <string name="edit_hairstyle">Изменить прическу</string>
+    <string name="count_use_materials">Сколько материала затрачено:</string>
+    <string name="use_material">Использованный материл:</string>
+    <string name="photo">Фото</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+
+    //Текст используемый во вкладке материалы
+    <string name="type_material">Тип материала:</string>
+    <string name="code_material">Код материала:</string>
+    <string name="color_material">Цвет материала:</string>
+    <string name="price">Цена:</string>
+    <string name="count">Количество:</string>
+    <string name="type_kanekalon">Тип канекалона:</string>
+    <string name="manufacture">Производитель:</string>
+    <string name="type_curl">Вид завитка:</string>
+    <string name="length_curls">Длина кудрей:</string>
+    <string-array name="type_material">
+        <item>Канекалон</item>
+        <item>Кудри</item>
+        <item>Термоволокно</item>
+    </string-array>
+    <string-array name="type_kanekalon_type_material">
+        <item>Взрослый</item>
+        <item>Детский</item>
+    </string-array>
+    <string-array name="type_manufacture_material">
+        <item>Kami-Kami</item>
+        <item>Аида</item>
+        <item>Easy Braids</item>
+        <item>Вау Джау</item>
+    </string-array>
+    <string-array name="type_curls_material">
+        <item>Ариэль</item>
+        <item>Джессика</item>
+        <item>Бразильки</item>
+        <item>Моника</item>
+    </string-array>
+    <string-array name="type_length_material">
+        <item>25</item>
+        <item>40</item>
+        <item>60</item>
+        <item>80</item>
+    </string-array>
+
+    //Текст используемый в статистике финансов
+    <string name="most_profitable_hairstyle">Самая прибыльная прическа:</string>
+    <string name="most_popular_hairstyle">Самая популярная прическа:</string>
+    <string name="name_hairstyle_income">Название прически</string>
+    <string name="do_hair">Сделано причесок</string>
+    <string name="avg_price">Средняя цена</string>
+    <string name="expenses_type">На что потрачено</string>
+    <string name="spent">Затраченноя сумма</string>
+    <string name="what_income">Что принесло доход</string>
+    <string name="cost">Стоимость</string>
+    <string name="data">Дата</string>
+    <string name="date_expenses">Дата продажи</string>
+    <string name="title_dialog_add_expenses">Добавление рахода</string>
+    <string name="title_dialog_add_income">Добавление дохода</string>
+    <string name="income">Доход</string>
+    <string name="come_income">Принесло доход</string>
+    <string name="enter_range">Выбрать период</string>
+    <string name="from">От</string>
+    <string name="before">До</string>
+    <string-array name="type_expenses">
+        <item>Материал</item>
+        <item>Инструмент</item>
+        <item>Рабочее место</item>
+        <item>Аренда</item>
+        <item>Украшение</item>
+        <item>Обучение</item>
+        <item>Реклама</item>
+    </string-array>
+    <string-array name="type_income">
+        <item>Украшения</item>
+        <item>Уход за прической</item>
+        <item>Другое</item>
+    </string-array>
 </resources>

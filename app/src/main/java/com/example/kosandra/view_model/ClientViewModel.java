@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.kosandra.repository.ClientRepository;
 import com.example.kosandra.entity.Client;
+import com.example.kosandra.repository.ClientRepository;
 
 import java.util.List;
 

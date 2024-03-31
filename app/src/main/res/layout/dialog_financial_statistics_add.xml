@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_padding_twenty_five">
+
+    <ImageView
+        style="@style/ImageDialogBottom"
+        app:srcCompat="@drawable/ic_dialog_line"/>
+
+    <TextView
+        android:id="@+id/title_dialog"
+        android:text="@string/title_dialog_add_expenses"
+        style="@style/TextViewGridLayout"
+        android:layout_marginEnd="@dimen/margin_ten"/>
+
+    <Spinner
+        android:id="@+id/spinner_add_finance"
+        style="@style/EditTextStyle" />
+
+    <EditText
+        android:id="@+id/add_name_finance"
+        style="@style/EditTextStyle"
+        android:hint="@string/expenses_type"
+        android:inputType="text"
+        android:autofillHints="text"/>
+
+    <EditText
+        android:id="@+id/add_cost_finance"
+        style="@style/EditTextStyle"
+        android:hint="@string/cost"
+        android:inputType="number"
+        android:autofillHints="number"/>
+
+    <EditText
+        android:id="@+id/add_date_finance"
+        style="@style/EditTextStyle"
+        android:hint="@string/data"
+        android:clickable="true"
+        android:focusable="false"
+        android:inputType="date"
+        android:autofillHints="date"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_finance"
+        style="@style/CustomFloatingActionButton"
+        app:srcCompat="@drawable/ic_menu_save"
+        android:contentDescription="@string/save"/>
+</LinearLayout>
+
