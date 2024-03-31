@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Style for text using white color -->
     <style name="AppLightTextStyle" parent="Theme.AppCompat">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -8,58 +7,70 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <!-- Background for download activity -->
     <style name="LightThemeLoadingActivity" parent="Theme.AppCompat.Light.NoActionBar">
-        <!--<item name="android:background">@drawable/light_loading_background</item>-->
         <item name="android:windowBackground">@drawable/background_loading_app</item>
     </style>
 
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/margin_standard</item>
-        <item name="android:layout_marginTop">@dimen/margin_standard</item>
-        <item name="android:layout_marginEnd">@dimen/margin_standard</item>
+        <item name="android:layout_marginStart">@dimen/margin_ten</item>
+        <item name="android:layout_marginTop">@dimen/margin_ten</item>
+        <item name="android:layout_marginEnd">@dimen/margin_ten</item>
         <item name="android:ems">10</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="TextViewStaticCartClient" parent="Widget.AppCompat.TextView">
+    <style name="EditTextGridLayout" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_ten</item>
+        <item name="android:layout_marginTop">@dimen/margin_ten</item>
+        <item name="android:layout_marginEnd">@dimen/margin_ten</item>
+        <item name="layout_gravity">fill_horizontal</item>
+        <item name="android:ems">10</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextViewGridLayout" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:layout_marginStart">@dimen/margin_card_client</item>
-        <item name="android:layout_marginTop">@dimen/margin_standard</item>
+        <item name="android:layout_marginStart">@dimen/margin_ten</item>
+        <item name="android:layout_marginTop">@dimen/margin_ten</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextViewCartClientDataBase" parent="Widget.AppCompat.TextView">
+    <style name="ImageDialogBottom">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/margin_three</item>
+    </style>
+
+    <style name="CustomFloatingActionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_marginTop">@dimen/margin_ten</item>
+        <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="TextViewGridLayoutInfo" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginStart">@dimen/margin_card_client</item>
-        <item name="android:layout_marginTop">@dimen/margin_standard</item>
-        <item name="android:layout_marginEnd">@dimen/margin_card_client</item>
+        <item name="android:layout_marginStart">@dimen/margin_ten</item>
+        <item name="android:layout_marginTop">@dimen/margin_ten</item>
+        <item name="android:layout_marginEnd">@dimen/margin_ten</item>
         <item name="layout_gravity">fill_horizontal</item>
     </style>
 
-    <style name="EditTextCardClient" parent="Widget.AppCompat.EditText">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/margin_card_client</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginEnd">@dimen/margin_edit_client</item>
-        <item name="layout_gravity">fill_horizontal</item>
-        <item name="android:ems">10</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-
-    <style name="AddHairstyle" parent="Widget.AppCompat.EditText">
+    <style name="DividerView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/margin_card_client</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginEnd">@dimen/margin_card_client</item>
-        <item name="android:ems">10</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/blue_500</item>
     </style>
+
 </resources>

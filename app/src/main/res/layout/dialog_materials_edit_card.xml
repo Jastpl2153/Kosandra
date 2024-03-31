@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_padding_twenty_five">
+
+    <ImageView
+        style="@style/ImageDialogBottom"
+        app:srcCompat="@drawable/ic_dialog_line" />
+
+    <ImageView
+        android:id="@+id/edit_photo_material"
+        android:layout_width="@dimen/layout_width_photo"
+        android:layout_height="@dimen/layout_height_photo"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/photo"
+        app:srcCompat="@drawable/image_client_hairstyle_add" />
+
+
+    <TextView
+        android:id="@+id/edit_type_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edit_color_material"
+        style="@style/EditTextStyle"
+        android:autofillHints="text"
+        android:hint="@string/color_material"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edit_code_material"
+        style="@style/EditTextStyle"
+        android:autofillHints="text"
+        android:hint="@string/code_material"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edit_count_material"
+        style="@style/EditTextStyle"
+        android:autofillHints="number"
+        android:hint="@string/count"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/edit_price_material"
+        style="@style/EditTextStyle"
+        android:autofillHints="number"
+        android:hint="@string/price_materials"
+        android:inputType="number" />
+
+    <Spinner
+        android:id="@+id/edit_spinner_curls_kanekalon"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/edit_spinner_manufacture_length"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/save"
+        app:srcCompat="@drawable/ic_menu_save" />
+</LinearLayout>
+

@@ -48,13 +48,13 @@ public class LoadingActivity extends AppCompatActivity {
     private String initGreeting() {
         String greeting;
         if (timeOfDay >= 5 && timeOfDay < 12) {
-            greeting = getString(R.string.good_morning);
+            greeting = getString(R.string.greeting_good_morning);
         } else if (timeOfDay >= 12 && timeOfDay < 18) {
-            greeting = getString(R.string.good_afternoon);
+            greeting = getString(R.string.greeting_good_afternoon);
         } else if (timeOfDay >= 18 && timeOfDay < 21) {
-            greeting = getString(R.string.good_evening);
+            greeting = getString(R.string.greeting_good_evening);
         } else {
-            greeting = getString(R.string.good_night);
+            greeting = getString(R.string.greeting_good_night);
         }
         return greeting;
     }

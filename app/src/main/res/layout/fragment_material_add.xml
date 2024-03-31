@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    tools:context=".ui.material.fragment.MaterialAddFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/new_material_add_image"
+            android:layout_width="@dimen/layout_width_circle_photo"
+            android:layout_height="@dimen/layout_height_circle_photo"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_padding_twenty_five"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_photo_add"
+            app:civ_border_color="@color/blue_200"
+            app:civ_border_width="2dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_add_type_material"
+            style="@style/EditTextStyle" />
+
+        <EditText
+            android:id="@+id/add_color_material"
+            style="@style/EditTextStyle"
+            android:hint="@string/color_material"
+            android:inputType="text"
+            android:autofillHints="text"/>
+
+        <EditText
+            android:id="@+id/add_code_material"
+            style="@style/EditTextStyle"
+            android:hint="@string/code_material"
+            android:inputType="text"
+            android:autofillHints="text"/>
+
+        <EditText
+            android:id="@+id/add_count_material"
+            style="@style/EditTextStyle"
+            android:hint="@string/count"
+            android:inputType="number"
+            android:autofillHints="number"/>
+
+        <EditText
+            android:id="@+id/add_price_material"
+            style="@style/EditTextStyle"
+            android:hint="@string/price_materials"
+            android:inputType="number"
+            android:autofillHints="number"/>
+
+        <Spinner
+            android:id="@+id/spinner_add_kanekalon_curls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/EditTextStyle"/>
+
+        <Spinner
+            android:id="@+id/spinner_add_manufacture_length"
+            style="@style/EditTextStyle"/>
+    </LinearLayout>
+</ScrollView>

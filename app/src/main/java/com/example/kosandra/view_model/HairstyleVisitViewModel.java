@@ -6,15 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.kosandra.entity.Client;
+import com.example.kosandra.db.returnSql.SqlIncomeHairstyle;
+import com.example.kosandra.db.returnSql.SqlIncomeHairstyleRangeDate;
 import com.example.kosandra.entity.HairstyleVisit;
 import com.example.kosandra.repository.HairstyleStyleRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class HairstyleVisitViewModel extends AndroidViewModel {
     private HairstyleStyleRepository repository;
-    private LiveData<List<HairstyleVisit>> allHairstyleClient;
 
     public HairstyleVisitViewModel(@NonNull Application application) {
         super(application);
@@ -22,22 +23,42 @@ public class HairstyleVisitViewModel extends AndroidViewModel {
     }
 
     public void insert(HairstyleVisit hairstyleVisit) {
-        repository.insertHairstyle(hairstyleVisit);
+        repository.insert(hairstyleVisit);
     }
 
     public void update(HairstyleVisit hairstyleVisit) {
-        repository.updateHairstyle(hairstyleVisit);
+        repository.update(hairstyleVisit);
     }
 
     public void delete(HairstyleVisit hairstyleVisit) {
-        repository.deleteHairstyle(hairstyleVisit);
+        repository.delete(hairstyleVisit);
     }
 
-    public LiveData<List<HairstyleVisit>> getAllHairstyleClient(int clientId) {
-        return allHairstyleClient = repository.getAllHairstyles(clientId);
+    public LiveData<List<HairstyleVisit>> getAllClientHairstyles(int clientId) {
+        return repository.getAllClientHairstyles(clientId);
     }
 
     public LiveData<HairstyleVisit> getHairstyleVisit(int id) {
         return repository.getHairstyleVisit(id);
+    }
+
+    public LiveData<SqlIncomeHairstyle> getMostPopularHairstyle() {
+        return repository.getMostPopularHairstyle();
+    }
+
+    public LiveData<SqlIncomeHairstyle> getMostProfitableHairstyle() {
+        return repository.getMostProfitableHairstyle();
+    }
+
+    public LiveData<List<SqlIncomeHairstyle>> getHairstyleCostsByDateRangeBarCharts(LocalDate startDate, LocalDate endDate) {
+        return repository.getHairstyleCostsByDateRangeBarCharts(startDate, endDate);
+    }
+
+    public LiveData<List<SqlIncomeHairstyleRangeDate>> getHairstyleIncome(LocalDate startDate, LocalDate endDate) {
+        return repository.getHairstyleIncome(startDate, endDate);
+    }
+
+    public LiveData<List<HairstyleVisit>> getAllDateMaterials(LocalDate startDate, LocalDate endDate) {
+        return repository.getAllDateMaterials(startDate, endDate);
     }
 }

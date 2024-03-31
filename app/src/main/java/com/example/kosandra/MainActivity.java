@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_client, R.id.navigation_material, R.id.navigation_income, R.id.navigation_expenses)
+                R.id.navigation_client, R.id.navigation_material, R.id.navigation_income, R.id.navigation_schedule)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

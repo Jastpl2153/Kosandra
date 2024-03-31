@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_client"
-        android:name="com.example.kosandra.ui.client.ClientFragment"
+        android:name="com.example.kosandra.ui.client.fragment.ClientMainFragment"
         android:label="@string/title_client"
-        tools:layout="@layout/fragment_client" >
+        tools:layout="@layout/fragment_main_client" >
         <action
             android:id="@+id/action_navigation_open_add_client"
             app:destination="@id/add_client_navigation"
@@ -24,23 +24,36 @@
 
     <fragment
         android:id="@+id/navigation_material"
-        android:name="com.example.kosandra.ui.material.MaterialFragment"
+        android:name="com.example.kosandra.ui.material.fragment.MaterialMainFragment"
         android:label="@string/title_material"
-        tools:layout="@layout/fragment_materials" />
+        tools:layout="@layout/fragment_main_materials" >
+        <action
+            android:id="@+id/open_material_card_navigation"
+            app:destination="@id/card_material_navigation"
+            app:popUpTo="@id/navigation_material"
+            app:popUpToSaveState="true"/>
+        <action
+            android:id="@+id/action_navigation_material_to_add_material_navigation"
+            app:destination="@id/add_material_navigation"
+            app:popUpTo="@id/navigation_material"
+            app:popUpToSaveState="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_income"
-        android:name="com.example.kosandra.ui.income.IncomeFragment"
-        android:label="@string/title_income"
-        tools:layout="@layout/fragment_income" />
+        android:name="com.example.kosandra.ui.financial_statistics.fragment.FinancialStatisticsMainFragment"
+        android:label="@string/title_income_expenses"
+        tools:layout="@layout/fragment_main_financial_statistics" />
 
     <fragment
-        android:id="@+id/navigation_expenses"
-        android:name="com.example.kosandra.ui.expenses.ExpensesFragment"
-        android:label="@string/title_expenses"
-        tools:layout="@layout/fragment_expenses" />
+        android:id="@+id/navigation_schedule"
+        android:name="com.example.kosandra.ui.records.RecordsMainFragment"
+        android:label="@string/title_financial_statistics"
+        tools:layout="@layout/fragment_main_records" />
 
-    <include app:graph="@navigation/add_client_navigation" />
+    <include app:graph="@navigation/client_add_navigation" />
 
-    <include app:graph="@navigation/card_client_navigation" />
+    <include app:graph="@navigation/client_card_navigation" />
+    <include app:graph="@navigation/material_card_navigation" />
+    <include app:graph="@navigation/material_add_navigation" />
 </navigation>
