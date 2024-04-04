@@ -50,15 +50,7 @@ public class HairstyleVisitViewModel extends AndroidViewModel {
         return repository.getMostProfitableHairstyle();
     }
 
-    public LiveData<List<SqlIncomeHairstyle>> getHairstyleCostsByDateRangeBarCharts(LocalDate startDate, LocalDate endDate) {
-        return repository.getHairstyleCostsByDateRangeBarCharts(startDate, endDate);
-    }
-
     public LiveData<List<SqlIncomeHairstyleRangeDate>> getHairstyleIncome(LocalDate startDate, LocalDate endDate) {
         return repository.getHairstyleIncome(startDate, endDate);
-    }
-
-    public LiveData<List<HairstyleVisit>> getAllDateMaterials(LocalDate startDate, LocalDate endDate) {
-        return repository.getAllDateMaterials(startDate, endDate);
     }
 }

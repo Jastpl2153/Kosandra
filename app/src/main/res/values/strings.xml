@@ -37,6 +37,7 @@
     <string name="title_information_visit">Информация о посещении</string>
     <string name="title_materials_add">Добавление материала</string>
     <string name="title_materials_card">Карта материала</string>
+    <string name="add_records">Добавление записи</string>
 
     //Текст используемый во вклажке клиета, добавления, изменения
     <string name="name_surname">Имя Фамилия:</string>
@@ -145,4 +146,17 @@
         <item>Уход за прической</item>
         <item>Другое</item>
     </string-array>
+
+    //Текст для записи
+    <string name="time_visit">Время</string>
+    <string name="info_visit">Информация о посещении:</string>
+    <string name="name">Имя</string>
+    <string name="hairstyle">Прическа</string>
+    <string name="search">Поиск</string>
+    <string name="sorted">Сортировка</string>
+    <string name="sort_name">По имени</string>
+    <string name="sort_visit">По посещению</string>
+    <string name="sort_title">По названию</string>
+    <string name="sort_count">По количеству</string>
+    <string name="sort_popular">По популярности</string>
 </resources>

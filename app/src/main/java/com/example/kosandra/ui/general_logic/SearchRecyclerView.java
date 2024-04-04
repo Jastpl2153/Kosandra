@@ -13,9 +13,7 @@ import com.example.kosandra.R;
 public interface SearchRecyclerView extends MenuProvider, SearchView.OnQueryTextListener {
 
     @Override
-    default void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater){
-        menuInflater.inflate(R.menu.menu_search, menu);
-    }
+     void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater);
 
     @Override
     default boolean onMenuItemSelected(@NonNull MenuItem menuItem){

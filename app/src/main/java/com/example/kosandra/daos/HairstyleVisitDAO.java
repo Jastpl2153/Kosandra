@@ -32,20 +32,12 @@ public interface HairstyleVisitDAO {
     @Query("select * from hairstyleVisit where id=:id")
     LiveData<HairstyleVisit> getHairstyleVisit(int id);
 
-    @Query("select * from hairstyleVisit WHERE visitDate >= :startDate AND visitDate <= :endDate")
-    LiveData<List<HairstyleVisit>> getAllDateMaterials(LocalDate startDate, LocalDate endDate);
-
     @Query("select haircutName, COUNT(*) as cost from hairstyleVisit group by haircutName ORDER BY cost DESC LIMIT 1")
     LiveData<SqlIncomeHairstyle> getMostPopularHairstyle();
 
     @Query("select haircutName, SUM(haircutCost) as cost from hairstyleVisit group by haircutName ORDER BY cost DESC LIMIT 1")
     LiveData<SqlIncomeHairstyle> getMostProfitableHairstyle();
 
-    @Query("SELECT haircutName, SUM(haircutCost) AS cost FROM hairstyleVisit WHERE visitDate >= :startDate AND visitDate <= :endDate GROUP BY haircutName")
-    LiveData<List<SqlIncomeHairstyle>> getHairstyleCostsByDateRangeBarCharts(LocalDate startDate, LocalDate endDate);
-
     @Query("select haircutName, COUNT(*) as countHairstyle, AVG(haircutCost) as avgPrice from hairstyleVisit WHERE visitDate >= :startDate AND visitDate <= :endDate group by haircutName")
     LiveData<List<SqlIncomeHairstyleRangeDate>> getHairstyleIncome(LocalDate startDate, LocalDate endDate);
-
-
 }

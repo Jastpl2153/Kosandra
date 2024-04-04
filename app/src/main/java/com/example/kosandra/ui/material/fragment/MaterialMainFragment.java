@@ -85,10 +85,52 @@ public class MaterialMainFragment extends Fragment implements SearchRecyclerView
 
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-        SearchRecyclerView.super.onCreateMenu(menu, menuInflater);
-        MenuItem searchItem = menu.findItem(R.id.menu_bar_search);
+        menuInflater.inflate(R.menu.menu_material_main, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_material_search);
         searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
+    }
+
+
+    @Override
+    public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+        int itemId = menuItem.getItemId();
+        int currentItem = binding.pagerFragmentMaterial.getCurrentItem();
+        Fragment fragment = fragmentList.get(currentItem);
+        if (itemId == R.id.menu_sort_material_name_asc) {
+            if (fragment instanceof MaterialTabFragment) {
+                ((MaterialTabFragment) fragment).getNameAllMaterialSortedByColorAscending();
+            }
+            return true;
+        } else if (itemId == R.id.menu_sort_name_material_desc) {
+            if (fragment instanceof MaterialTabFragment) {
+                ((MaterialTabFragment) fragment).getNameAllMaterialSortedByColorDescending();
+            }
+            return true;
+        } else if (itemId == R.id.menu_sort_count_material_asc) {
+            if (fragment instanceof MaterialTabFragment) {
+                ((MaterialTabFragment) fragment).getNameAllMaterialSortedByCountAscending();
+            }
+            return true;
+        } else if (itemId == R.id.menu_sort_count_material_desc) {
+            if (fragment instanceof MaterialTabFragment) {
+                ((MaterialTabFragment) fragment).getNameAllMaterialSortedByCountDescending();
+            }
+            return true;
+        }
+        else if (itemId == R.id.menu_sort_popular_material_asc) {
+            if (fragment instanceof MaterialTabFragment) {
+                ((MaterialTabFragment) fragment).getAllMaterialSortedByRatingAscending();
+            }
+            return true;
+        }
+        else if (itemId == R.id.menu_sort_popular_material_desc) {
+            if (fragment instanceof MaterialTabFragment) {
+                ((MaterialTabFragment) fragment).getAllMaterialSortedByRatingDescending();
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

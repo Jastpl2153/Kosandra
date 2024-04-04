@@ -11,7 +11,6 @@ import androidx.room.PrimaryKey;
 import java.time.LocalDate;
 
 @Entity(tableName = "client")
-
 public class Client implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -168,4 +167,9 @@ public class Client implements Parcelable {
             return new Client[0];
         }
     };
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

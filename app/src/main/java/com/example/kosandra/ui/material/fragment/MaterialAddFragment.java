@@ -141,7 +141,8 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
                 null,
                 null,
                 null,
-                null);
+                null,
+                0);
 
         return initKanekalonOrCurls(material);
     }

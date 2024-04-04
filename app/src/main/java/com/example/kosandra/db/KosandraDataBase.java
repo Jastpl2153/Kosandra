@@ -15,11 +15,13 @@ import com.example.kosandra.daos.ExpensesDAO;
 import com.example.kosandra.daos.HairstyleVisitDAO;
 import com.example.kosandra.daos.IncomeDAO;
 import com.example.kosandra.daos.MaterialsDAO;
+import com.example.kosandra.daos.RecordsDAO;
 import com.example.kosandra.entity.Client;
 import com.example.kosandra.entity.Expenses;
 import com.example.kosandra.entity.HairstyleVisit;
 import com.example.kosandra.entity.Income;
 import com.example.kosandra.entity.Materials;
+import com.example.kosandra.entity.Record;
 import com.example.kosandra.ui.general_logic.Converters;
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +31,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Client.class, HairstyleVisit.class, Materials.class, Expenses.class, Income.class}, version = 1)
+@Database(entities = {Client.class, HairstyleVisit.class, Materials.class, Expenses.class, Income.class, Record.class}, version = 1)
 @TypeConverters(Converters.class)
 public abstract class KosandraDataBase extends RoomDatabase {
     private static KosandraDataBase instance;
@@ -43,6 +45,7 @@ public abstract class KosandraDataBase extends RoomDatabase {
     public abstract ExpensesDAO expensesDAO();
 
     public abstract IncomeDAO incomeDAO();
+    public abstract RecordsDAO recordsDAO();
 
     public static synchronized KosandraDataBase getInstance(Context context) {
         if (instance == null) {
@@ -62,6 +65,7 @@ public abstract class KosandraDataBase extends RoomDatabase {
             HairstyleVisitDAO hairstyleVisitDAO = instance.haircutDAO();
             ExpensesDAO expensesDAO = instance.expensesDAO();
             IncomeDAO incomeDAO = instance.incomeDAO();
+            RecordsDAO recordsDAO = instance.recordsDAO();
 
             Executors.newSingleThreadExecutor().execute(() -> {
                 String url = "https://i.pinimg.com/736x/e2/c2/9f/e2c29f03374efcf7994b3559683103b9.jpg";
@@ -95,32 +99,32 @@ public abstract class KosandraDataBase extends RoomDatabase {
                     Materials materials = new Materials("Канекалон",
                             "Синий", "1", byteArray,
                             5, 600, "Взрослый",
-                            "Аида", null, null);
+                            "Аида", null, null, 2);
 
                     Materials materials1 = new Materials("Канекалон",
                             "Красный", "2", byteArray,
                             5, 700, "Детский",
-                            "Вау Джау", null, null);
+                            "Вау Джау", null, null, 0);
 
                     Materials materials2 = new Materials("Кудри",
                             "Коричневый", "3", byteArray,
                             5, 1000, null, null,
-                            "Ариэль", 25);
+                            "Ариэль", 25, 1);
 
                     Materials materials3 = new Materials("Кудри",
                             "Блонд", "4", byteArray,
                             5, 1200, null, null,
-                            "Моника", 80);
+                            "Моника", 80, 1);
 
                     Materials materials4 = new Materials("Термоволокно",
                             "Желтый", "5", byteArray,
                             5, 900, null, null,
-                            null, null);
+                            null, null, 0);
 
                     Materials materials5 = new Materials("Термоволокно",
                             "Зеленый", "6", byteArray,
                             5, 555, null, null,
-                            null, null);
+                            null, null, 0);
 
                     materialsDAO.insert(materials);
                     materialsDAO.insert(materials1);
@@ -165,6 +169,14 @@ public abstract class KosandraDataBase extends RoomDatabase {
                     incomeDAO.insert(income1);
                     incomeDAO.insert(income2);
                     incomeDAO.insert(income3);
+
+                    Record record1 = new Record(1, LocalDate.parse("2024-04-26"), LocalTime.parse("10:00:00"), "Водопад", 2000);
+                    Record record2 = new Record(2, LocalDate.parse("2024-04-26"), LocalTime.parse("14:00:00"), "Водопад", 2000);
+                    Record record3 = new Record(1, LocalDate.parse("2024-04-10"), LocalTime.parse("09:10:00"), "Cabyrc", 2500);
+
+                    recordsDAO.insert(record1);
+                    recordsDAO.insert(record2);
+                    recordsDAO.insert(record3);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

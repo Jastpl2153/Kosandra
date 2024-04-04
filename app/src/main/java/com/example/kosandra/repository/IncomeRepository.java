@@ -40,10 +40,6 @@ public class IncomeRepository {
         return incomeDAO.getAllIncomeByRangeDate(startDate, endDate);
     }
 
-    public LiveData<List<SqlBarCharts>> getGroupTypeByRangeDate(LocalDate startDate, LocalDate endDate) {
-        return incomeDAO.getGroupTypeByRangeDate(startDate, endDate);
-    }
-
     public LiveData<List<SqlBarCharts>> getCombinedResults(LocalDate startDate, LocalDate endDate) {
         return incomeDAO.getCombinedResults(startDate, endDate);
     }

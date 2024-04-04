@@ -53,4 +53,28 @@ public class MaterialsRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByColorAscending(String type) {
+        return materialsDAO.getAllMaterialSortedByColorAscending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByColorDescending(String type) {
+        return materialsDAO.getAllMaterialSortedByColorDescending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByCountAscending(String type) {
+        return materialsDAO.getAllMaterialSortedByCountAscending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByCountDescending(String type) {
+        return materialsDAO.getAllMaterialSortedByCountDescending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByRatingAscending(String type) {
+        return materialsDAO.getAllMaterialSortedByRatingAscending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByRatingDescending(String type) {
+        return materialsDAO.getAllMaterialSortedByRatingDescending(type);
+    }
 }
