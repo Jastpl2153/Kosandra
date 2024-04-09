@@ -32,6 +32,9 @@ public interface HairstyleVisitDAO {
     @Query("select * from hairstyleVisit where id=:id")
     LiveData<HairstyleVisit> getHairstyleVisit(int id);
 
+    @Query("select * from hairstyleVisit")
+    LiveData<List<HairstyleVisit>>  getAllHairstyleVisit();
+
     @Query("select haircutName, COUNT(*) as cost from hairstyleVisit group by haircutName ORDER BY cost DESC LIMIT 1")
     LiveData<SqlIncomeHairstyle> getMostPopularHairstyle();
 

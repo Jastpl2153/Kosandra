@@ -20,9 +20,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.example.kosandra.R;
 import com.example.kosandra.databinding.DialogMaterialsEditCardBinding;
+import com.example.kosandra.entity.HairstyleVisit;
 import com.example.kosandra.entity.Materials;
 import com.example.kosandra.ui.general_logic.EmptyFields;
 import com.example.kosandra.ui.general_logic.GalleryHandlerInterface;
+import com.example.kosandra.view_model.HairstyleVisitViewModel;
 import com.example.kosandra.view_model.MaterialsViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -32,6 +34,7 @@ public class EditCardMaterialDialog extends BottomSheetDialogFragment implements
     private DialogMaterialsEditCardBinding binding;
     private Materials material;
     private ActivityResultLauncher<String> getContentLauncher;
+    private String prevCode;
 
     @Nullable
     @Override
@@ -46,6 +49,7 @@ public class EditCardMaterialDialog extends BottomSheetDialogFragment implements
         getMaterial();
         initSpinners();
         initFields();
+        setPrevCode();
         binding.editPhotoMaterial.setOnClickListener(v -> openGallery(getContentLauncher));
         setupGalleryResult(launcher -> getContentLauncher = launcher, getContext(), this, binding.editPhotoMaterial);
         binding.saveMaterial.setOnClickListener(v -> saveMaterial());
@@ -53,6 +57,10 @@ public class EditCardMaterialDialog extends BottomSheetDialogFragment implements
 
     private void getMaterial() {
         material = getArguments() != null ? getArguments().getParcelable("materials") : null;
+    }
+
+    private void setPrevCode(){
+        prevCode = binding.editCodeMaterial.getText().toString();
     }
 
     private void initSpinners() {
@@ -109,11 +117,30 @@ public class EditCardMaterialDialog extends BottomSheetDialogFragment implements
         if (validateEmptyFields()) {
             setMaterial();
             MaterialsViewModel viewModel = new ViewModelProvider(requireActivity()).get(MaterialsViewModel.class);
+            updateHairstyle();
             viewModel.update(material);
             this.dismiss();
         } else {
             handleEmptyFields();
         }
+    }
+
+    private void updateHairstyle(){
+        HairstyleVisitViewModel hairstyleVisitViewModel = new ViewModelProvider(requireActivity()).get(HairstyleVisitViewModel.class);
+        hairstyleVisitViewModel.getAllHairstyleVisit().observe(getViewLifecycleOwner(), hairstyleVisits -> {
+            for (HairstyleVisit visit : hairstyleVisits){
+                boolean update = false;
+                for (int i = 0; i < visit.getCodeMaterial().length; i++) {
+                    if (prevCode.equals(visit.getCodeMaterial()[i])){
+                        visit.getCodeMaterial()[i] = binding.editCodeMaterial.getText().toString();
+                        update = true;
+                    }
+                }
+                if (update){
+                    hairstyleVisitViewModel.update(visit);
+                }
+            }
+        });
     }
 
     private void setMaterial() {

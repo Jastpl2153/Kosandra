@@ -42,6 +42,10 @@ public class HairstyleVisitViewModel extends AndroidViewModel {
         return repository.getHairstyleVisit(id);
     }
 
+    public  LiveData<List<HairstyleVisit>>  getAllHairstyleVisit() {
+        return repository.getAllHairstyleVisit();
+    }
+
     public LiveData<SqlIncomeHairstyle> getMostPopularHairstyle() {
         return repository.getMostPopularHairstyle();
     }

@@ -49,6 +49,10 @@ public class HairstyleStyleRepository {
         return hairstyleVisitDAO.getHairstyleVisit(id);
     }
 
+    public  LiveData<List<HairstyleVisit>>  getAllHairstyleVisit(){
+        return hairstyleVisitDAO.getAllHairstyleVisit();
+    }
+
     public LiveData<SqlIncomeHairstyle> getMostPopularHairstyle() {
         return hairstyleVisitDAO.getMostPopularHairstyle();
     }

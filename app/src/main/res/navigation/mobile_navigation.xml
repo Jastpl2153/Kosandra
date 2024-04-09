@@ -46,7 +46,7 @@
         tools:layout="@layout/fragment_main_financial_statistics" />
 
     <fragment
-        android:id="@+id/navigation_schedule"
+        android:id="@+id/navigation_records"
         android:name="com.example.kosandra.ui.records.fragment.RecordsMainFragment"
         android:label="@string/title_financial_statistics"
         tools:layout="@layout/fragment_main_records" />

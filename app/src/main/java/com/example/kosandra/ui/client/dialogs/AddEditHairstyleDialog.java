@@ -288,7 +288,7 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
             return new HairstyleVisit(
                     DatePickerHelperDialog.parseDateDataBase(binding.etDateVisit.getText().toString()),
                     getImageGallery(binding.addEditPhotoHairstyle.getDrawable(), getResources()),
-                    binding.etNameHairstyle.getText().toString(),
+                    binding.etNameHairstyle.getText().toString().trim(),
                     client.getId(),
                     Integer.parseInt(binding.etPriceHairstyle.getText().toString()),
                     Integer.parseInt(String.valueOf(priceMaterials().get())),
@@ -388,7 +388,7 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
     private void setHairstyle() {
         try {
             hairstyleVisit.setPhotoHairstyle(getImageGallery(binding.addEditPhotoHairstyle.getDrawable(), getResources()));
-            hairstyleVisit.setHaircutName(binding.etNameHairstyle.getText().toString());
+            hairstyleVisit.setHaircutName(binding.etNameHairstyle.getText().toString().trim());
             hairstyleVisit.setVisitDate(DatePickerHelperDialog.parseDateDataBase(binding.etDateVisit.getText().toString()));
             hairstyleVisit.setTimeSpent(TimePickerHelperDialog.parseTime(binding.etTimeCompleteHairstyle.getText().toString()));
             hairstyleVisit.setHaircutCost(Integer.parseInt(binding.etPriceHairstyle.getText().toString()));

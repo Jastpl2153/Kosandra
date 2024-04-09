@@ -3,6 +3,7 @@ package com.example.kosandra.ui.records.dialogs;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,18 +79,19 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                for (Client client : clients) {
+                    if (client.getName().equals(binding.addEditRecordClient.getText().toString())) {
+                        selectedClientId = client.getId();
+                        break;
+                    }
+                    else {
+                        selectedClientId = -1;
+                    }
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (selectedClientId == -1) {
-                    for (Client client : clients) {
-                        if (client.getName().equals(binding.addEditRecordClient.getText().toString())) {
-                            selectedClientId = client.getId();
-                            break;
-                        }
-                    }
-                }
             }
         });
     }
@@ -174,15 +176,16 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
         ClientViewModel clientViewModel = new ViewModelProvider(requireActivity()).get(ClientViewModel.class);
         clientViewModel.getClient(record.getClientId()).observe(getViewLifecycleOwner(), client -> {
             binding.addEditRecordClient.setText(client.getName());
+            selectedClientId = client.getId();
         });
         binding.addEditRecordHairstyle.setText(record.getHaircutName());
         binding.addEditRecordCost.setText(String.valueOf(record.getCost()));
     }
 
     private void editRecord() {
+        setRecord();
         if (validateEmptyFields() && validateClientDataBase()) {
             try {
-                setRecord();
                 recordsViewModel.update(record);
                 dismiss();
             } catch (Exception e) {

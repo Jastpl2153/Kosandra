@@ -81,7 +81,15 @@ public class FinancialStatisticsMainFragment<T> extends Fragment implements RvFi
         binding.barCharts.setOnChartGestureListener(setupPieCharts());
         binding.fromDate.setOnClickListener(v -> showDatePickerDialog(binding.fromDate));
         binding.beforeDate.setOnClickListener(v -> showDatePickerDialog(binding.beforeDate));
+        binding.butNowPeriod.setOnClickListener(v -> nowPeriod30Day());
         initPopularProfitableHairstyle();
+    }
+
+    private void nowPeriod30Day() {
+        DateTimeFormatter ofPattern = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        binding.fromDate.setText(LocalDate.now().minusDays(30).format(ofPattern));
+        binding.beforeDate.setText(LocalDate.now().format(ofPattern));
+        updateChartData();
     }
 
     // Общие методы

@@ -23,11 +23,32 @@
         <View
             style="@style/DividerView"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
         <TextView
             style="@style/TextViewGridLayoutInfo"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/enter_range" />
+
+        <Button
+            android:id="@+id/but_now_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/now"
+            android:layout_marginEnd="@dimen/margin_ten"
+            android:backgroundTint="@color/blue_500"
+            android:layout_gravity="end"
+            android:textSize="10sp"
+           android:minHeight="@dimen/margin_ten"
+            android:minWidth="@dimen/margin_ten"/>
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

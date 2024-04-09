@@ -171,8 +171,8 @@ public abstract class KosandraDataBase extends RoomDatabase {
                     incomeDAO.insert(income3);
 
                     Record record1 = new Record(1, LocalDate.parse("2024-04-26"), LocalTime.parse("10:00:00"), "Водопад", 2000);
-                    Record record2 = new Record(2, LocalDate.parse("2024-04-26"), LocalTime.parse("14:00:00"), "Водопад", 2000);
-                    Record record3 = new Record(1, LocalDate.parse("2024-04-10"), LocalTime.parse("09:10:00"), "Cabyrc", 2500);
+                    Record record2 = new Record(2, LocalDate.parse("2024-04-10"), LocalTime.parse("14:00:00"), "Водопад", 2000);
+                    Record record3 = new Record(1, LocalDate.parse("2024-04-11"), LocalTime.parse("09:10:00"), "Афрохвост", 2500);
 
                     recordsDAO.insert(record1);
                     recordsDAO.insert(record2);

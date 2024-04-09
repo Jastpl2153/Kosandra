@@ -28,4 +28,7 @@ public interface RecordsDAO {
 
     @Query("select * from records where visitDate = :date")
     LiveData<List<Record>> getDateRecord(LocalDate date);
+
+    @Query("select * from records")
+    List<Record> getAllRecordList();
 }
