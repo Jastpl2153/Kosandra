@@ -25,6 +25,9 @@ import com.example.kosandra.ui.general_logic.GalleryHandlerInterface;
 import com.example.kosandra.ui.general_logic.DatePickerHelperDialog;
 import com.example.kosandra.view_model.ClientViewModel;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class ClientAddFragment extends Fragment implements GalleryHandlerInterface, EmptyFields {
     private FragmentClientAddBinding binding;
     private ActivityResultLauncher<String> getContentLauncher;
@@ -83,8 +86,8 @@ public class ClientAddFragment extends Fragment implements GalleryHandlerInterfa
     private Client initClient(){
         return new Client( getImageGallery(binding.clientImageAdd.getDrawable(), getResources()),
                 binding.etClientName.getText().toString(),
-                DatePickerHelperDialog.parseDateDataBase(binding.etClientBirthday.getText().toString()),
-                binding.etClientPhone.getText().toString(),
+                initEmptyFieldDate(binding.etClientBirthday.getText().toString()),
+                initEmptyFieldString(binding.etClientPhone.getText().toString()),
                 0,
                 parseHairLength(),
                 initEmptyFieldString(binding.etHairColor.getText().toString()),
@@ -102,17 +105,18 @@ public class ClientAddFragment extends Fragment implements GalleryHandlerInterfa
         return text.isEmpty() ? "Не указано" : text;
     }
 
+    private LocalDate initEmptyFieldDate(String text){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return text.isEmpty() ? LocalDate.parse("01-01-1917", formatter) : DatePickerHelperDialog.parseDateDataBase(text);
+    }
+
     @Override
     public boolean validateEmptyFields() {
-        return !binding.etClientName.getText().toString().isEmpty() &&
-                !binding.etClientPhone.getText().toString().isEmpty() &&
-                !binding.etClientBirthday.getText().toString().isEmpty();
+        return !binding.etClientName.getText().toString().isEmpty();
     }
 
     @Override
     public void handleEmptyFields() {
         isEmpty(binding.etClientName);
-        isEmpty(binding.etClientPhone);
-        isEmpty(binding.etClientBirthday);
     }
 }

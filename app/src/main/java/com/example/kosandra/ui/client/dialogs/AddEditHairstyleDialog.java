@@ -39,6 +39,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements GalleryHandlerInterface, EmptyFields {
     private DialogClientAddEditHairstyleBinding binding;
@@ -185,12 +186,12 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
 
     private String[] initArrayCode() {
         String[] codeUseMaterials = new String[countFieldUseMaterial];
-
         for (int i = 0; i < countFieldUseMaterial; i++) {
             codeUseMaterials[i] = listCodeUseMaterials.get(i).getText().toString().trim();
         }
         return codeUseMaterials;
     }
+
 
     private int[] initArrayCount() {
         int[] countUseMaterials = new int[countFieldUseMaterial];
@@ -287,7 +288,7 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
             return new HairstyleVisit(
                     DatePickerHelperDialog.parseDateDataBase(binding.etDateVisit.getText().toString()),
                     getImageGallery(binding.addEditPhotoHairstyle.getDrawable(), getResources()),
-                    binding.etNameHairstyle.getText().toString(),
+                    binding.etNameHairstyle.getText().toString().trim(),
                     client.getId(),
                     Integer.parseInt(binding.etPriceHairstyle.getText().toString()),
                     Integer.parseInt(String.valueOf(priceMaterials().get())),
@@ -323,6 +324,7 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
             Materials material = materialsViewModel.getMaterial(materialCode);
             if (material != null) {
                 material.setCount(material.getCount() - countMaterial);
+                material.setRating(material.getRating() + 1);
                 materialsViewModel.update(material);
             }
         }
@@ -386,7 +388,7 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
     private void setHairstyle() {
         try {
             hairstyleVisit.setPhotoHairstyle(getImageGallery(binding.addEditPhotoHairstyle.getDrawable(), getResources()));
-            hairstyleVisit.setHaircutName(binding.etNameHairstyle.getText().toString());
+            hairstyleVisit.setHaircutName(binding.etNameHairstyle.getText().toString().trim());
             hairstyleVisit.setVisitDate(DatePickerHelperDialog.parseDateDataBase(binding.etDateVisit.getText().toString()));
             hairstyleVisit.setTimeSpent(TimePickerHelperDialog.parseTime(binding.etTimeCompleteHairstyle.getText().toString()));
             hairstyleVisit.setHaircutCost(Integer.parseInt(binding.etPriceHairstyle.getText().toString()));
@@ -418,11 +420,13 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         for (int i = 0; i < prevCodeMaterials.length; i++) {
             Materials prevMaterial = materialsViewModel.getMaterial(prevCodeMaterials[i]);
             prevMaterial.setCount(prevMaterial.getCount() + prevCountMaterials[i]);
+            prevMaterial.setRating(prevMaterial.getRating() - 1);
             materialsViewModel.updateNoThread(prevMaterial);
         }
         for (int i = 0; i < countFieldUseMaterial; i++) {
             Materials newMaterials = materialsViewModel.getMaterial(hairstyleVisit.getCodeMaterial()[i]);
             newMaterials.setCount(newMaterials.getCount() - hairstyleVisit.getCountMaterial()[i]);
+            newMaterials.setRating(newMaterials.getRating() + 1);
             materialsViewModel.updateNoThread(newMaterials);
         }
     }

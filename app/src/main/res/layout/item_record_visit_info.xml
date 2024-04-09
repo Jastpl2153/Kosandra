@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_ten"
+    android:orientation="vertical">
+
+    <View style="@style/DividerView" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_ten"
+            android:layout_marginEnd="@dimen/margin_ten"
+            android:layout_weight="1"
+            app:columnCount="2"
+            app:rowCount="4">
+
+            <TextView
+                style="@style/TextViewGridLayout"
+                android:text="@string/time_visit"
+                app:layout_column="0"
+                app:layout_columnWeight="1"
+                app:layout_row="0" />
+
+            <TextView
+                android:id="@+id/info_time_calendar"
+                style="@style/TextViewGridLayoutInfo"
+                android:text="@string/time_visit"
+                android:textSize="16sp"
+                app:layout_column="0"
+                app:layout_columnWeight="1"
+                app:layout_row="1" />
+
+            <TextView
+                style="@style/TextViewGridLayout"
+                android:text="@string/hairstyle"
+                app:layout_column="0"
+                app:layout_columnWeight="1"
+                app:layout_row="2" />
+
+            <TextView
+                android:id="@+id/info_hairstyle_calendar"
+                style="@style/TextViewGridLayoutInfo"
+                android:text="@string/hairstyle"
+                app:layout_column="0"
+                app:layout_columnWeight="1"
+                app:layout_row="3" />
+
+            <TextView
+                style="@style/TextViewGridLayout"
+                android:text="@string/name"
+                app:layout_column="1"
+                app:layout_columnWeight="1"
+                app:layout_row="0" />
+
+            <TextView
+                android:id="@+id/info_name_calendar"
+                style="@style/TextViewGridLayoutInfo"
+                android:text="@string/name"
+                app:layout_column="1"
+                app:layout_columnWeight="1"
+                app:layout_row="1" />
+
+            <TextView
+                style="@style/TextViewGridLayout"
+                android:text="@string/cost"
+                app:layout_column="1"
+                app:layout_columnWeight="1"
+                app:layout_row="2" />
+
+            <TextView
+                android:id="@+id/info_cost_calendar"
+                style="@style/TextViewGridLayoutInfo"
+                android:text="@string/cost"
+                app:layout_column="1"
+                app:layout_columnWeight="1"
+                app:layout_row="3" />
+        </androidx.gridlayout.widget.GridLayout>
+
+        <ImageButton
+            android:id="@+id/but_menu_visit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_ten"
+            android:layout_weight="9"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_record_menu_visit" />
+    </LinearLayout>
+
+</LinearLayout>
+

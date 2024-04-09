@@ -27,7 +27,9 @@ public class Materials implements Parcelable {
     @Nullable
     private Integer length;
 
-    public Materials(String typeMaterials, String colorMaterial, String codeMaterial, byte[] photo, int count, int cost, @Nullable String typeKanekalon, @Nullable String manufacturer, @Nullable String typeCurls, Integer length) {
+    private int rating;
+
+    public Materials(String typeMaterials, String colorMaterial, String codeMaterial, byte[] photo, int count, int cost, @Nullable String typeKanekalon, @Nullable String manufacturer, @Nullable String typeCurls, Integer length, int rating) {
         this.typeMaterials = typeMaterials;
         this.colorMaterial = colorMaterial;
         this.codeMaterial = codeMaterial;
@@ -38,6 +40,7 @@ public class Materials implements Parcelable {
         this.manufacturer = manufacturer;
         this.typeCurls = typeCurls;
         this.length = length;
+        this.rating = rating;
     }
 
     public Materials(Parcel source) {
@@ -52,6 +55,7 @@ public class Materials implements Parcelable {
         this.manufacturer = source.readString();
         this.typeCurls = source.readString();
         this.length = source.readInt();
+        this.rating = source.readInt();
     }
 
     public int getId() {
@@ -146,6 +150,14 @@ public class Materials implements Parcelable {
         this.length = length;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -164,6 +176,7 @@ public class Materials implements Parcelable {
         dest.writeString(manufacturer);
         dest.writeString(typeCurls);
         dest.writeInt(length);
+        dest.writeInt(rating);
     }
 
     public static final Creator<Materials> CREATOR = new Creator<Materials>() {

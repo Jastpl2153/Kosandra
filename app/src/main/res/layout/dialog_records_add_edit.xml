@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_padding_twenty_five">
+
+    <ImageView
+        style="@style/ImageDialogBottom"
+        app:srcCompat="@drawable/ic_dialog_line" />
+
+    <EditText
+        android:id="@+id/add_edit_record_date"
+        style="@style/EditTextStyle"
+        android:autofillHints="date"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/data"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/add_edit_record_time"
+        style="@style/EditTextStyle"
+        android:autofillHints="time"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/time_visit"
+        android:inputType="time" />
+
+    <AutoCompleteTextView
+        android:id="@+id/add_edit_record_client"
+        style="@style/EditTextStyle"
+        android:autofillHints="text"
+        android:hint="@string/name_surname"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/add_edit_record_hairstyle"
+        style="@style/EditTextStyle"
+        android:autofillHints="text"
+        android:hint="@string/name_hairstyle"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/add_edit_record_cost"
+        style="@style/EditTextStyle"
+        android:autofillHints="number"
+        android:hint="@string/cost"
+        android:inputType="number" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/save"
+        app:srcCompat="@drawable/ic_menu_save" />
+</LinearLayout>

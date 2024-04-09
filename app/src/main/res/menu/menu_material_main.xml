@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_material_search"
+        android:icon="@drawable/ic_menu_search"
+        android:title="@string/search"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
+    <item
+        android:id="@+id/menu_material_sort"
+        android:icon="@drawable/ic_menu_sort"
+        android:title="@string/sorted"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item
+                android:id="@+id/menu_sort_material_name_asc"
+                android:icon="@drawable/ic_menu_sort_asc"
+                android:title="@string/sort_title" />
+            <item
+                android:id="@+id/menu_sort_name_material_desc"
+                android:icon="@drawable/ic_menu_sort_desc"
+                android:title="@string/sort_title" />
+            <item
+                android:id="@+id/menu_sort_count_material_asc"
+                android:icon="@drawable/ic_menu_sort_asc"
+                android:title="@string/sort_count" />
+            <item
+                android:id="@+id/menu_sort_count_material_desc"
+                android:icon="@drawable/ic_menu_sort_desc"
+                android:title="@string/sort_count" />
+
+            <item
+                android:id="@+id/menu_sort_popular_material_asc"
+                android:icon="@drawable/ic_menu_sort_asc"
+                android:title="@string/sort_popular" />
+
+            <item
+                android:id="@+id/menu_sort_popular_material_desc"
+                android:icon="@drawable/ic_menu_sort_desc"
+                android:title="@string/sort_popular" />
+        </menu>
+
+    </item>
+</menu>

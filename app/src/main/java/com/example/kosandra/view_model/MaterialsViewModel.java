@@ -50,4 +50,28 @@ public class MaterialsViewModel extends AndroidViewModel {
     public List<String> getAllMaterialsCode() {
         return repository.getAllMaterialsCode();
     }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByColorAscending(String type) {
+        return repository.getAllMaterialSortedByColorAscending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByColorDescending(String type) {
+        return repository.getAllMaterialSortedByColorDescending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByCountAscending(String type) {
+        return repository.getAllMaterialSortedByCountAscending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByCountDescending(String type) {
+        return repository.getAllMaterialSortedByCountDescending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByRatingAscending(String type) {
+        return repository.getAllMaterialSortedByRatingAscending(type);
+    }
+
+    public LiveData<List<Materials>> getAllMaterialSortedByRatingDescending(String type) {
+        return repository.getAllMaterialSortedByRatingDescending(type);
+    }
 }

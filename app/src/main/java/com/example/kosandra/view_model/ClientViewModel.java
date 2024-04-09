@@ -22,15 +22,15 @@ public class ClientViewModel extends AndroidViewModel {
     }
 
     public void insert(Client client) {
-        repository.insertClient(client);
+        repository.insert(client);
     }
 
     public void update(Client client) {
-        repository.updateClient(client);
+        repository.update(client);
     }
 
     public void delete(Client client) {
-        repository.deleteClient(client);
+        repository.delete(client);
     }
 
     public LiveData<List<Client>> getAllClients() {
@@ -39,5 +39,25 @@ public class ClientViewModel extends AndroidViewModel {
 
     public LiveData<Client> getClient(int id) {
         return repository.getClient(id);
+    }
+
+    public LiveData<List<String>> getNameAllClients() {
+        return repository.getNameAllClients();
+    }
+
+    public LiveData<List<Client>> getAllClientsSortedByNameAscending() {
+        return repository.getAllClientsSortedByNameAscending();
+    }
+
+    public LiveData<List<Client>> getAllClientsSortedByNameDescending() {
+        return repository.getAllClientsSortedByNameDescending();
+    }
+
+    public LiveData<List<Client>> getAllClientsSortedByVisitsAscending() {
+        return repository.getAllClientsSortedByVisitsAscending();
+    }
+
+    public LiveData<List<Client>> getAllClientsSortedByVisitsDescending() {
+        return repository.getAllClientsSortedByVisitsDescending();
     }
 }

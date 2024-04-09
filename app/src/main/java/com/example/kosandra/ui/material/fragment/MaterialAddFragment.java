@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,10 +31,15 @@ import com.example.kosandra.ui.general_logic.EmptyFields;
 import com.example.kosandra.ui.general_logic.GalleryHandlerInterface;
 import com.example.kosandra.view_model.MaterialsViewModel;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 
 public class MaterialAddFragment extends Fragment implements GalleryHandlerInterface, EmptyFields {
     private FragmentMaterialAddBinding binding;
     private ActivityResultLauncher<String> getContentLauncher;
+    private MaterialsViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -116,18 +123,20 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
     }
 
     private void saveMaterial() {
-        if (validateEmptyFields()) {
-            try {
-                MaterialsViewModel viewModel = new ViewModelProvider(requireActivity()).get(MaterialsViewModel.class);
-                viewModel.insert(initMaterial());
-                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-                navController.popBackStack();
-            } catch (Exception e){
-                e.printStackTrace();
+        viewModel = new ViewModelProvider(requireActivity()).get(MaterialsViewModel.class);
+        Executors.newSingleThreadExecutor().execute(()->{
+            if (validateEmptyFields() && validateCodeMaterial()) {
+                try {
+                    viewModel.insert(initMaterial());
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                    navController.popBackStack();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            } else {
+                handleEmptyFields();
             }
-        } else {
-            handleEmptyFields();
-        }
+        });
     }
 
     private Materials initMaterial(){
@@ -141,7 +150,8 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
                 null,
                 null,
                 null,
-                null);
+                null,
+                0);
 
         return initKanekalonOrCurls(material);
     }
@@ -158,6 +168,20 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
                 break;
         }
         return material;
+    }
+
+    private boolean validateCodeMaterial() {
+        for (String code : viewModel.getAllMaterialsCode()) {
+            if (code.equals(binding.addCodeMaterial.getText().toString())) {
+                requireActivity().runOnUiThread(() -> {
+                    Toast.makeText(requireContext(), "Такой код уже существует!", Toast.LENGTH_SHORT).show();
+                    animateEmptyField(binding.addCodeMaterial, requireContext());
+                    binding.addCodeMaterial.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
+                });
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

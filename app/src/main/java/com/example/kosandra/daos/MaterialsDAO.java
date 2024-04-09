@@ -33,4 +33,22 @@ public interface MaterialsDAO {
 
     @Query("select codeMaterial from materials")
     List<String> getAllMaterialsCode();
+
+    @Query("select * from materials where typeMaterials=:typeMaterials ORDER BY colorMaterial ASC")
+    LiveData<List<Materials>> getAllMaterialSortedByColorAscending(String typeMaterials);
+
+    @Query("select * from materials where typeMaterials=:typeMaterials ORDER BY colorMaterial DESC")
+    LiveData<List<Materials>> getAllMaterialSortedByColorDescending(String typeMaterials);
+
+    @Query("select * from materials where typeMaterials=:typeMaterials ORDER BY count ASC")
+    LiveData<List<Materials>> getAllMaterialSortedByCountAscending(String typeMaterials);
+
+    @Query("select * from materials where typeMaterials=:typeMaterials ORDER BY count ASC")
+    LiveData<List<Materials>> getAllMaterialSortedByCountDescending(String typeMaterials);
+
+    @Query("select * from materials where typeMaterials=:typeMaterials ORDER BY rating ASC")
+    LiveData<List<Materials>> getAllMaterialSortedByRatingAscending(String typeMaterials);
+
+    @Query("select * from materials where typeMaterials=:typeMaterials ORDER BY rating DESC")
+    LiveData<List<Materials>> getAllMaterialSortedByRatingDescending(String typeMaterials);
 }

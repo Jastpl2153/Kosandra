@@ -49,6 +49,10 @@ public class HairstyleStyleRepository {
         return hairstyleVisitDAO.getHairstyleVisit(id);
     }
 
+    public  LiveData<List<HairstyleVisit>>  getAllHairstyleVisit(){
+        return hairstyleVisitDAO.getAllHairstyleVisit();
+    }
+
     public LiveData<SqlIncomeHairstyle> getMostPopularHairstyle() {
         return hairstyleVisitDAO.getMostPopularHairstyle();
     }
@@ -57,15 +61,7 @@ public class HairstyleStyleRepository {
         return hairstyleVisitDAO.getMostProfitableHairstyle();
     }
 
-    public  LiveData<List<SqlIncomeHairstyle>> getHairstyleCostsByDateRangeBarCharts(LocalDate startDate, LocalDate endDate){
-        return hairstyleVisitDAO.getHairstyleCostsByDateRangeBarCharts(startDate, endDate);
-    }
-
     public LiveData<List<SqlIncomeHairstyleRangeDate>> getHairstyleIncome(LocalDate startDate, LocalDate endDate) {
         return hairstyleVisitDAO.getHairstyleIncome(startDate, endDate);
-    }
-
-    public LiveData<List<HairstyleVisit>> getAllDateMaterials(LocalDate startDate, LocalDate endDate) {
-        return hairstyleVisitDAO.getAllDateMaterials(startDate, endDate);
     }
 }

@@ -88,10 +88,65 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
 
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-        SearchRecyclerView.super.onCreateMenu(menu, menuInflater);
-        MenuItem searchItem = menu.findItem(R.id.menu_bar_search);
+        menuInflater.inflate(R.menu.menu_client_main, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_client_search);
         searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+        int itemId = menuItem.getItemId();
+        if (itemId == R.id.menu_sort_client_name_asc) {
+            sortByClientNameAscending();
+            return true;
+        } else if (itemId == R.id.menu_sort_name_client_desc) {
+            sortByClientNameDescending();
+            return true;
+        } else if (itemId == R.id.menu_sort_visit_client_asc) {
+            sortByVisitCountAscending();
+            return true;
+        } else if (itemId == R.id.menu_sort_visit_client_desc) {
+            sortByVisitCountDescending();
+            return true;
+        }
+        return false;
+    }
+
+    private void sortByClientNameAscending() {
+        viewModel.getAllClientsSortedByNameAscending().observe(getViewLifecycleOwner(), clients -> {
+            if (clients != null) {
+                adapter.setClients(clients);
+                allClientList = clients;
+            }
+        });
+    }
+
+    private void sortByClientNameDescending() {
+        viewModel.getAllClientsSortedByNameDescending().observe(getViewLifecycleOwner(), clients -> {
+            if (clients != null) {
+                adapter.setClients(clients);
+                allClientList = clients;
+            }
+        });
+    }
+
+    private void sortByVisitCountAscending() {
+        viewModel.getAllClientsSortedByVisitsAscending().observe(getViewLifecycleOwner(), clients -> {
+            if (clients != null) {
+                adapter.setClients(clients);
+                allClientList = clients;
+            }
+        });
+    }
+
+    private void sortByVisitCountDescending() {
+        viewModel.getAllClientsSortedByVisitsDescending().observe(getViewLifecycleOwner(), clients -> {
+            if (clients != null) {
+                adapter.setClients(clients);
+                allClientList = clients;
+            }
+        });
     }
 
     @Override

@@ -139,4 +139,58 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
             dialog.show();
         }
     }
+
+    protected void getNameAllMaterialSortedByColorAscending(){
+        viewModel.getAllMaterialSortedByColorAscending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
+            if (materials != null) {
+                adapter.setMaterials(materials);
+                allMaterialFilter.addAll(materials);
+            }
+        });
+    }
+
+    protected void getNameAllMaterialSortedByColorDescending(){
+        viewModel.getAllMaterialSortedByColorDescending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
+            if (materials != null) {
+                adapter.setMaterials(materials);
+                allMaterialFilter.addAll(materials);
+            }
+        });
+    }
+
+    protected void getNameAllMaterialSortedByCountAscending(){
+        viewModel.getAllMaterialSortedByCountAscending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
+            if (materials != null) {
+                adapter.setMaterials(materials);
+                allMaterialFilter.addAll(materials);
+            }
+        });
+    }
+
+    protected void getNameAllMaterialSortedByCountDescending(){
+        viewModel.getAllMaterialSortedByCountDescending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
+            if (materials != null) {
+                adapter.setMaterials(materials);
+                allMaterialFilter.addAll(materials);
+            }
+        });
+    }
+
+    protected void getAllMaterialSortedByRatingAscending(){
+        viewModel.getAllMaterialSortedByRatingAscending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
+            if (materials != null) {
+                adapter.setMaterials(materials);
+                allMaterialFilter.addAll(materials);
+            }
+        });
+    }
+
+    protected void getAllMaterialSortedByRatingDescending(){
+        viewModel.getAllMaterialSortedByRatingDescending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
+            if (materials != null) {
+                adapter.setMaterials(materials);
+                allMaterialFilter.addAll(materials);
+            }
+        });
+    }
 }
