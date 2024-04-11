@@ -10,11 +10,14 @@ import androidx.room.PrimaryKey;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Entity class representing a record of client visits and services provided.
+ */
 @Entity(tableName = "records",
-   foreignKeys = @ForeignKey(entity = Client.class,
-        parentColumns = "id",
-        childColumns = "clientId",
-        onDelete = ForeignKey.CASCADE))
+        foreignKeys = @ForeignKey(entity = Client.class,
+                parentColumns = "id",
+                childColumns = "clientId",
+                onDelete = ForeignKey.CASCADE))
 public class Record implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -32,7 +35,7 @@ public class Record implements Parcelable {
         this.cost = cost;
     }
 
-    public Record(Parcel source){
+    public Record(Parcel source) {
         this.id = source.readInt();
         this.clientId = source.readInt();
         this.visitDate = LocalDate.ofEpochDay(source.readLong());

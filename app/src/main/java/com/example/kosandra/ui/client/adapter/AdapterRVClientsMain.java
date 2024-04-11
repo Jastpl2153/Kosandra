@@ -21,10 +21,20 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * AdapterRVClientsMain class is responsible for managing and populating a RecyclerView with a list of clients.
+ * <p>
+ * It extends RecyclerView.Adapter and uses a ClientHolder class for holding client information in each item.
+ */
 public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsMain.ClientHolder> {
     private List<Client> clients = new ArrayList<>();
     private final RvItemClickListener<Client> rvItemClickListener;
 
+    /**
+     * Constructor for AdapterRVClientsMain.
+     *
+     * @param rvItemClickListener an item click listener for handling user interactions with clients
+     */
     public AdapterRVClientsMain(RvItemClickListener<Client> rvItemClickListener) {
         this.rvItemClickListener = rvItemClickListener;
     }
@@ -49,14 +59,15 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
         return clients != null ? clients.size() : 0;
     }
 
+    /**
+     * Sets the list of clients to be displayed in the RecyclerView.
+     *
+     * @param clients the list of clients to set
+     */
     public void setClients(List<Client> clients) {
         this.clients.clear();
         this.clients.addAll(clients);
         notifyDataSetChanged();
-    }
-
-    public List<Client> getClients() {
-        return clients;
     }
 
     public class ClientHolder extends RecyclerView.ViewHolder {
@@ -65,12 +76,20 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
         private ImageButton but_delete;
         private LinearLayout item_layout;
 
+        /**
+         * ClientHolder class represents a single item view within the RecyclerView.
+         */
         public ClientHolder(@NonNull View itemView, RvItemClickListener<Client> rvItemClickListener, List<Client> clients) {
             super(itemView);
             findViews(itemView);
             setupListeners(rvItemClickListener, clients);
         }
 
+        /**
+         * Finds and initializes the views within the client item view.
+         *
+         * @param itemView the view for the client item
+         */
         private void findViews(View itemView) {
             client_image = itemView.findViewById(R.id.item_client_image);
             tv_client_name = itemView.findViewById(R.id.item_client_name);
@@ -78,13 +97,27 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
             item_layout = itemView.findViewById(R.id.linear_layout_client_main);
         }
 
-        private void setupListeners( RvItemClickListener<Client> rvItemClickListener, List<Client> clients) {
+        /**
+         * Sets up click listeners for various views within the client item view.
+         *
+         * @param rvItemClickListener an item click listener
+         * @param clients             the list of clients
+         */
+        private void setupListeners(RvItemClickListener<Client> rvItemClickListener, List<Client> clients) {
             itemView.setOnLongClickListener(v -> handleClick(rvItemClickListener, clients, true));
             itemView.setOnClickListener(v -> handleClick(rvItemClickListener, clients, false));
             but_delete.setOnClickListener(v -> handleDeleteClick(rvItemClickListener, clients));
             client_image.setOnClickListener(v -> handleImageClick(rvItemClickListener, clients));
         }
 
+        /**
+         * Handles click events on the client item view.
+         *
+         * @param rvItemClickListener an item click listener
+         * @param clients             the list of clients
+         * @param isLongClick         true if the click event is a long click
+         * @return true if the event was handled, false otherwise
+         */
         private boolean handleClick(RvItemClickListener<Client> rvItemClickListener, List<Client> clients, boolean isLongClick) {
             int position = getAdapterPosition();
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {
@@ -99,6 +132,12 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
             return false;
         }
 
+        /**
+         * Handles the delete click event on the client item view.
+         *
+         * @param rvItemClickListener an item click listener
+         * @param clients             the list of clients
+         */
         private void handleDeleteClick(RvItemClickListener<Client> rvItemClickListener, List<Client> clients) {
             int position = getAdapterPosition();
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {
@@ -109,6 +148,12 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
             }
         }
 
+        /**
+         * Handles click events on the client image within the item view.
+         *
+         * @param rvItemClickListener an item click listener
+         * @param clients             the list of clients
+         */
         private void handleImageClick(RvItemClickListener<Client> rvItemClickListener, List<Client> clients) {
             int position = getAdapterPosition();
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {

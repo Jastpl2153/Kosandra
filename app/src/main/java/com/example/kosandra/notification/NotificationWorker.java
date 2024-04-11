@@ -20,6 +20,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+/**
+ * NotificationWorker class extends Worker for handling notifications related to upcoming client visits.
+ * <p>
+ * The class includes methods for building and sending notifications for clients with appointments scheduled for three days from the current date and for clients with appointments scheduled for the next day.
+ */
 public class NotificationWorker extends Worker {
     private static final int NOTIFICATION_THREE_DAY_ID = 1;
     private static final int NOTIFICATION_TOMORROW_ID = 2;
@@ -28,11 +33,25 @@ public class NotificationWorker extends Worker {
     private String CONTENT_NOTIFICATION_THREE_DAY = "Не забудте у вас через 3 дня ";
     private String CONTENT_NOTIFICATION_TOMORROW = "Не забудте у вас завтра ";
 
+    /**
+     * Constructor for the NotificationWorker class.
+     * Initializes the dataBase instance with the application context.
+     *
+     * @param context      The application context
+     * @param workerParams The parameters for the Worker
+     */
     public NotificationWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         dataBase = KosandraDataBase.getInstance(context);
     }
 
+    /**
+     * Executes the work to check for client appointments and send notifications.
+     * Retrieves all client records from the database and checks for appointments in the next three days and next day.
+     * Builds and sends notifications if needed.
+     *
+     * @return The Result of the work execution
+     */
     @NonNull
     @Override
     public Result doWork() {
@@ -61,6 +80,12 @@ public class NotificationWorker extends Worker {
         return Result.success();
     }
 
+    /**
+     * Builds and sends a notification for clients with appointments scheduled three days from the current date.
+     *
+     * @param clientVisitThreeDay      Flag indicating if there are client visits in three days
+     * @param countClientVisitThreeDay The number of clients with visits in three days
+     */
     private void buildAndNotifyThreeDayNotification(boolean clientVisitThreeDay, int countClientVisitThreeDay) {
         if (clientVisitThreeDay) {
             Notification.Builder builder = buildNotification();
@@ -70,6 +95,12 @@ public class NotificationWorker extends Worker {
         }
     }
 
+    /**
+     * Builds and sends a notification for clients with appointments scheduled for the next day.
+     *
+     * @param clientVisitTomorrow      Flag indicating if there are client visits tomorrow
+     * @param countClientVisitTomorrow The number of clients with visits tomorrow
+     */
     private void buildAndNotifyTomorrowNotification(boolean clientVisitTomorrow, int countClientVisitTomorrow) {
         if (clientVisitTomorrow) {
             Notification.Builder builder = buildNotification();
@@ -79,6 +110,11 @@ public class NotificationWorker extends Worker {
         }
     }
 
+    /**
+     * Builds a notification with the required content and intent to be displayed.
+     *
+     * @return A Notification.Builder object with the notification content and intent
+     */
     @NonNull
     private Notification.Builder buildNotification() {
         Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         style="@style/EditTextStyle"
         android:layout_weight="1.3"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:hint="@string/code_material"
         android:completionThreshold="1"/>
 

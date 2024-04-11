@@ -31,9 +31,19 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.Executors;
 
+/**
+ * This class represents the Room Database for the Kosandra application.
+ * <p>
+ * It defines the entities and type converters to be used in the database.
+ * <p>
+ * Provides access to Data Access Objects (DAO) for various database operations.
+ */
 @Database(entities = {Client.class, HairstyleVisit.class, Materials.class, Expenses.class, Income.class, Record.class}, version = 1)
 @TypeConverters(Converters.class)
 public abstract class KosandraDataBase extends RoomDatabase {
+    /**
+     * Instance of the Kosandra Database.
+     */
     private static KosandraDataBase instance;
 
     public abstract ClientDAO clientDAO();
@@ -45,8 +55,15 @@ public abstract class KosandraDataBase extends RoomDatabase {
     public abstract ExpensesDAO expensesDAO();
 
     public abstract IncomeDAO incomeDAO();
+
     public abstract RecordsDAO recordsDAO();
 
+    /**
+     * Retrieves an instance of the Kosandra Database, ensuring only one instance is created.
+     *
+     * @param context Application context
+     * @return Instance of the Kosandra Database
+     */
     public static synchronized KosandraDataBase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(), KosandraDataBase.class, "kosandra_database")
@@ -56,6 +73,7 @@ public abstract class KosandraDataBase extends RoomDatabase {
         return instance;
     }
 
+    // Inserting initial data for various entities in the database
     private static final RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {

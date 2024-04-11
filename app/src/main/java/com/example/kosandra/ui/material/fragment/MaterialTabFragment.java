@@ -28,6 +28,11 @@ import com.example.kosandra.view_model.MaterialsViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Fragment class representing a tab for displaying materials.
+ * <p>
+ * Implements RvItemClickListener for handling item clicks.
+ */
 public class MaterialTabFragment extends Fragment implements RvItemClickListener<Materials> {
     private FragmentMaterialsTabBinding binding;
     private MaterialsViewModel viewModel;
@@ -38,6 +43,12 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
     private String typeMaterial;
     private List<Materials> allMaterialFilter = new ArrayList<>();
 
+    /**
+     * Static method to create a new instance of MaterialTabFragment with a specified typeMaterial.
+     *
+     * @param typeMaterial The type of material to display
+     * @return A new instance of MaterialTabFragment
+     */
     public static MaterialTabFragment newInstance(String typeMaterial) {
         MaterialTabFragment fragment = new MaterialTabFragment();
         Bundle args = new Bundle();
@@ -61,28 +72,39 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         observeListMaterial();
     }
 
-    private void initRecyclerView(){
+    /**
+     * Initializes the RecyclerView adapter and sets it to the RecyclerView.
+     */
+    private void initRecyclerView() {
         adapter = new AdapterRvMaterialsMain(this);
         binding.rvMaterials.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvMaterials.setAdapter(adapter);
     }
 
-    private void observeListMaterial(){
+    /**
+     * Observes the list of materials from the ViewModel and updates the RecyclerView adapter.
+     */
+    private void observeListMaterial() {
         viewModel = new ViewModelProvider(requireActivity()).get(MaterialsViewModel.class);
         viewModel.getMaterialsList(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
-                if (materials != null) {
-                    adapter.setMaterials(materials);
-                    allMaterialFilter.addAll(materials);
-                }
-            });
+            if (materials != null) {
+                adapter.setMaterials(materials);
+                allMaterialFilter.addAll(materials);
+            }
+        });
     }
 
-    protected void filter(String text){
+    /**
+     * Filters the list of materials based on the given text.
+     *
+     * @param text The text used for filtering the materials list
+     */
+    protected void filter(String text) {
         if (adapter != null) {
             List<Materials> filter = new ArrayList<>();
             for (Materials materials : allMaterialFilter) {
                 if (materials.getColorMaterial().toLowerCase().contains(text.toLowerCase())
-                || materials.getCodeMaterial().toLowerCase().contains(text.toLowerCase())) {
+                        || materials.getCodeMaterial().toLowerCase().contains(text.toLowerCase())) {
                     filter.add(materials);
                 }
             }
@@ -90,6 +112,14 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         }
     }
 
+    /**
+     * Handles the onClick event for an item in the materials list.
+     * If the item is already selected, deselect it. If not, navigate to the material details screen.
+     *
+     * @param item_layout The layout of the clicked item
+     * @param but_delete  The delete button in the item layout
+     * @param materials   The materials associated with the clicked item
+     */
     @Override
     public void onClick(View item_layout, View but_delete, Materials materials) {
         if (positionSelection == materials.getId()) {
@@ -103,6 +133,14 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         }
     }
 
+    /**
+     * Handles the onLongClick event for an item in the materials list.
+     * Selects the item and animates selection. Deselects previously selected item if applicable.
+     *
+     * @param item_layout The layout of the clicked item
+     * @param but_delete  The delete button in the item layout
+     * @param materials   The materials associated with the clicked item
+     */
     @Override
     public void onLongClick(View item_layout, View but_delete, Materials materials) {
         if (positionSelection == -1 || positionSelection == materials.getId()) {
@@ -119,12 +157,28 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         }
     }
 
+    /**
+     * Handles the onDeleteClick event for an item in the materials list.
+     * Deletes the specified materials and cancels any ongoing animations on the item layout.
+     *
+     * @param item_layout The layout of the clicked item
+     * @param but_delete  The delete button in the item layout
+     * @param materials   The materials to be deleted
+     */
     @Override
     public void onDeleteClick(View item_layout, View but_delete, Materials materials) {
         viewModel.delete(materials);
         AnimationHelper.cancelAnimation(item_layout, but_delete);
     }
 
+    /**
+     * Handles the onPhotoClick event for a material.
+     * <p>
+     * Displays a dialog with the full-size photo of the material if it is not the currently selected item.
+     *
+     * @param materials The materials associated with the clicked photo
+     * @param image     The ImageView displaying the photo
+     */
     @Override
     public void onPhotoClick(Materials materials, View image) {
         if (materials != null && positionSelection != materials.getId()) {
@@ -140,7 +194,11 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         }
     }
 
-    protected void getNameAllMaterialSortedByColorAscending(){
+    /**
+     * Retrieves all materials sorted by color in ascending order.
+     * Updates the adapter and the filter list with the retrieved materials.
+     */
+    protected void getNameAllMaterialSortedByColorAscending() {
         viewModel.getAllMaterialSortedByColorAscending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
             if (materials != null) {
                 adapter.setMaterials(materials);
@@ -149,7 +207,11 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         });
     }
 
-    protected void getNameAllMaterialSortedByColorDescending(){
+    /**
+     * Retrieves all materials sorted by color in descending order.
+     * Updates the adapter and the filter list with the retrieved materials.
+     */
+    protected void getNameAllMaterialSortedByColorDescending() {
         viewModel.getAllMaterialSortedByColorDescending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
             if (materials != null) {
                 adapter.setMaterials(materials);
@@ -158,7 +220,11 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         });
     }
 
-    protected void getNameAllMaterialSortedByCountAscending(){
+    /**
+     * Retrieves all materials sorted by count in ascending order.
+     * Updates the adapter and the filter list with the retrieved materials.
+     */
+    protected void getNameAllMaterialSortedByCountAscending() {
         viewModel.getAllMaterialSortedByCountAscending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
             if (materials != null) {
                 adapter.setMaterials(materials);
@@ -167,7 +233,11 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         });
     }
 
-    protected void getNameAllMaterialSortedByCountDescending(){
+    /**
+     * Retrieves all materials sorted by count in descending order.
+     * Updates the adapter and the filter list with the retrieved materials.
+     */
+    protected void getNameAllMaterialSortedByCountDescending() {
         viewModel.getAllMaterialSortedByCountDescending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
             if (materials != null) {
                 adapter.setMaterials(materials);
@@ -176,7 +246,11 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         });
     }
 
-    protected void getAllMaterialSortedByRatingAscending(){
+    /**
+     * Retrieves all materials sorted by rating in ascending order.
+     * Updates the adapter and the filter list with the retrieved materials.
+     */
+    protected void getAllMaterialSortedByRatingAscending() {
         viewModel.getAllMaterialSortedByRatingAscending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
             if (materials != null) {
                 adapter.setMaterials(materials);
@@ -185,7 +259,11 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         });
     }
 
-    protected void getAllMaterialSortedByRatingDescending(){
+    /**
+     * Retrieves all materials sorted by rating in descending order.
+     * Updates the adapter and the filter list with the retrieved materials.
+     */
+    protected void getAllMaterialSortedByRatingDescending() {
         viewModel.getAllMaterialSortedByRatingDescending(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
             if (materials != null) {
                 adapter.setMaterials(materials);

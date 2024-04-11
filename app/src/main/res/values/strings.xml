@@ -119,12 +119,12 @@
     <string name="name_hairstyle_income">Название прически</string>
     <string name="do_hair">Сделано причесок</string>
     <string name="avg_price">Средняя цена</string>
-    <string name="expenses_type">На что потрачено</string>
-    <string name="spent">Затраченноя сумма</string>
+    <string name="expenses_type">Затраты</string>
+    <string name="spent">Сумма</string>
     <string name="what_income">Что принесло доход</string>
     <string name="cost">Стоимость</string>
     <string name="data">Дата</string>
-    <string name="date_expenses">Дата продажи</string>
+    <string name="date_expenses">Дата покупки</string>
     <string name="title_dialog_add_expenses">Добавление раcхода</string>
     <string name="title_dialog_add_income">Добавление дохода</string>
     <string name="income">Доход</string>
@@ -138,7 +138,8 @@
         <item>Инструмент</item>
         <item>Рабочее место</item>
         <item>Аренда</item>
-        <item>Украшение</item>
+        <item>Украшения</item>
+        <item>Уход</item>
         <item>Обучение</item>
         <item>Реклама</item>
     </string-array>

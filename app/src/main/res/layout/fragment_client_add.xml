@@ -28,7 +28,7 @@
             android:id="@+id/et_client_name"
             style="@style/EditTextStyle"
             android:hint="@string/name_surname"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:autofillHints="username"/>
 
         <EditText
@@ -58,21 +58,21 @@
             android:id="@+id/et_hair_color"
             style="@style/EditTextStyle"
             android:hint="@string/hair_color"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:autofillHints="text"/>
 
         <EditText
             android:id="@+id/et_hair_density"
             style="@style/EditTextStyle"
             android:hint="@string/hair_density"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:autofillHints="text"/>
 
         <EditText
             android:id="@+id/et_conversation_details"
             style="@style/EditTextStyle"
             android:hint="@string/speak_client"
-            android:inputType="textMultiLine"
+            android:inputType="textCapSentences|textMultiLine"
             android:autofillHints="text"/>
     </LinearLayout>
 </ScrollView>

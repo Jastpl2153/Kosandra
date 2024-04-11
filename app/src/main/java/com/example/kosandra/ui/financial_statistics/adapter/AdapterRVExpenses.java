@@ -18,13 +18,17 @@ import com.example.kosandra.ui.general_logic.DatePickerHelperDialog;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * AdapterRVExpenses class is responsible for managing the RecyclerView adapter for displaying a list of expenses.
+ * It binds the expense data to the corresponding views and handles click events on each item.
+ */
 public class AdapterRVExpenses extends RecyclerView.Adapter<AdapterRVExpenses.Holder> {
     private final List<Expenses> expensesList = new ArrayList<>();
+    private final RvFinanceClickListener<Expenses> rvFinanceClickListener;
 
-//    private final ExpensesClickItemRv expensesClickItemRv;
-//    private final ClickListenerExpenses clickListenerExpenses;
-        private final RvFinanceClickListener<Expenses> rvFinanceClickListener;
-
+    /**
+     * Constructor for AdapterRVExpenses that initializes the RvFinanceClickListener.
+     */
     public AdapterRVExpenses(RvFinanceClickListener<Expenses> rvFinanceClickListener) {
         this.rvFinanceClickListener = rvFinanceClickListener;
     }
@@ -49,6 +53,12 @@ public class AdapterRVExpenses extends RecyclerView.Adapter<AdapterRVExpenses.Ho
         return expensesList.size();
     }
 
+    /**
+     * Sets the list of expenses to be displayed in the RecyclerView.
+     * Clears the current list, adds all items from the provided list, and notifies data set changes.
+     *
+     * @param expensesList The list of Expenses to set in the adapter
+     */
     public void setExpensesList(List<Expenses> expensesList) {
         this.expensesList.clear();
         this.expensesList.addAll(expensesList);
@@ -62,7 +72,7 @@ public class AdapterRVExpenses extends RecyclerView.Adapter<AdapterRVExpenses.Ho
         private ImageButton delete;
         private LinearLayout item_layout;
 
-        public Holder(@NonNull View itemView, RvFinanceClickListener<Expenses> rvFinanceClickListener, List<Expenses> expensesList ) {
+        public Holder(@NonNull View itemView, RvFinanceClickListener<Expenses> rvFinanceClickListener, List<Expenses> expensesList) {
             super(itemView);
             name = itemView.findViewById(R.id.item_name_expenses_other);
             cost = itemView.findViewById(R.id.item_cost_expenses_other);
@@ -73,13 +83,27 @@ public class AdapterRVExpenses extends RecyclerView.Adapter<AdapterRVExpenses.Ho
         }
 
 
-        private void setupListeners(RvFinanceClickListener<Expenses> rvFinanceClickListener, List<Expenses> expensesList ) {
+        /**
+         * Sets up click listeners for handling different click events on the item.
+         *
+         * @param rvFinanceClickListener The click listener for handling item interactions
+         * @param expensesList           The list of Expenses associated with the item
+         */
+        private void setupListeners(RvFinanceClickListener<Expenses> rvFinanceClickListener, List<Expenses> expensesList) {
             itemView.setOnLongClickListener(v -> handleClick(rvFinanceClickListener, expensesList, true));
             itemView.setOnClickListener(v -> handleClick(rvFinanceClickListener, expensesList, false));
             delete.setOnClickListener(v -> handleDeleteClick(rvFinanceClickListener, expensesList));
         }
 
-        private boolean handleClick(RvFinanceClickListener<Expenses> rvFinanceClickListener, List<Expenses> expensesList , boolean isLongClick) {
+        /**
+         * Handles click event on the item based on the click type (long click or short click).
+         *
+         * @param rvFinanceClickListener The click listener for handling item interactions
+         * @param expensesList           The list of Expenses associated with the item
+         * @param isLongClick            A flag indicating the click type
+         * @return true if the click event is handled, false otherwise
+         */
+        private boolean handleClick(RvFinanceClickListener<Expenses> rvFinanceClickListener, List<Expenses> expensesList, boolean isLongClick) {
             int position = getAdapterPosition();
             if (rvFinanceClickListener != null && position != RecyclerView.NO_POSITION) {
                 Expenses expenses = expensesList.get(position);
@@ -93,7 +117,13 @@ public class AdapterRVExpenses extends RecyclerView.Adapter<AdapterRVExpenses.Ho
             return false;
         }
 
-        private void handleDeleteClick(RvFinanceClickListener<Expenses> rvFinanceClickListener, List<Expenses> expensesList ) {
+        /**
+         * Handles the delete click event on the item.
+         *
+         * @param rvFinanceClickListener The click listener for handling item interactions
+         * @param expensesList           The list of Expenses associated with the item
+         */
+        private void handleDeleteClick(RvFinanceClickListener<Expenses> rvFinanceClickListener, List<Expenses> expensesList) {
             int position = getAdapterPosition();
             if (rvFinanceClickListener != null && position != RecyclerView.NO_POSITION) {
                 Expenses expenses = expensesList.get(position);

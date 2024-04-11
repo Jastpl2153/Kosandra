@@ -2,7 +2,6 @@ package com.example.kosandra.ui.records.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -17,24 +16,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kosandra.R;
 import com.example.kosandra.entity.Record;
-import com.example.kosandra.ui.records.record_listener_rv.OnClockItemCalendar;
+import com.example.kosandra.ui.records.record_listener_rv.OnClickItemCalendar;
 import com.example.kosandra.view_model.ClientViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter for displaying visit records in a RecyclerView.
+ * <p>
+ * This class sets up the ViewHolder and binds the data to the views.
+ * <p>
+ * It also handles click events on the items in the RecyclerView.
+ */
 public class AdapterInfoVisit extends RecyclerView.Adapter<AdapterInfoVisit.ViewHolder> {
     private List<Record> records = new ArrayList<>();
     private LifecycleOwner lifecycleOwner;
     private ViewModelStoreOwner viewModelStoreOwner;
     private Context context;
-    private OnClockItemCalendar onClockItemCalendar;
+    private OnClickItemCalendar onClickItemCalendar;
 
-    public AdapterInfoVisit(LifecycleOwner lifecycleOwner, ViewModelStoreOwner viewModelStoreOwner, Context context, OnClockItemCalendar onClockItemCalendar) {
+    /**
+     * Constructor for AdapterInfoVisit.
+     * Initializes the Adapter with necessary parameters.
+     *
+     * @param lifecycleOwner      The lifecycle owner for observing live data.
+     * @param viewModelStoreOwner The ViewModel store owner for accessing ViewModels.
+     * @param context             The context in which the Adapter is being used.
+     * @param onClickItemCalendar Callback for item click events.
+     */
+    public AdapterInfoVisit(LifecycleOwner lifecycleOwner, ViewModelStoreOwner viewModelStoreOwner, Context context, OnClickItemCalendar onClickItemCalendar) {
         this.lifecycleOwner = lifecycleOwner;
         this.viewModelStoreOwner = viewModelStoreOwner;
         this.context = context;
-        this.onClockItemCalendar = onClockItemCalendar;
+        this.onClickItemCalendar = onClickItemCalendar;
     }
 
     @NonNull
@@ -55,22 +70,33 @@ public class AdapterInfoVisit extends RecyclerView.Adapter<AdapterInfoVisit.View
         return records.size();
     }
 
-    public void setRecords(List<Record> records){
+    /**
+     * Sets the list of records and notifies the Adapter of the data change.
+     *
+     * @param records The list of records to be displayed.
+     */
+    public void setRecords(List<Record> records) {
         this.records.clear();
         this.records.addAll(records);
         notifyDataSetChanged();
     }
 
+    /**
+     * Shows a PopupMenu for performing actions on a record item.
+     *
+     * @param view   The View to anchor the PopupMenu to.
+     * @param record The record associated with the item.
+     */
     private void showPopupMenu(View view, Record record) {
         PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.inflate(R.menu.menu_record_visit);
         popupMenu.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.menu_record_edit) {
-                onClockItemCalendar.onEditClick(record);
+                onClickItemCalendar.onEditClick(record);
                 return true;
             } else if (itemId == R.id.menu_record_delete) {
-                onClockItemCalendar.onDeleteClick(record);
+                onClickItemCalendar.onDeleteClick(record);
                 return true;
             }
             return false;
@@ -94,6 +120,12 @@ public class AdapterInfoVisit extends RecyclerView.Adapter<AdapterInfoVisit.View
             but_menu = itemView.findViewById(R.id.but_menu_visit);
         }
 
+        /**
+         * Binds the record data to the views in the ViewHolder.
+         * Also sets up click listener for the menu button.
+         *
+         * @param record The record object to bind data from.
+         */
         void bind(Record record) {
             time.setText(record.getTimeSpent().toString());
             ClientViewModel clientViewModel = new ViewModelProvider(viewModelStoreOwner).get(ClientViewModel.class);

@@ -33,16 +33,22 @@ import com.example.kosandra.view_model.ClientViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-public class ClientMainFragment extends Fragment implements RvItemClickListener<Client>, SearchRecyclerView {
-    private FragmentMainClientBinding binding;
-    private AdapterRVClientsMain adapter;
-    private ClientViewModel viewModel;
-    private int positionSelection = -1;
-    private View prevItemLayout= null;
-    private View prevButDelete = null;
-    private List<Client> allClientList = new ArrayList<>();
 
-    private SearchView searchView;
+/**
+ * Represents the main fragment of the client module, responsible for displaying and managing a list of clients.
+ * <p>
+ * This fragment extends Fragment and implements RvItemClickListener<Client> and SearchRecyclerView interfaces.
+ */
+public class ClientMainFragment extends Fragment implements RvItemClickListener<Client>, SearchRecyclerView {
+    private FragmentMainClientBinding binding;// The binding object for the fragment layout
+    private AdapterRVClientsMain adapter;// The adapter for the RecyclerView displaying clients
+    private ClientViewModel viewModel;// The ViewModel for managing client data
+    private int positionSelection = -1;// The position of selected client in the list
+    private View prevItemLayout = null;// Reference to the previous selected item layout
+    private View prevButDelete = null;// Reference to the previous selected delete button
+    private List<Client> allClientList = new ArrayList<>(); // List of all clients
+
+    private SearchView searchView;// The SearchView for filtering clients
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMainClientBinding.inflate(inflater, container, false);
@@ -58,13 +64,19 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.STARTED);
     }
 
+    /**
+     * Initializes the RecyclerView with the adapter.
+     */
     private void initRecyclerView() {
         adapter = new AdapterRVClientsMain(this);
         binding.rvClient.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvClient.setAdapter(adapter);
     }
 
-    private void observeClients(){
+    /**
+     * Observes changes in client data and updates the UI accordingly.
+     */
+    private void observeClients() {
         viewModel = new ViewModelProvider(requireActivity()).get(ClientViewModel.class);
         viewModel.getAllClients().observe(getViewLifecycleOwner(), clients -> {
             if (clients != null) {
@@ -74,18 +86,30 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         });
     }
 
+    /**
+     * Clears the binding object reference when the view is destroyed.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
+    /**
+     * Collapses the search view when the fragment is stopped.
+     */
     @Override
     public void onStop() {
         super.onStop();
         searchView.onActionViewCollapsed();
     }
 
+    /**
+     * Inflates the menu and sets menu items click listeners.
+     *
+     * @param menu         The menu object
+     * @param menuInflater The menu inflater
+     */
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
         menuInflater.inflate(R.menu.menu_client_main, menu);
@@ -94,6 +118,12 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         searchView.setOnQueryTextListener(this);
     }
 
+    /**
+     * Handles menu item selection and sorts clients based on the selected option.
+     *
+     * @param menuItem The selected menu item
+     * @return True if the item selection was handled, false otherwise
+     */
     @Override
     public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
         int itemId = menuItem.getItemId();
@@ -113,6 +143,9 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         return false;
     }
 
+    /**
+     * Sorts clients by name in ascending order.
+     */
     private void sortByClientNameAscending() {
         viewModel.getAllClientsSortedByNameAscending().observe(getViewLifecycleOwner(), clients -> {
             if (clients != null) {
@@ -122,6 +155,9 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         });
     }
 
+    /**
+     * Sorts clients by name in descending order.
+     */
     private void sortByClientNameDescending() {
         viewModel.getAllClientsSortedByNameDescending().observe(getViewLifecycleOwner(), clients -> {
             if (clients != null) {
@@ -131,6 +167,9 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         });
     }
 
+    /**
+     * Sorts clients by visit count in ascending order.
+     */
     private void sortByVisitCountAscending() {
         viewModel.getAllClientsSortedByVisitsAscending().observe(getViewLifecycleOwner(), clients -> {
             if (clients != null) {
@@ -140,6 +179,9 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         });
     }
 
+    /**
+     * Sorts clients by visit count in descending order.
+     */
     private void sortByVisitCountDescending() {
         viewModel.getAllClientsSortedByVisitsDescending().observe(getViewLifecycleOwner(), clients -> {
             if (clients != null) {
@@ -149,6 +191,11 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         });
     }
 
+    /**
+     * Filters clients based on the text input and updates the adapter.
+     *
+     * @param text The text input used for filtering clients
+     */
     @Override
     public void filter(String text) {
         List<Client> filter = new ArrayList<>();
@@ -160,6 +207,13 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         adapter.setClients(filter);
     }
 
+    /**
+     * Handles the click event on a client item in the RecyclerView.
+     *
+     * @param item_layout The layout of the clicked item
+     * @param but_delete  The delete button of the clicked item
+     * @param client      The client object associated with the clicked item
+     */
     @Override
     public void onClick(View item_layout, View but_delete, Client client) {
         if (positionSelection == client.getId()) {
@@ -173,6 +227,13 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         }
     }
 
+    /**
+     * Handles the long click event on a client item in the RecyclerView.
+     *
+     * @param item_layout The layout of the long-clicked item
+     * @param but_delete  The delete button of the long-clicked item
+     * @param client      The client object associated with the long-clicked item
+     */
     @Override
     public void onLongClick(View item_layout, View but_delete, Client client) {
         if (positionSelection == -1 || positionSelection == client.getId()) {
@@ -180,7 +241,7 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
             AnimationHelper.animateItemSelected(item_layout, but_delete);
             prevItemLayout = item_layout;
             prevButDelete = but_delete;
-        } else if (prevItemLayout != null && prevButDelete != null ){
+        } else if (prevItemLayout != null && prevButDelete != null) {
             positionSelection = client.getId();
             AnimationHelper.animateItemSelected(item_layout, but_delete);
             AnimationHelper.animateItemDeselected(prevItemLayout, prevButDelete);
@@ -189,12 +250,25 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
         }
     }
 
+    /**
+     * Handles the delete click event on a client item in the RecyclerView.
+     *
+     * @param item_layout The layout of the item to be deleted
+     * @param but_delete  The delete button of the item
+     * @param client      The client object to be deleted
+     */
     @Override
     public void onDeleteClick(View item_layout, View but_delete, Client client) {
         viewModel.delete(client);
         AnimationHelper.cancelAnimation(item_layout, but_delete);
     }
 
+    /**
+     * Handles the click event on a client's photo.
+     *
+     * @param client The client object associated with the photo
+     * @param image  The image view clicked
+     */
     @Override
     public void onPhotoClick(Client client, View image) {
         if (positionSelection != client.getId()) {

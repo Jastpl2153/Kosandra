@@ -10,6 +10,13 @@ import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
 
+/**
+ * The Client class represents a client with various attributes such as photo, name, date of birth, phone number,
+ * <p>
+ * number of visits, hair length, hair color, hair density, and conversation details.
+ * <p>
+ * This class implements the Parcelable interface for serialization and deserialization.
+ */
 @Entity(tableName = "client")
 public class Client implements Parcelable {
     @PrimaryKey(autoGenerate = true)

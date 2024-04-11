@@ -5,6 +5,9 @@ import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
 
+/**
+ * Entity class representing a record of income details.
+ */
 @Entity(tableName = "income")
 public class Income {
     @PrimaryKey(autoGenerate = true)

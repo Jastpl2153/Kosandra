@@ -22,9 +22,12 @@ import com.example.kosandra.view_model.ExpensesViewModel;
 import com.example.kosandra.view_model.IncomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+/**
+ * A class representing a dialog fragment for adding financial statistics, such as income or expenses.
+ */
 public class AddFinancialStatisticsDialog extends BottomSheetDialogFragment implements EmptyFields {
     private DialogFinancialStatisticsAddBinding binding;
-    private  boolean type;
+    private boolean type;
 
     @Nullable
     @Override
@@ -43,8 +46,11 @@ public class AddFinancialStatisticsDialog extends BottomSheetDialogFragment impl
         DatePickerHelperDialog.setupDatePicker(binding.addDateFinance);
     }
 
-    private void typeIncomeExpenses(){
-        if (type){
+    /**
+     * Sets up the UI elements based on the type (income or expenses).
+     */
+    private void typeIncomeExpenses() {
+        if (type) {
             initSpinner(binding.spinnerAddFinance, R.array.type_income);
             binding.titleDialog.setText(R.string.title_dialog_add_income);
             binding.addNameFinance.setHint(R.string.what_income);
@@ -55,6 +61,12 @@ public class AddFinancialStatisticsDialog extends BottomSheetDialogFragment impl
         }
     }
 
+    /**
+     * Initializes a spinner with data from a specified array resource.
+     *
+     * @param spinner The Spinner to initialize
+     * @param arrayId The resource ID of the array to populate the Spinner
+     */
     private void initSpinner(Spinner spinner, int arrayId) {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 requireContext(),
@@ -65,9 +77,12 @@ public class AddFinancialStatisticsDialog extends BottomSheetDialogFragment impl
         spinner.setAdapter(adapter);
     }
 
-    private void addExpenses(){
+    /**
+     * Adds expenses or income based on the type selected.
+     */
+    private void addExpenses() {
         if (validateEmptyFields()) {
-            if (type){
+            if (type) {
                 IncomeViewModel incomeViewModel = new ViewModelProvider(requireActivity()).get(IncomeViewModel.class);
                 incomeViewModel.insert(initIncome());
             } else {
@@ -80,7 +95,12 @@ public class AddFinancialStatisticsDialog extends BottomSheetDialogFragment impl
         }
     }
 
-    private Expenses initExpenses(){
+    /**
+     * Initializes an Expenses object with the input data from UI elements.
+     *
+     * @return The initialized Expenses object
+     */
+    private Expenses initExpenses() {
         return new Expenses(
                 binding.spinnerAddFinance.getSelectedItem().toString(),
                 binding.addNameFinance.getText().toString(),
@@ -89,7 +109,12 @@ public class AddFinancialStatisticsDialog extends BottomSheetDialogFragment impl
         );
     }
 
-    private Income initIncome(){
+    /**
+     * Initializes an Income object with the input data from UI elements.
+     *
+     * @return The initialized Income object
+     */
+    private Income initIncome() {
         return new Income(
                 binding.spinnerAddFinance.getSelectedItem().toString(),
                 binding.addNameFinance.getText().toString(),
@@ -98,6 +123,11 @@ public class AddFinancialStatisticsDialog extends BottomSheetDialogFragment impl
         );
     }
 
+    /**
+     * Validates if all required fields are not empty.
+     *
+     * @return True if all fields are not empty, otherwise false
+     */
     @Override
     public boolean validateEmptyFields() {
         return !binding.addNameFinance.getText().toString().isEmpty() &&
@@ -105,6 +135,9 @@ public class AddFinancialStatisticsDialog extends BottomSheetDialogFragment impl
                 !binding.addDateFinance.getText().toString().isEmpty();
     }
 
+    /**
+     * Handles empty fields by applying visual cues to indicate required input.
+     */
     @Override
     public void handleEmptyFields() {
         isEmpty(binding.addNameFinance);

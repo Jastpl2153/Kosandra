@@ -14,6 +14,11 @@ import com.example.kosandra.db.returnSql.SqlIncomeHairstyleRangeDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter for RecyclerView displaying hairstyle income statistics.
+ * <p>
+ * This adapter populates the RecyclerView with data from a list of SqlIncomeHairstyleRangeDate objects.
+ */
 public class AdapterRVHairstyleIncome extends RecyclerView.Adapter<AdapterRVHairstyleIncome.Holder> {
     private final List<SqlIncomeHairstyleRangeDate> sqlIncomeHairstyleRangeDates = new ArrayList<>();
 
@@ -37,6 +42,11 @@ public class AdapterRVHairstyleIncome extends RecyclerView.Adapter<AdapterRVHair
         return sqlIncomeHairstyleRangeDates.size();
     }
 
+    /**
+     * Sets the list of SqlIncomeHairstyleRangeDate objects to be displayed.
+     *
+     * @param sqlIncomeHairstyleRangeDates The list of SqlIncomeHairstyleRangeDate objects
+     */
     public void setHairstyleIncomes(List<SqlIncomeHairstyleRangeDate> sqlIncomeHairstyleRangeDates) {
         this.sqlIncomeHairstyleRangeDates.clear();
         this.sqlIncomeHairstyleRangeDates.addAll(sqlIncomeHairstyleRangeDates);

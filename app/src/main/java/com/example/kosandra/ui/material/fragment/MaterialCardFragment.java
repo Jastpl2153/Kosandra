@@ -30,6 +30,11 @@ import com.example.kosandra.ui.general_logic.OpenImageFullScreen;
 import com.example.kosandra.ui.material.dialog.EditCardMaterialDialog;
 import com.example.kosandra.view_model.MaterialsViewModel;
 
+/**
+ * MaterialCardFragment class extends Fragment and implements OpenImageFullScreen interface
+ * <p>
+ * This fragment is responsible for displaying detailed information about a specific material
+ */
 public class MaterialCardFragment extends Fragment implements OpenImageFullScreen {
     private FragmentMaterialCardBinding binding;
     private Materials material;
@@ -51,20 +56,34 @@ public class MaterialCardFragment extends Fragment implements OpenImageFullScree
         binding.imageCardMaterial.setOnClickListener(v -> openFullScreen(binding.imageCardMaterial.getDrawable(), getContext()));
     }
 
-    private void getMaterial(){
+    /**
+     * Retrieves the material object from arguments
+     * Sets the material field or null if no arguments are present
+     */
+    private void getMaterial() {
         material = getArguments() != null ? getArguments().getParcelable("materials") : null;
     }
 
-    private void observeMaterial(){
+    /**
+     * Observes changes in the material object
+     * Initializes ViewModel and sets up data observables
+     */
+    private void observeMaterial() {
         if (material != null) {
             viewModel = new ViewModelProvider(this).get(MaterialsViewModel.class);
             viewModel.getMaterial(material.getId()).observe(getViewLifecycleOwner(), this::initSetFields);
         }
     }
 
+    /**
+     * Initializes views with material information
+     * Populates views based on the type of material
+     *
+     * @param materials Material object
+     */
     private void initSetFields(Materials materials) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(materials.getPhoto(), 0, materials.getPhoto().length);
-        Drawable drawable =  new BitmapDrawable(getResources(), bitmap);
+        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
         binding.imageCardMaterial.setImageDrawable(drawable);
         binding.typeMaterialInfo.setText(materials.getTypeMaterials());
         binding.colorMaterialInfo.setText(materials.getColorMaterial());
@@ -85,6 +104,15 @@ public class MaterialCardFragment extends Fragment implements OpenImageFullScree
         }
     }
 
+    /**
+     * Populates the material information based on the provided Materials object, padding index, and array of hidden view indices.
+     * <p>
+     * Sets padding, hides specified views, and displays material information based on the type of material.
+     *
+     * @param materials         The Materials object containing material information
+     * @param paddingChildIndex The index of the child view in the grid layout to set padding
+     * @param hiddenViewIndices Array of indices of views in the grid layout to hide
+     */
     private void populateMaterialInfo(Materials materials, int paddingChildIndex, int[] hiddenViewIndices) {
         binding.gridLayoutCardInfo.getChildAt(paddingChildIndex).setPadding(0, 0, 0, convertDpToPx(50));
         hideViews(binding.gridLayoutCardInfo, hiddenViewIndices);
@@ -97,23 +125,45 @@ public class MaterialCardFragment extends Fragment implements OpenImageFullScree
         }
     }
 
+    /**
+     * Hides views in the grid layout based on the specified indices.
+     *
+     * @param gridLayout The grid layout containing the views to hide
+     * @param indices    The indices of views to hide
+     */
     private void hideViews(GridLayout gridLayout, int... indices) {
         for (int index : indices) {
             gridLayout.getChildAt(index).setVisibility(View.GONE);
         }
     }
 
+    /**
+     * Hides specific views in the grid layout and sets padding for a particular child view.
+     *
+     * @param hiddenViewIndices Array of indices of views to hide
+     */
     private void hideMaterialInfo(int[] hiddenViewIndices) {
         hideViews(binding.gridLayoutCardInfo, hiddenViewIndices);
         binding.gridLayoutCardInfo.getChildAt(4).setPadding(0, 0, 0, convertDpToPx(50));
     }
 
+    /**
+     * Converts density-independent pixels (dp) to pixels (px).
+     *
+     * @param dp The value in dp to convert
+     * @return The converted value in pixels (px)
+     */
     private int convertDpToPx(int dp) {
         float scale = getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
     }
 
-    private void initMenu(){
+    /**
+     * Initializes the menu by providing menu options for editing and deleting materials.
+     * <p>
+     * Implements the MenuProvider interface to inflate menu items and handle menu item selection.
+     */
+    private void initMenu() {
         MenuProvider provider = new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
@@ -122,11 +172,11 @@ public class MaterialCardFragment extends Fragment implements OpenImageFullScree
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-                if (R.id.menu_edit_material == menuItem.getItemId()){
+                if (R.id.menu_edit_material == menuItem.getItemId()) {
                     editMaterial();
                     return true;
                 }
-                if (R.id.menu_delete_material == menuItem.getItemId()){
+                if (R.id.menu_delete_material == menuItem.getItemId()) {
                     openConfirmationDialog();
                     return true;
                 }
@@ -136,12 +186,18 @@ public class MaterialCardFragment extends Fragment implements OpenImageFullScree
         requireActivity().addMenuProvider(provider, getViewLifecycleOwner());
     }
 
+    /**
+     * Opens the EditCardMaterialDialog for editing the material information.
+     */
     private void editMaterial() {
         EditCardMaterialDialog dialog = new EditCardMaterialDialog();
         dialog.setArguments(initBundleClient());
         dialog.show(getParentFragmentManager(), "DialogEditMaterial");
     }
 
+    /**
+     * Opens a confirmation dialog for deleting the material.
+     */
     private void openConfirmationDialog() {
         ConfirmationDialog dialog = new ConfirmationDialog(
                 getContext(),
@@ -158,12 +214,20 @@ public class MaterialCardFragment extends Fragment implements OpenImageFullScree
         dialog.show();
     }
 
+    /**
+     * Deletes the current material and navigates back to the material list.
+     */
     private void deleteMaterial() {
         viewModel.delete(material);
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         navController.popBackStack(R.id.navigation_material, false);
     }
 
+    /**
+     * Initializes a Bundle with the current material object.
+     *
+     * @return The Bundle containing the material object
+     */
     private Bundle initBundleClient() {
         Bundle arg = new Bundle();
         arg.putParcelable("materials", material);
