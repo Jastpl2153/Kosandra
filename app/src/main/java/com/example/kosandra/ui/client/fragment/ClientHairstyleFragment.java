@@ -37,6 +37,11 @@ import com.example.kosandra.view_model.MaterialsViewModel;
 
 import java.util.concurrent.Executors;
 
+/**
+ * ClientHairstyleFragment class represents a fragment for displaying and managing client's hairstyle information.
+ * <p>
+ * This class extends Fragment and implements OpenImageFullScreen interface.
+ */
 public class ClientHairstyleFragment extends Fragment implements OpenImageFullScreen {
     private FragmentClientHairstyleBinding binding;
     private HairstyleVisit hairstyleVisit;
@@ -48,6 +53,7 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
         binding = FragmentClientHairstyleBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -57,10 +63,16 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
         binding.imageCardHairstyle.setOnClickListener(v -> openFullScreen(binding.imageCardHairstyle.getDrawable(), getContext()));
     }
 
-    private void getHairstyleVisit(){
+    /**
+     * getHairstyleVisit method retrieves the HairstyleVisit object from the arguments passed to the fragment.
+     */
+    private void getHairstyleVisit() {
         hairstyleVisit = getArguments() != null ? getArguments().getParcelable("visit") : null;
     }
 
+    /**
+     * initMenu method initializes the menu for editing and deleting the hairstyle.
+     */
     private void initMenu() {
         MenuProvider provider = new MenuProvider() {
             @Override
@@ -70,11 +82,11 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-                if (menuItem.getItemId() == R.id.menu_edit_hairstyle){
+                if (menuItem.getItemId() == R.id.menu_edit_hairstyle) {
                     editHairstyle();
                     return true;
                 }
-                if (menuItem.getItemId() == R.id.menu_delete_hairstyle){
+                if (menuItem.getItemId() == R.id.menu_delete_hairstyle) {
                     openConfirmationDialog();
                     return true;
                 }
@@ -84,12 +96,18 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
         requireActivity().addMenuProvider(provider, getViewLifecycleOwner());
     }
 
+    /**
+     * editHairstyle method opens a dialog for editing the hairstyle.
+     */
     private void editHairstyle() {
         AddEditHairstyleDialog dialog = new AddEditHairstyleDialog();
         dialog.setArguments(initBundleClient());
         dialog.show(getParentFragmentManager(), "DialogAddHairstyle");
     }
 
+    /**
+     * openConfirmationDialog method opens a confirmation dialog for deleting the hairstyle visit.
+     */
     private void openConfirmationDialog() {
         ConfirmationDialog dialog = new ConfirmationDialog(
                 getContext(),
@@ -106,9 +124,12 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
         dialog.show();
     }
 
+    /**
+     * deleteHairstyle method deletes the current hairstyle visit and updates the UI accordingly.
+     */
     private void deleteHairstyle() {
         Executors.newSingleThreadExecutor().execute(() -> {
-            KosandraDataBase.getInstance(requireContext()).runInTransaction(() ->{
+            KosandraDataBase.getInstance(requireContext()).runInTransaction(() -> {
                 viewModel.delete(hairstyleVisit);
                 minusCountVisitClient();
                 returnValueCountMaterial();
@@ -118,12 +139,18 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
         navController.popBackStack(R.id.clientCardFragment, false);
     }
 
+    /**
+     * observeHairstyle method observes changes in the hairstyle visit and updates the UI accordingly.
+     */
     private void observeHairstyle() {
         viewModel = new ViewModelProvider(requireActivity()).get(HairstyleVisitViewModel.class);
         viewModel.getHairstyleVisit(hairstyleVisit.getId()).observe(getViewLifecycleOwner(), hairstyleVisit1 -> initSetField());
     }
 
-    private void initSetField(){
+    /**
+     * initSetField method initializes and sets the UI fields with the data from the current hairstyle visit.
+     */
+    private void initSetField() {
         if (hairstyleVisit != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(hairstyleVisit.getPhotoHairstyle(), 0, hairstyleVisit.getPhotoHairstyle().length);
             binding.imageCardHairstyle.setImageBitmap(bitmap);
@@ -137,6 +164,9 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
         }
     }
 
+    /**
+     * initSetUseMaterials method initializes and sets the UI with the materials used in the hairstyle visit.
+     */
     private void initSetUseMaterials() {
         for (int i = 0; i < hairstyleVisit.getCodeMaterial().length; i++) {
             View view = LayoutInflater.from(requireContext()).inflate(R.layout.item_client_card_hairstyle_material, binding.layoutCardHairstyle, false);
@@ -150,20 +180,26 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
         }
     }
 
-    private void minusCountVisitClient () {
+    /**
+     * minusCountVisitClient method decrements the number of visits for the current client.
+     */
+    private void minusCountVisitClient() {
         Client client = getArguments() != null ? getArguments().getParcelable("client") : null;
         ClientViewModel clientViewModel = new ViewModelProvider(requireActivity()).get(ClientViewModel.class);
         assert client != null;
-        if (client.getNumberOfVisits() > 0){
+        if (client.getNumberOfVisits() > 0) {
             client.setNumberOfVisits(client.getNumberOfVisits() - 1);
             clientViewModel.update(client);
         }
     }
 
-    private void returnValueCountMaterial () {
+    /**
+     * returnValueCountMaterial method updates the count of materials used in the hairstyle visit.
+     */
+    private void returnValueCountMaterial() {
         MaterialsViewModel materialsViewModel = new ViewModelProvider(requireActivity()).get(MaterialsViewModel.class);
         int countMaterials = hairstyleVisit.getCountMaterial().length;
-        for (int i = 0; i < countMaterials ; i++) {
+        for (int i = 0; i < countMaterials; i++) {
             LinearLayout linearLayout = (LinearLayout) binding.layoutCardHairstyle.getChildAt(binding.layoutCardHairstyle.getChildCount() - countMaterials + i);
             TextView countUse = linearLayout.findViewById(R.id.card_hairstyle_use_material_count);
             Materials material = materialsViewModel.getMaterial(hairstyleVisit.getCodeMaterial()[i].trim());
@@ -172,6 +208,11 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
         }
     }
 
+    /**
+     * initBundleClient method initializes a Bundle with the necessary data for editing the client's hairstyle.
+     *
+     * @return Bundle containing the hairstyle visit and logic for editing.
+     */
     private Bundle initBundleClient() {
         Bundle arg = new Bundle();
         arg.putParcelable("hairstyle", hairstyleVisit);

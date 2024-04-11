@@ -27,6 +27,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.List;
 
+/**
+ * AddEditRecordsDialog class represents a dialog fragment that allows users to add or edit records.
+ * <p>
+ * It extends BottomSheetDialogFragment and implements EmptyFields interface.
+ * <p>
+ * The class contains various methods for initializing view models, setting up client lists, handling logic for
+ * <p>
+ * adding or editing records, validating empty fields, handling empty fields, and performing database operations for records.
+ */
 public class AddEditRecordsDialog extends BottomSheetDialogFragment implements EmptyFields {
     private DialogRecordsAddEditBinding binding;
     private int selectedClientId = -1;
@@ -54,15 +63,26 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
         initLogic();
     }
 
-    private void initViewModel(){
+    /**
+     * initViewModel method initializes clientViewModel and recordsViewModel.
+     */
+    private void initViewModel() {
         clientViewModel = new ViewModelProvider(requireActivity()).get(ClientViewModel.class);
         recordsViewModel = new ViewModelProvider(requireActivity()).get(RecordsViewModel.class);
     }
 
+    /**
+     * initListClient method observes changes in the list of clients and sets up the client list in the UI.
+     */
     private void initListClient() {
         clientViewModel.getAllClients().observe(getViewLifecycleOwner(), this::setupClientList);
     }
 
+    /**
+     * setupClientList method sets up the client list in the UI using the provided list of clients.
+     *
+     * @param clients The list of clients to be displayed.
+     */
     private void setupClientList(List<Client> clients) {
         ArrayAdapter<Client> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, clients);
         binding.addEditRecordClient.setAdapter(adapter);
@@ -83,8 +103,7 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
                     if (client.getName().equals(binding.addEditRecordClient.getText().toString())) {
                         selectedClientId = client.getId();
                         break;
-                    }
-                    else {
+                    } else {
                         selectedClientId = -1;
                     }
                 }
@@ -96,6 +115,11 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
         });
     }
 
+    /**
+     * This method initializes the logic based on the value of the "logic" key from the arguments.
+     * <p>
+     * It executes either the "addLogic()" method or the "editLogic()" method based on the value of the "logic" key.
+     */
     private void initLogic() {
         String logic = arguments.getString("logic");
 
@@ -109,6 +133,11 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
         }
     }
 
+    /**
+     * This method validates if all the required fields for adding or editing a record are not empty.
+     *
+     * @return true if all fields are not empty, false otherwise
+     */
     @Override
     public boolean validateEmptyFields() {
         return !binding.addEditRecordDate.getText().toString().isEmpty() &&
@@ -118,6 +147,9 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
                 !binding.addEditRecordCost.getText().toString().isEmpty();
     }
 
+    /**
+     * This method handles empty fields by calling the "isEmpty()" method for each binding field.
+     */
     @Override
     public void handleEmptyFields() {
         isEmpty(binding.addEditRecordDate);
@@ -127,6 +159,12 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
         isEmpty(binding.addEditRecordCost);
     }
 
+    /**
+     * This method validates if the selected client ID is valid.
+     * If the client ID is invalid, it animates the empty field and displays a toast message.
+     *
+     * @return true if client ID is valid, false otherwise
+     */
     private boolean validateClientDataBase() {
         if (selectedClientId == -1) {
             animateEmptyField(binding.addEditRecordClient, requireContext());
@@ -136,11 +174,17 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
         return true;
     }
 
-    // Методы добавления
+    /**
+     * This method sets up the logic for adding a record.
+     * It sets a click listener for the "save" button to add a new record.
+     */
     private void addLogic() {
         binding.saveRecord.setOnClickListener(v -> addRecord());
     }
 
+    /**
+     * This method adds a new record if all fields are valid, otherwise it handles empty fields.
+     */
     private void addRecord() {
         if (validateEmptyFields() && validateClientDataBase()) {
             try {
@@ -154,6 +198,11 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
         }
     }
 
+    /**
+     * This method initializes a new record object based on the input from the user interface fields.
+     *
+     * @return a new Record object with the provided details
+     */
     private Record initRecord() {
         return new Record(
                 selectedClientId,
@@ -163,13 +212,19 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
                 Integer.parseInt(binding.addEditRecordCost.getText().toString()));
     }
 
-    //методы изменения
+    /**
+     * This method sets up the logic for editing an existing record.
+     * It retrieves the record from the arguments and initializes the fields with the record details.
+     */
     private void editLogic() {
         record = arguments.getParcelable("record");
         initField();
         binding.saveRecord.setOnClickListener(v -> editRecord());
     }
 
+    /**
+     * This method initializes the edit fields with the details of the selected record.
+     */
     private void initField() {
         binding.addEditRecordDate.setText(DatePickerHelperDialog.parseDateOutput(record.getVisitDate()));
         binding.addEditRecordTime.setText(record.getTimeSpent().toString());
@@ -182,6 +237,10 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
         binding.addEditRecordCost.setText(String.valueOf(record.getCost()));
     }
 
+    /**
+     * This method updates the record with the new values from the user interface fields.
+     * It then checks if all fields are valid before updating the record.
+     */
     private void editRecord() {
         setRecord();
         if (validateEmptyFields() && validateClientDataBase()) {
@@ -196,6 +255,9 @@ public class AddEditRecordsDialog extends BottomSheetDialogFragment implements E
         }
     }
 
+    /**
+     * This method updates the fields of the record object with the new values from the user interface.
+     */
     private void setRecord() {
         record.setClientId(selectedClientId);
         record.setVisitDate(DatePickerHelperDialog.parseDateDataBase(binding.addEditRecordDate.getText().toString()));

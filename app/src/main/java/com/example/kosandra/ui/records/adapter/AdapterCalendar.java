@@ -18,12 +18,27 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * AdapterCalendar class is responsible for adapting the calendar data to be displayed in a RecyclerView.
+ * <p>
+ * It holds lists of LocalDate objects representing days of the month and Record objects representing visits,
+ * <p>
+ * as well as the click listener and the application context.
+ * <p>
+ * The class provides the necessary functionality to bind the data to the calendar view items.
+ */
 public class AdapterCalendar extends RecyclerView.Adapter<AdapterCalendar.CalendarHolder> {
     private List<LocalDate> dayOfMonth = new ArrayList<>();
     private List<Record> recordsVisit = new ArrayList<>();
     private OnClickCalendar clickListener;
     private Context mContext;
 
+    /**
+     * Constructor for AdapterCalendar class.
+     *
+     * @param clickListener An interface for handling calendar item clicks.
+     * @param mContext      The application context.
+     */
     public AdapterCalendar(OnClickCalendar clickListener, Context mContext) {
         this.clickListener = clickListener;
         this.mContext = mContext;
@@ -64,12 +79,22 @@ public class AdapterCalendar extends RecyclerView.Adapter<AdapterCalendar.Calend
         return dayOfMonth.size();
     }
 
+    /**
+     * Sets the list of days of the month to be displayed.
+     *
+     * @param dayOfMonth The list of LocalDate objects representing days of the month.
+     */
     public void setDayOfMonth(List<LocalDate> dayOfMonth) {
         this.dayOfMonth.clear();
         this.dayOfMonth.addAll(dayOfMonth);
         notifyDataSetChanged();
     }
 
+    /**
+     * Sets the list of visit records to be displayed.
+     *
+     * @param recordsVisit The list of Record objects representing visit records.
+     */
     public void setVisitClient(List<Record> recordsVisit) {
         this.recordsVisit = recordsVisit;
         notifyDataSetChanged();
@@ -94,7 +119,12 @@ public class AdapterCalendar extends RecyclerView.Adapter<AdapterCalendar.Calend
             });
         }
 
-        private void setHeight(Context context){
+        /**
+         * Sets the height of the calendar cell based on the screen dimensions.
+         *
+         * @param context The application context.
+         */
+        private void setHeight(Context context) {
             ViewGroup.LayoutParams params = itemView.getLayoutParams();
             int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
             int screenHeight = context.getResources().getDisplayMetrics().heightPixels;

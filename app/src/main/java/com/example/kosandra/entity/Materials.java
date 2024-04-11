@@ -8,6 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * This class represents a material used for crafting projects.
+ * <p>
+ * It stores information such as material type, color, code, photo, count, cost, Kanekalon type,
+ * <p>
+ * manufacturer, curl type, length, and rating.
+ */
 @Entity(tableName = "materials")
 public class Materials implements Parcelable {
     @PrimaryKey(autoGenerate = true)

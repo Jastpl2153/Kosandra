@@ -29,7 +29,7 @@
             android:id="@+id/et_name_hairstyle"
             style="@style/EditTextStyle"
             android:hint="@string/name_hairstyle"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:autofillHints="username" />
 
         <EditText

@@ -5,6 +5,13 @@ import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
 
+/**
+ * The Expenses class represents an entity for storing expenses in the database.
+ * <p>
+ * Each expense record includes a unique identifier, type of expenses, name of expenses,
+ * <p>
+ * cost, and date of the expense.
+ */
 @Entity(tableName = "expenses")
 public class Expenses {
     @PrimaryKey(autoGenerate = true)

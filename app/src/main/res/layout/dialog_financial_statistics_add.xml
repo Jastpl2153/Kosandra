@@ -25,7 +25,7 @@
         android:id="@+id/add_name_finance"
         style="@style/EditTextStyle"
         android:hint="@string/expenses_type"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:autofillHints="text"/>
 
     <EditText

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,269 +8,293 @@
     android:fillViewport="false"
     tools:context=".ui.financial_statistics.fragment.FinancialStatisticsMainFragment">
 
-    <LinearLayout
-        android:id="@+id/linear_layout_financial_statistics"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/bar_charts"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="@dimen/margin_ten"
-            android:layout_marginBottom="@dimen/margin_ten" />
 
-        <View
-            style="@style/DividerView"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <TextView
-            style="@style/TextViewGridLayoutInfo"
-            android:layout_marginTop="0dp"
+        <LinearLayout
+            android:id="@+id/linear_layout_financial_statistics"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/enter_range" />
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/but_now_period"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/now"
-            android:layout_marginEnd="@dimen/margin_ten"
-            android:backgroundTint="@color/blue_500"
-            android:layout_gravity="end"
-            android:textSize="10sp"
-           android:minHeight="@dimen/margin_ten"
-            android:minWidth="@dimen/margin_ten"/>
-    </LinearLayout>
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/bar_charts"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_ten" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_ten"
-            android:layout_marginEnd="@dimen/margin_ten"
-            android:orientation="horizontal">
+            <View style="@style/DividerView" />
 
-            <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextViewGridLayoutInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/enter_range" />
+
+                <Button
+                    android:id="@+id/but_now_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/margin_ten"
+                    android:backgroundTint="@color/blue_500"
+                    android:minWidth="@dimen/margin_ten"
+                    android:minHeight="@dimen/margin_ten"
+                    android:text="@string/now"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/from"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/from_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="@string/data"
+                    android:inputType="date" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/before"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/before_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="@string/data"
+                    android:inputType="date" />
+
+            </LinearLayout>
+
+            <View style="@style/DividerView" />
+
+            <LinearLayout
+                android:id="@+id/linear_income_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/most_popular_hairstyle"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_popular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="2"
+                    android:text="@string/name_hairstyle"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_popular_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/count"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_income_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/most_profitable_hairstyle"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_profitable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="2"
+                    android:text="@string/name_hairstyle"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_profitable_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/count"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line_income"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/blue_500" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title_finance_rv_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/name_hairstyle_income"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/title_finance_rv_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/do_hair"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/title_finance_rv_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/avg_price"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_main_financial_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_twenty"
+                android:nestedScrollingEnabled="false" />
+
+            <View
+                android:id="@+id/line_income_rv"
+                style="@style/DividerView" />
+
+            <LinearLayout
+                android:id="@+id/linear_layout_title_income_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/come_income"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/income"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/data"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_income_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_twenty"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/progressBar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/from"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/from_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:ems="10"
-                android:focusable="false"
-                android:inputType="date"
-                android:hint="@string/data"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/before"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/before_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:ems="10"
-                android:focusable="false"
-                android:inputType="date"
-                android:hint="@string/data"/>
-
-        </LinearLayout>
-
-        <View
-           style="@style/DividerView" />
-
-        <LinearLayout
-            android:id="@+id/linear_income_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/margin_ten"
-            android:layout_marginEnd="@dimen/margin_ten"
-            android:layout_marginBottom="@dimen/margin_ten">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/most_popular_hairstyle"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_popular"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="2"
-                android:text="@string/name_hairstyle"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_popular_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:text="@string/count"
-                android:textAlignment="textEnd"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_income_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_ten"
-            android:layout_marginEnd="@dimen/margin_ten"
-            android:layout_marginBottom="@dimen/margin_ten"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/most_profitable_hairstyle"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_profitable"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="2"
-                android:text="@string/name_hairstyle"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_profitable_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:text="@string/count"
-                android:textAlignment="textEnd"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/line_income"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/blue_500" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_ten"
-            android:layout_marginEnd="@dimen/margin_ten"
-            android:layout_marginBottom="@dimen/margin_ten"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/title_finance_rv_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/name_hairstyle_income"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/title_finance_rv_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/do_hair"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/title_finance_rv_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/avg_price"
-                android:textAlignment="textEnd"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_main_financial_statistics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_ten"
-            android:layout_marginEnd="@dimen/margin_ten"
-            android:layout_marginBottom="@dimen/margin_twenty"
-            android:nestedScrollingEnabled="false" />
-
-        <View
-            android:id="@+id/line_income_rv"
-            style="@style/DividerView" />
-
-        <LinearLayout
-            android:id="@+id/linear_layout_title_income_other"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_ten"
-            android:layout_marginEnd="@dimen/margin_ten"
-            android:layout_marginBottom="@dimen/margin_ten"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/come_income"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/income"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/data"
-                android:textAlignment="textEnd"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_income_other"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_ten"
-            android:layout_marginEnd="@dimen/margin_ten"
-            android:layout_marginBottom="@dimen/margin_twenty"
-            android:nestedScrollingEnabled="false" />
-    </LinearLayout>
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -20,18 +20,42 @@ import com.example.kosandra.ui.general_logic.GalleryHandlerInterface;
 import com.example.kosandra.view_model.ClientViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+/**
+ * EditCardClientDialog class represents a dialog fragment for editing client details.
+ * <p>
+ * This class extends BottomSheetDialogFragment and implements GalleryHandlerInterface and EmptyFields interfaces.
+ * <p>
+ * It provides functionality to edit and save client information.
+ */
 public class EditCardClientDialog extends BottomSheetDialogFragment implements GalleryHandlerInterface, EmptyFields {
+    /**
+     * Binding object for DialogClientEditCardBinding layout.
+     */
     private DialogClientEditCardBinding binding;
+    /**
+     * Client object to store and manipulate client information.
+     */
     private Client client;
+    /**
+     * ActivityResultLauncher to get content from external sources.
+     */
     private ActivityResultLauncher<String> getContentLauncher;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DialogClientEditCardBinding.inflate(inflater, container, false);;
+        binding = DialogClientEditCardBinding.inflate(inflater, container, false);
+        ;
         return binding.getRoot();
     }
 
+    /**
+     * Called immediately after onCreateView and ensures that the view is fully initialized.
+     * It initializes client information, sets up date picker, and handles button clicks.
+     *
+     * @param view               The view returned by onCreateView
+     * @param savedInstanceState The previous state of the fragment
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -45,10 +69,16 @@ public class EditCardClientDialog extends BottomSheetDialogFragment implements G
         }
     }
 
+    /**
+     * Retrieves client object from the arguments passed to the fragment.
+     */
     private void getClient() {
         client = getArguments() != null ? getArguments().getParcelable("client") : null;
     }
 
+    /**
+     * Initializes fields in the layout based on client information.
+     */
     private void initFields() {
         Bitmap bitmap = BitmapFactory.decodeByteArray(client.getPhoto(), 0, client.getPhoto().length);
         binding.editClientImage.setImageBitmap(bitmap);
@@ -62,6 +92,11 @@ public class EditCardClientDialog extends BottomSheetDialogFragment implements G
         binding.etEditTalkingClient.setText(client.getConversationDetails());
     }
 
+    /**
+     * Saves edited client information to the database.
+     * If fields are not empty, updates the client details, saves data, and dismisses the dialog.
+     * If fields are empty, displays error messages for empty fields.
+     */
     private void saveClient() {
         if (validateEmptyFields()) {
             setClient();
@@ -72,6 +107,9 @@ public class EditCardClientDialog extends BottomSheetDialogFragment implements G
         }
     }
 
+    /**
+     * Sets the client object with updated information from the UI elements.
+     */
     private void setClient() {
         client.setPhoto(getImageGallery(binding.editClientImage.getDrawable(), getResources()));
         client.setName(binding.etEditNameClient.getText().toString());
@@ -84,17 +122,28 @@ public class EditCardClientDialog extends BottomSheetDialogFragment implements G
         client.setConversationDetails(binding.etEditTalkingClient.getText().toString());
     }
 
+    /**
+     * Saves the updated client data to the ViewModel.
+     */
     private void saveClientData() {
         ClientViewModel viewModel = new ViewModelProvider(requireActivity()).get(ClientViewModel.class);
         viewModel.update(client);
     }
 
+    /**
+     * Validates if essential fields are not empty.
+     *
+     * @return True if name and phone fields are not empty, false otherwise
+     */
     @Override
     public boolean validateEmptyFields() {
         return !binding.etEditNameClient.getText().toString().isEmpty() &&
                 !binding.etEditPhoneClient.getText().toString().isEmpty();
     }
 
+    /**
+     * Shows error messages for empty fields by highlighting them in the UI.
+     */
     @Override
     public void handleEmptyFields() {
         isEmpty(binding.etEditNameClient);

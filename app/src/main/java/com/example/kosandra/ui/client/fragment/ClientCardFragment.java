@@ -33,11 +33,16 @@ import com.example.kosandra.ui.general_logic.OpenImageFullScreen;
 import com.example.kosandra.view_model.ClientViewModel;
 import com.example.kosandra.view_model.HairstyleVisitViewModel;
 
+/**
+ * ClientCardFragment is a Fragment used to display detailed information about a specific client, including their personal details and hairstyle visits.
+ * <p>
+ * It implements ClientCardClickListener interface to handle click events on client card items, and OpenImageFullScreen interface to open client image in full screen.
+ */
 public class ClientCardFragment extends Fragment implements ClientCardClickListener, OpenImageFullScreen {
-    private Client client;
-    private FragmentClientCardBinding binding;
-    private AdapterRVClientHairstyle adapter;
-    private HairstyleVisitViewModel viewModel;
+    private Client client; // The client object whose information is being displayed
+    private FragmentClientCardBinding binding; // View binding for the fragment layout
+    private AdapterRVClientHairstyle adapter; // Adapter for RecyclerView displaying hairstyle visits
+    private HairstyleVisitViewModel viewModel; // ViewModel for fetching and observing hairstyle visits data
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,20 +62,31 @@ public class ClientCardFragment extends Fragment implements ClientCardClickListe
         binding.clientImageCard.setOnClickListener(v -> openFullScreen(binding.clientImageCard.getDrawable(), getContext()));
     }
 
-    private void getClient(){
+    /**
+     * Retrieves the client object from the arguments passed to the fragment, if available.
+     */
+    private void getClient() {
         client = getArguments() != null ? getArguments().getParcelable("client") : null;
     }
 
-    private void observeClient(){
+    /**
+     * Observes changes to the client data and updates the UI accordingly.
+     */
+    private void observeClient() {
         if (client != null) {
             ClientViewModel viewModel = new ViewModelProvider(this).get(ClientViewModel.class);
             viewModel.getClient(client.getId()).observe(getViewLifecycleOwner(), this::displayClientInfo);
         }
     }
 
+    /**
+     * Display the information of the client in the UI.
+     *
+     * @param client The client object whose information is to be displayed
+     */
     private void displayClientInfo(Client client) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(client.getPhoto(), 0, client.getPhoto().length);
-        Drawable drawable =  new BitmapDrawable(getResources(), bitmap);
+        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
         binding.clientImageCard.setImageDrawable(drawable);
         binding.txClientName.setText(client.getName());
         binding.tvClientPhone.setText(client.getNumberPhone());
@@ -82,13 +98,19 @@ public class ClientCardFragment extends Fragment implements ClientCardClickListe
         binding.tvSpeakClient.setText(client.getConversationDetails());
     }
 
+    /**
+     * Initializes the RecyclerView for displaying hairstyle visits.
+     */
     private void initRVHairstyle() {
         adapter = new AdapterRVClientHairstyle(this);
         binding.rvVisit.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvVisit.setAdapter(adapter);
     }
 
-    private void observeHairstyleVisits(){
+    /**
+     * Observes hairstyle visits data changes and updates the RecyclerView adapter.
+     */
+    private void observeHairstyleVisits() {
         viewModel = new ViewModelProvider(requireActivity()).get(HairstyleVisitViewModel.class);
         viewModel.getAllClientHairstyles(client.getId()).observe(getViewLifecycleOwner(), visits -> {
             if (visits != null) {
@@ -97,7 +119,10 @@ public class ClientCardFragment extends Fragment implements ClientCardClickListe
         });
     }
 
-    private void initMenu(){
+    /**
+     * Initializes the menu options for the fragment.
+     */
+    private void initMenu() {
         MenuProvider menuProvider = new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
@@ -106,11 +131,11 @@ public class ClientCardFragment extends Fragment implements ClientCardClickListe
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-                if (menuItem.getItemId() == R.id.menu_edit){
+                if (menuItem.getItemId() == R.id.menu_edit) {
                     editClient();
                     return true;
                 }
-                if (menuItem.getItemId() == R.id.menu_add_hairstyle){
+                if (menuItem.getItemId() == R.id.menu_add_hairstyle) {
                     addHairstyle();
                     return true;
                 }
@@ -120,24 +145,42 @@ public class ClientCardFragment extends Fragment implements ClientCardClickListe
         requireActivity().addMenuProvider(menuProvider, getViewLifecycleOwner());
     }
 
-    private void editClient(){
+    /**
+     * Opens a dialog to edit client details.
+     */
+    private void editClient() {
         EditCardClientDialog editCardClientDialog = new EditCardClientDialog();
         editCardClientDialog.setArguments(initBundleClient());
         editCardClientDialog.show(getParentFragmentManager(), "DialogEditClient");
     }
 
-    private void addHairstyle(){
+    /**
+     * Opens a dialog to add a new hairstyle visit for the client.
+     */
+    private void addHairstyle() {
         AddEditHairstyleDialog dialog = new AddEditHairstyleDialog();
         dialog.setArguments(initBundleClient());
         dialog.show(getParentFragmentManager(), "DialogAddHairstyle");
     }
 
+    /**
+     * Creates a Bundle containing client data for passing to dialogs.
+     *
+     * @return A Bundle containing client data
+     */
     private Bundle initBundleClient() {
         Bundle arg = new Bundle();
         arg.putParcelable("client", client);
         arg.putString("logic", "add");
-       return arg;
+        return arg;
     }
+
+    /**
+     * Handles item click events on hairstyle visit items in the RecyclerView.
+     *
+     * @param view           The view that was clicked
+     * @param hairstyleVisit The clicked HairstyleVisit object
+     */
     @Override
     public void onItemClick(View view, HairstyleVisit hairstyleVisit) {
         Bundle bundle = new Bundle();

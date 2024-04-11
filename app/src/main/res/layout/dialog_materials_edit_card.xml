@@ -33,14 +33,14 @@
         style="@style/EditTextStyle"
         android:autofillHints="text"
         android:hint="@string/color_material"
-        android:inputType="text" />
+        android:inputType="textCapSentences" />
 
     <EditText
         android:id="@+id/edit_code_material"
         style="@style/EditTextStyle"
         android:autofillHints="text"
         android:hint="@string/code_material"
-        android:inputType="text" />
+        android:inputType="textCapSentences" />
 
     <EditText
         android:id="@+id/edit_count_material"

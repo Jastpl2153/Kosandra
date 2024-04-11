@@ -33,14 +33,14 @@
         style="@style/EditTextStyle"
         android:autofillHints="text"
         android:hint="@string/name_surname"
-        android:inputType="text" />
+        android:inputType="textCapWords" />
 
     <EditText
         android:id="@+id/add_edit_record_hairstyle"
         style="@style/EditTextStyle"
         android:autofillHints="text"
         android:hint="@string/name_hairstyle"
-        android:inputType="text" />
+        android:inputType="textCapSentences" />
 
     <EditText
         android:id="@+id/add_edit_record_cost"

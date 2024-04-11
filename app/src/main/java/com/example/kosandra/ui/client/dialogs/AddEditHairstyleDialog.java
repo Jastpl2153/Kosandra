@@ -41,22 +41,24 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Class representing a dialog for adding or editing a client's hairstyle, extending BottomSheetDialogFragment.
+ * Implements GalleryHandlerInterface and EmptyFields for handling gallery functions and empty field validation.
+ */
 public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements GalleryHandlerInterface, EmptyFields {
-    private DialogClientAddEditHairstyleBinding binding;
-    private ActivityResultLauncher<String> getContentLauncher;
-    private MaterialsViewModel materialsViewModel;
-    private HairstyleVisitViewModel hairstyleVisitViewModel;
-    private Client client;
-    private HairstyleVisit hairstyleVisit;
-    private Bundle arguments;
-    private int countFieldUseMaterial = 1;
-    private List<AutoCompleteTextView> listCodeUseMaterials;
-    private List<EditText> listCountUseMaterials;
-    //
-    private int[] prevCountMaterials;
-    private String[] prevCodeMaterials;
-    List<String> dateBaseListCodeMaterial;
-
+    private DialogClientAddEditHairstyleBinding binding; // Binding for dialog layout
+    private ActivityResultLauncher<String> getContentLauncher; // Launcher for gallery content
+    private MaterialsViewModel materialsViewModel; // ViewModel for materials
+    private HairstyleVisitViewModel hairstyleVisitViewModel; // ViewModel for hairstyle visits
+    private Client client; // Current client
+    private HairstyleVisit hairstyleVisit; // Current hairstyle visit
+    private Bundle arguments; // Arguments bundle
+    private int countFieldUseMaterial = 1; // Count of material fields
+    private List<AutoCompleteTextView> listCodeUseMaterials; // List of code input fields
+    private List<EditText> listCountUseMaterials; // List of count input fields
+    private int[] prevCountMaterials; // Previous count of materials
+    private String[] prevCodeMaterials; // Previous codes of materials
+    private List<String> dateBaseListCodeMaterial; // List of all material codes from database
 
     @Nullable
     @Override
@@ -81,17 +83,26 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         binding.butMinusUseMaterial.setOnClickListener(v -> minusFieldUseMaterial());
     }
 
-
-    // Общие методы
-    private void initViewModel(){
+    /**
+     * Initializes the view models for materials and hairstyle visits.
+     */
+    private void initViewModel() {
         materialsViewModel = new ViewModelProvider(requireActivity()).get(MaterialsViewModel.class);
         hairstyleVisitViewModel = new ViewModelProvider(requireActivity()).get(HairstyleVisitViewModel.class);
     }
-    private void getListCodeMaterials(){
+
+    /**
+     * Retrieves the list of material codes from the ViewModel.
+     */
+    private void getListCodeMaterials() {
         dateBaseListCodeMaterial = new ArrayList<>();
         dateBaseListCodeMaterial = materialsViewModel.getAllMaterialsCode();
     }
 
+    /**
+     * Initializes the logic based on the provided arguments.
+     * It determines which logic function to call based on the "logic" string parameter.
+     */
     private void initLogic() {
         String logic = arguments.getString("logic");
 
@@ -106,6 +117,10 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         buttonEnabled();
     }
 
+    /**
+     * Enables or disables buttons based on the countFieldUseMaterial value.
+     * Sets the alpha value of buttons based on their enabling status.
+     */
     private void buttonEnabled() {
         binding.butMinusUseMaterial.setEnabled(!(countFieldUseMaterial == 1));
         binding.butMinusUseMaterial.setAlpha(countFieldUseMaterial == 1 ? 0.5f : 1f);
@@ -114,12 +129,16 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         binding.butPlusUseMaterial.setAlpha(countFieldUseMaterial == 5 ? 0.5f : 1f);
     }
 
-    private void addLogic(){
+    private void addLogic() {
         getClient();
         binding.saveHairstyle.setOnClickListener(v -> saveHairstyle());
         initFirstAutoCompleteInputSetCode();
     }
 
+    /**
+     * Executes logic for adding a new item.
+     * Retrieves client information, sets click listener for saving, and initializes AutoCompleteTextView.
+     */
     private void editLogic() {
         getHairstyle();
         countFieldUseMaterial = hairstyleVisit.getCountMaterial().length;
@@ -127,11 +146,21 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         binding.saveHairstyle.setOnClickListener(v -> editHairstyle());
     }
 
-    private void initAutoCompleteInputSetCode(AutoCompleteTextView codeMaterial){
+    /**
+     * Initializes the AutoCompleteTextView with an adapter of code material list.
+     *
+     * @param codeMaterial AutoCompleteTextView to be initialized
+     */
+    private void initAutoCompleteInputSetCode(AutoCompleteTextView codeMaterial) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, dateBaseListCodeMaterial);
         codeMaterial.setAdapter(adapter);
     }
 
+    /**
+     * Validates if all required fields are not empty for input.
+     *
+     * @return boolean value indicating validation result
+     */
     @Override
     public boolean validateEmptyFields() {
         return !binding.etDateVisit.getText().toString().isEmpty() &&
@@ -142,6 +171,11 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
                 validateEmptyFieldsMaterials();
     }
 
+    /**
+     * Validates if all required material fields are not empty for input.
+     *
+     * @return boolean value indicating validation result
+     */
     private boolean validateEmptyFieldsMaterials() {
         int countEmpty = 0;
         for (int i = 0; i < countFieldUseMaterial; i++) {
@@ -152,25 +186,33 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         return countEmpty == countFieldUseMaterial;
     }
 
-    private boolean validateCorrectnessMaterialCode(){
+    /**
+     * Validates if the material code inputs are correct based on the database code list.
+     *
+     * @return boolean value indicating validation result
+     */
+    private boolean validateCorrectnessMaterialCode() {
         int correctFields = 0;
         for (int i = 0; i < countFieldUseMaterial; i++) {
             boolean validate = false;
-            for (String code: dateBaseListCodeMaterial) {
-                if (code.trim().equals(listCodeUseMaterials.get(i).getText().toString().trim())){
+            for (String code : dateBaseListCodeMaterial) {
+                if (code.trim().equals(listCodeUseMaterials.get(i).getText().toString().trim())) {
                     listCodeUseMaterials.get(i).setTextColor(Color.BLACK);
-                    correctFields +=1;
+                    correctFields += 1;
                     validate = true;
                     break;
                 }
             }
-            if (!validate){
+            if (!validate) {
                 animateEmptyField(listCodeUseMaterials.get(i), requireContext());
             }
         }
         return correctFields == countFieldUseMaterial;
     }
 
+    /**
+     * Initializes the list of material code and count fields.
+     */
     private void initFieldListMaterials() {
         listCodeUseMaterials = new ArrayList<>();
         listCountUseMaterials = new ArrayList<>();
@@ -184,6 +226,11 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         }
     }
 
+    /**
+     * Initializes an array of material code values based on user input.
+     *
+     * @return String array of material codes
+     */
     private String[] initArrayCode() {
         String[] codeUseMaterials = new String[countFieldUseMaterial];
         for (int i = 0; i < countFieldUseMaterial; i++) {
@@ -192,7 +239,11 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         return codeUseMaterials;
     }
 
-
+    /**
+     * Initializes an array of material count values based on user input.
+     *
+     * @return integer array of material counts
+     */
     private int[] initArrayCount() {
         int[] countUseMaterials = new int[countFieldUseMaterial];
 
@@ -202,6 +253,9 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         return countUseMaterials;
     }
 
+    /**
+     * Handles empty fields by checking and highlighting them.
+     */
     @Override
     public void handleEmptyFields() {
         isEmpty(binding.etDateVisit);
@@ -212,13 +266,19 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         handlerEmptyFieldUseMaterials();
     }
 
-    private void handlerEmptyFieldUseMaterials(){
+    /**
+     * Handles empty material fields by checking and highlighting them.
+     */
+    private void handlerEmptyFieldUseMaterials() {
         for (int i = 0; i < countFieldUseMaterial; i++) {
             isEmpty(listCodeUseMaterials.get(i));
             isEmpty(listCountUseMaterials.get(i));
         }
     }
 
+    /**
+     * Adds a new field for entering material.
+     */
     private void addFieldUseMaterial() {
         if (countFieldUseMaterial < 5) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_client_add_hairstyle_materials, binding.linearLayoutAddEditHairstyle, false);
@@ -231,6 +291,9 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         buttonEnabled();
     }
 
+    /**
+     * Deletes the field for entering the material
+     */
     private void minusFieldUseMaterial() {
         if (countFieldUseMaterial > 1) {
             binding.linearLayoutAddEditHairstyle.removeViewAt(binding.linearLayoutAddEditHairstyle.getChildCount() - 2);
@@ -239,6 +302,11 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         buttonEnabled();
     }
 
+    /**
+     * Calculates the total price of materials asynchronously.
+     *
+     * @return Future<Integer> representing the total price of materials
+     */
     private Future<Integer> priceMaterials() {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Future<Integer>> futures = new ArrayList<>();
@@ -261,14 +329,22 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         });
     }
 
-    // Методы для добавления прически
+    /**
+     * Retrieves the client details from the arguments bundle.
+     * If arguments is not null, sets the client object with the parcelable data.
+     */
     private void getClient() {
         if (arguments != null) {
             client = arguments.getParcelable("client");
         }
     }
 
-    private void saveHairstyle(){
+    /**
+     * Saves the hairstyle visit by initializing the HairstyleVisit object
+     * and executing the save operation in a background thread.
+     * Handles exceptions related to asynchronous execution.
+     */
+    private void saveHairstyle() {
         try {
             HairstyleVisit visit = initHairstyleVisit();
             if (visit != null) {
@@ -282,6 +358,14 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         }
     }
 
+    /**
+     * Initializes the HairstyleVisit object after validating input fields
+     * and material codes. Handles empty fields and returns null if validation fails.
+     *
+     * @return The initialized HairstyleVisit object or null if validation fails.
+     * @throws ExecutionException   if an execution error occurs
+     * @throws InterruptedException if the execution is interrupted
+     */
     private HairstyleVisit initHairstyleVisit() throws ExecutionException, InterruptedException {
         initFieldListMaterials();
         if (validateEmptyFields() && validateCorrectnessMaterialCode()) {
@@ -303,6 +387,10 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         }
     }
 
+    /**
+     * Saves the HairstyleVisit object by executing DB transactions
+     * to insert the visit, update client visit count, and update material counts.
+     */
     private void saveVisit(HairstyleVisit visit) {
         KosandraDataBase.getInstance(requireContext()).runInTransaction(() -> {
             hairstyleVisitViewModel.insert(visit);
@@ -311,12 +399,21 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         });
     }
 
+    /**
+     * Updates the client's visit count by incrementing it and updating the client object.
+     */
     private void updateClientVisitCount() {
         ClientViewModel clientViewModel = new ViewModelProvider(requireActivity()).get(ClientViewModel.class);
         client.setNumberOfVisits(client.getNumberOfVisits() + 1);
         clientViewModel.update(client);
     }
 
+    /**
+     * Updates the count and ratings of materials used in the HairstyleVisit.
+     * Retrieves the material, updates count and rating, and persists the changes.
+     *
+     * @param visit The HairstyleVisit object containing material details
+     */
     private void updateMaterialsCount(HairstyleVisit visit) {
         for (int i = 0; i < countFieldUseMaterial; i++) {
             String materialCode = visit.getCodeMaterial()[i].trim();
@@ -330,19 +427,31 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         }
     }
 
-    private void initFirstAutoCompleteInputSetCode(){
+    /**
+     * Initializes the first AutoCompleteTextView input with material code.
+     * Retrieves the AutoCompleteTextView from the layout and sets the code input.
+     */
+    private void initFirstAutoCompleteInputSetCode() {
         LinearLayout linearLayout = (LinearLayout) binding.linearLayoutAddEditHairstyle.getChildAt(binding.linearLayoutAddEditHairstyle.getChildCount() - 2);
         AutoCompleteTextView autoCompleteTextView = linearLayout.findViewById(R.id.use_code_materials);
         initAutoCompleteInputSetCode(autoCompleteTextView);
     }
 
-    //Методы для изменения прически
+    /**
+     * Retrieve the hairstyle details from the arguments bundle.
+     * If arguments are not null, assign the Parcelable "hairstyle" to the hairstyleVisit variable.
+     */
     private void getHairstyle() {
         if (arguments != null) {
             hairstyleVisit = arguments.getParcelable("hairstyle");
         }
     }
 
+    /**
+     * Initialize the fields with hairstyle details.
+     * Set the bitmap, name, date, time, price, and weight of the hairstyle.
+     * Initialize the materials used in the hairstyle.
+     */
     private void initField() {
         Bitmap bitmap = BitmapFactory.decodeByteArray(hairstyleVisit.getPhotoHairstyle(), 0, hairstyleVisit.getPhotoHairstyle().length);
         binding.addEditPhotoHairstyle.setImageBitmap(bitmap);
@@ -354,6 +463,10 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         initFieldUseMaterials();
     }
 
+    /**
+     * Initialize the materials used in the hairstyle by iterating over the countFieldUseMaterial.
+     * Add the material layout dynamically and set the code and count for each material.
+     */
     private void initFieldUseMaterials() {
         for (int i = 0; i < countFieldUseMaterial; i++) {
             LinearLayout linearLayout;
@@ -374,6 +487,11 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         }
     }
 
+    /**
+     * Edit the existing hairstyle by validating fields and material codes.
+     * Save previous material counts, update the hairstyle details, and update the database.
+     * Handle empty fields if validation fails.
+     */
     private void editHairstyle() {
         initFieldListMaterials();
         if (validateEmptyFields() && validateCorrectnessMaterialCode()) {
@@ -385,6 +503,10 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         }
     }
 
+    /**
+     * Set the hairstyle details by retrieving data from UI components.
+     * Update the hairstyleVisit object with the new values.
+     */
     private void setHairstyle() {
         try {
             hairstyleVisit.setPhotoHairstyle(getImageGallery(binding.addEditPhotoHairstyle.getDrawable(), getResources()));
@@ -401,12 +523,19 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         }
     }
 
+    /**
+     * Save the previous count of materials used in the hairstyle.
+     */
     private void savePrevCountUseMaterials() {
         prevCountMaterials = hairstyleVisit.getCountMaterial();
         prevCodeMaterials = hairstyleVisit.getCodeMaterial();
     }
 
-    private void editHairstyleDataBase(){
+    /**
+     * Edit the hairstyle details in the database using a background thread.
+     * Update the hairstyle, update material counts, and dismiss the operation.
+     */
+    private void editHairstyleDataBase() {
         Executors.newSingleThreadExecutor().execute(() -> {
             KosandraDataBase.getInstance(requireContext()).runInTransaction(() -> {
                 hairstyleVisitViewModel.update(hairstyleVisit);
@@ -416,7 +545,11 @@ public class AddEditHairstyleDialog extends BottomSheetDialogFragment implements
         });
     }
 
-    private void updateMaterialCount(){
+    /**
+     * Update the material counts in the database based on the changes made in the hairstyle.
+     * Adjust the material count and rating for both old and new materials.
+     */
+    private void updateMaterialCount() {
         for (int i = 0; i < prevCodeMaterials.length; i++) {
             Materials prevMaterial = materialsViewModel.getMaterial(prevCodeMaterials[i]);
             prevMaterial.setCount(prevMaterial.getCount() + prevCountMaterials[i]);

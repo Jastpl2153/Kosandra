@@ -14,23 +14,34 @@ import java.time.LocalTime;
 import java.util.Random;
 
 /**
- * The activity responsible for displaying the loading screen and going to the main screen.
+ * LoadingActivity is responsible for displaying a loading screen with a greeting and a random quote before redirecting to the MainActivity.
+ * <p>
+ * The LoadingActivity class extends AppCompatActivity to provide an activity layout on the screen.
+ * <p>
+ * It uses ActivityLoadingBinding to bind layout elements, LocalTime to get the current time, and a Handler to handle time delays.
  */
 public class LoadingActivity extends AppCompatActivity {
-    private ActivityLoadingBinding binding;
-    private LocalTime nowTime = LocalTime.now();
-    private int timeOfDay = nowTime.getHour();
+    private ActivityLoadingBinding binding; // Binding for the elements in the loading screen layout
+    private LocalTime nowTime = LocalTime.now();// Current local time
+    private int timeOfDay = nowTime.getHour();// Hour of the day extracted from the current time
 
+    /**
+     * onCreate method is called when the activity is created. It initializes the layout, sets greeting and quote texts,
+     * <p>
+     * and redirects to the MainActivity after a delay.
+     *
+     * @param savedInstanceState Bundle of data used for activity state restoration.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoadingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.greeting.setText(initGreeting());
-        binding.quote.setText(randomQuote());
+        binding.greeting.setText(initGreeting()); // Set greeting text based on the time of the day
+        binding.quote.setText(randomQuote());// Set a random quote text
 
-        // We go to the main screen in 6 seconds
+// Redirect to MainActivity after 4 seconds delay using a Handler
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -42,8 +53,9 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     /**
-     * A method for initializing greetings depending on the time of day.
-     * @return A greeting line.
+     * initGreeting method sets the appropriate greeting based on the time of the day.
+     *
+     * @return String containing the appropriate greeting message.
      */
     private String initGreeting() {
         String greeting;
@@ -60,8 +72,9 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     /**
-     * A method for getting a random quote from resources.
-     * @return A random quote in the form of a string.
+     * randomQuote method randomly selects a quote from the quotes array.
+     *
+     * @return String containing a randomly selected quote.
      */
     private String randomQuote() {
         String[] quotesArray = getResources().getStringArray(R.array.quotes_array);

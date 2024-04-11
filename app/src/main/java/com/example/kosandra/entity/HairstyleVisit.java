@@ -10,6 +10,15 @@ import androidx.room.PrimaryKey;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Entity class representing a hairstyle visit.
+ * <p>
+ * The entity is used to store information about a client's visit for a hairstyle service.
+ * <p>
+ * The class implements Parcelable for object serialization.
+ * <p>
+ * The entity is associated with the Client class through a foreign key constraint.
+ */
 @Entity(tableName = "hairstyleVisit",
         foreignKeys = @ForeignKey(entity = Client.class,
                 parentColumns = "id",

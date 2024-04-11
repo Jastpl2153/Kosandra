@@ -21,10 +21,19 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMaterialsMain.MaterialHolder>{
+/**
+ * AdapterRvMaterialsMain class is responsible for adapting a list of Materials objects to be displayed in a RecyclerView.
+ * It also handles user interaction events such as item clicks and delete actions.
+ */
+public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMaterialsMain.MaterialHolder> {
     private List<Materials> materials = new ArrayList<>();
     private final RvItemClickListener<Materials> rvItemClickListener;
 
+    /**
+     * Constructor for AdapterRvMaterialsMain.
+     *
+     * @param rvItemClickListener Interface to handle item click events.
+     */
     public AdapterRvMaterialsMain(RvItemClickListener<Materials> rvItemClickListener) {
         this.rvItemClickListener = rvItemClickListener;
     }
@@ -51,6 +60,11 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
         return materials.size();
     }
 
+    /**
+     * Set the list of Materials data to be displayed in the RecyclerView.
+     *
+     * @param materials The list of Materials objects.
+     */
     public void setMaterials(List<Materials> materials) {
         this.materials.clear();
         this.materials.addAll(materials);
@@ -71,6 +85,11 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
             setupListeners(rvItemClickListener, materials);
         }
 
+        /**
+         * Find and initialize views within the item view.
+         *
+         * @param itemView The item View.
+         */
         private void findViews(View itemView) {
             material_image = itemView.findViewById(R.id.rv_material_image);
             tv_material_name = itemView.findViewById(R.id.rv_tv_material_name);
@@ -80,6 +99,12 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
             item_layout = itemView.findViewById(R.id.linear_layout_material_main);
         }
 
+        /**
+         * Setup click listeners for item views.
+         *
+         * @param rvItemClickListener Interface to handle item click events.
+         * @param materials           The list of Materials objects.
+         */
         private void setupListeners(RvItemClickListener<Materials> rvItemClickListener, List<Materials> materials) {
             itemView.setOnLongClickListener(v -> handleClick(rvItemClickListener, materials, true));
             itemView.setOnClickListener(v -> handleClick(rvItemClickListener, materials, false));
@@ -87,6 +112,14 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
             material_image.setOnClickListener(v -> handleImageClick(rvItemClickListener, materials));
         }
 
+        /**
+         * Handle onClick events for item views.
+         *
+         * @param rvItemClickListener Interface to handle item click events.
+         * @param materials           The list of Materials objects.
+         * @param isLongClick         Indicates if the event is a long click.
+         * @return True if the event was handled, false otherwise.
+         */
         private boolean handleClick(RvItemClickListener<Materials> rvItemClickListener, List<Materials> materials, boolean isLongClick) {
             int position = getAdapterPosition();
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {
@@ -101,6 +134,12 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
             return false;
         }
 
+        /**
+         * Handle delete button click event.
+         *
+         * @param rvItemClickListener Interface to handle item click events.
+         * @param materials           The list of Materials objects.
+         */
         private void handleDeleteClick(RvItemClickListener<Materials> rvItemClickListener, List<Materials> materials) {
             int position = getAdapterPosition();
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {
@@ -111,6 +150,12 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
             }
         }
 
+        /**
+         * Handle image click event.
+         *
+         * @param rvItemClickListener Interface to handle item click events.
+         * @param materials           The list of Materials objects.
+         */
         private void handleImageClick(RvItemClickListener<Materials> rvItemClickListener, List<Materials> materials) {
             int position = getAdapterPosition();
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {

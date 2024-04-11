@@ -35,7 +35,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-
+/**
+ * This class represents the MaterialAddFragment which extends Fragment and implements GalleryHandlerInterface and EmptyFields interface.
+ * <p>
+ * It contains functionality related to adding new materials, handling user input, saving materials, and displaying the menu options.
+ */
 public class MaterialAddFragment extends Fragment implements GalleryHandlerInterface, EmptyFields {
     private FragmentMaterialAddBinding binding;
     private ActivityResultLauncher<String> getContentLauncher;
@@ -58,7 +62,10 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
         initMenu();
     }
 
-    private void setOnClickListenerSpinnerType(){
+    /**
+     * Sets the on click listener for the type spinner.
+     */
+    private void setOnClickListenerSpinnerType() {
         binding.spinnerAddTypeMaterial.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -71,8 +78,11 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
         });
     }
 
+    /**
+     * Sets visibility of spinners based on the selected type.
+     */
     private void setFragmentSpinnerType() {
-        switch (binding.spinnerAddTypeMaterial.getSelectedItem().toString()){
+        switch (binding.spinnerAddTypeMaterial.getSelectedItem().toString()) {
             case "Канекалон":
                 binding.spinnerAddKanekalonCurls.setVisibility(View.VISIBLE);
                 binding.spinnerAddManufactureLength.setVisibility(View.VISIBLE);
@@ -92,6 +102,12 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
         }
     }
 
+    /**
+     * Initializes a spinner with the provided array resource.
+     *
+     * @param spinner The Spinner to be initialized
+     * @param arrayId The array resource id
+     */
     private void initSpinner(Spinner spinner, int arrayId) {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 requireContext(),
@@ -102,6 +118,9 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
         spinner.setAdapter(adapter);
     }
 
+    /**
+     * Initializes the menu options and sets up the save functionality.
+     */
     private void initMenu() {
         MenuProvider menuProvider = new MenuProvider() {
             @Override
@@ -122,15 +141,18 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
         requireActivity().addMenuProvider(menuProvider, getViewLifecycleOwner());
     }
 
+    /**
+     * Saves the material to the database after validation.
+     */
     private void saveMaterial() {
         viewModel = new ViewModelProvider(requireActivity()).get(MaterialsViewModel.class);
-        Executors.newSingleThreadExecutor().execute(()->{
+        Executors.newSingleThreadExecutor().execute(() -> {
             if (validateEmptyFields() && validateCodeMaterial()) {
                 try {
                     viewModel.insert(initMaterial());
                     NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
                     navController.popBackStack();
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
@@ -139,7 +161,12 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
         });
     }
 
-    private Materials initMaterial(){
+    /**
+     * Initializes the material object with user input values.
+     *
+     * @return Returns the initialized Materials object
+     */
+    private Materials initMaterial() {
         Materials material = new Materials(
                 binding.spinnerAddTypeMaterial.getSelectedItem().toString(),
                 binding.addColorMaterial.getText().toString(),
@@ -156,8 +183,14 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
         return initKanekalonOrCurls(material);
     }
 
-    private Materials initKanekalonOrCurls(Materials material){
-        switch (binding.spinnerAddTypeMaterial.getSelectedItem().toString()){
+    /**
+     * Initializes additional properties based on the selected material type.
+     *
+     * @param material The Materials object to be updated
+     * @return Returns the updated Materials object
+     */
+    private Materials initKanekalonOrCurls(Materials material) {
+        switch (binding.spinnerAddTypeMaterial.getSelectedItem().toString()) {
             case "Канекалон":
                 material.setTypeKanekalon(binding.spinnerAddKanekalonCurls.getSelectedItem().toString());
                 material.setManufacturer(binding.spinnerAddManufactureLength.getSelectedItem().toString());
@@ -170,6 +203,11 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
         return material;
     }
 
+    /**
+     * Validates the uniqueness of material code.
+     *
+     * @return Returns true if the code is unique, otherwise false
+     */
     private boolean validateCodeMaterial() {
         for (String code : viewModel.getAllMaterialsCode()) {
             if (code.equals(binding.addCodeMaterial.getText().toString())) {
@@ -184,6 +222,11 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
         return true;
     }
 
+    /**
+     * Validates if all the required fields are not empty.
+     *
+     * @return Returns true if all fields are not empty, otherwise false
+     */
     @Override
     public boolean validateEmptyFields() {
         return !binding.addColorMaterial.getText().toString().isEmpty() &&
@@ -192,6 +235,9 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
                 !binding.addPriceMaterial.getText().toString().isEmpty();
     }
 
+    /**
+     * Handles empty fields by visually indicating the empty fields to the user.
+     */
     @Override
     public void handleEmptyFields() {
         isEmpty(binding.addColorMaterial);
