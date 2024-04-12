@@ -70,6 +70,18 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
         notifyDataSetChanged();
     }
 
+    /**
+     * Removes a specific client from the list of clients.
+     *
+     * @param client The client object to be removed from the list.
+     *               This method removes a given client object from the list of clients maintained by this class.
+     *               It then notifies any observers that the underlying data has changed.
+     */
+    public void removeClient(Client client) {
+        clients.remove(client);
+        notifyDataSetChanged();
+    }
+
     public class ClientHolder extends RecyclerView.ViewHolder {
         private CircleImageView client_image;
         private TextView tv_client_name;
@@ -143,8 +155,6 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {
                 Client client = clients.get(position);
                 rvItemClickListener.onDeleteClick(item_layout, but_delete, client);
-                clients.remove(position);
-                notifyItemRemoved(position);
             }
         }
 

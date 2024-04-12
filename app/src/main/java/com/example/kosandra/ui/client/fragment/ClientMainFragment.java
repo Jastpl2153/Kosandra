@@ -1,6 +1,7 @@
 package com.example.kosandra.ui.client.fragment;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.example.kosandra.databinding.FragmentMainClientBinding;
 import com.example.kosandra.entity.Client;
 import com.example.kosandra.ui.animation.AnimationHelper;
 import com.example.kosandra.ui.client.adapter.AdapterRVClientsMain;
+import com.example.kosandra.ui.general_logic.ConfirmationDialog;
 import com.example.kosandra.ui.general_logic.RvItemClickListener;
 import com.example.kosandra.ui.general_logic.SearchRecyclerView;
 import com.example.kosandra.view_model.ClientViewModel;
@@ -259,8 +261,30 @@ public class ClientMainFragment extends Fragment implements RvItemClickListener<
      */
     @Override
     public void onDeleteClick(View item_layout, View but_delete, Client client) {
-        viewModel.delete(client);
-        AnimationHelper.cancelAnimation(item_layout, but_delete);
+        openConfirmationDialog(item_layout, but_delete, client);
+    }
+
+    /**
+     * Opens a confirmation dialog for deleting the client.
+     */
+    private void openConfirmationDialog(View item_layout, View but_delete, Client client) {
+        ConfirmationDialog dialog = new ConfirmationDialog(
+                getContext(),
+                "Подтверждение",
+                "Вы уверены, что хотите удалить клиента?",
+                (dialogInterface, which) -> {
+                    if (which == DialogInterface.BUTTON_POSITIVE) {
+                        viewModel.delete(client);
+                        AnimationHelper.cancelAnimation(item_layout, but_delete);
+                        adapter.removeClient(client);
+                        positionSelection = -1;
+                        prevButDelete = null;
+                        prevItemLayout = null;
+                    } else if (which == DialogInterface.BUTTON_NEGATIVE) {
+                    }
+                });
+
+        dialog.show();
     }
 
     /**

@@ -71,6 +71,21 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
         notifyDataSetChanged();
     }
 
+    /**
+     * Removes a given material from the list of materials and notifies any observers of the change.
+     *
+     * @param material The material to be removed from the list.
+     * @return void
+     * Removes the specified material from the list of materials. After removal, notifies any observers
+     * of the change by calling notifyDataSetChanged() method.
+     * Note: This function does not return any value as it directly modifies the list of materials and triggers
+     * a UI update by calling notifyDataSetChanged().
+     */
+    public void removeMaterials(Materials material) {
+        materials.remove(material);
+        notifyDataSetChanged();
+    }
+
     public class MaterialHolder extends RecyclerView.ViewHolder {
         CircleImageView material_image;
         TextView tv_material_name;
@@ -145,8 +160,6 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {
                 Materials material = materials.get(position);
                 rvItemClickListener.onDeleteClick(item_layout, but_delete, material);
-                materials.remove(position);
-                notifyItemRemoved(position);
             }
         }
 

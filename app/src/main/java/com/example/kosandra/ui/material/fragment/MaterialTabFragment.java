@@ -1,6 +1,7 @@
 package com.example.kosandra.ui.material.fragment;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,8 +20,10 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.example.kosandra.R;
 import com.example.kosandra.databinding.FragmentMaterialsTabBinding;
+import com.example.kosandra.entity.Client;
 import com.example.kosandra.entity.Materials;
 import com.example.kosandra.ui.animation.AnimationHelper;
+import com.example.kosandra.ui.general_logic.ConfirmationDialog;
 import com.example.kosandra.ui.general_logic.RvItemClickListener;
 import com.example.kosandra.ui.material.adapter.AdapterRvMaterialsMain;
 import com.example.kosandra.view_model.MaterialsViewModel;
@@ -167,8 +170,30 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
      */
     @Override
     public void onDeleteClick(View item_layout, View but_delete, Materials materials) {
-        viewModel.delete(materials);
-        AnimationHelper.cancelAnimation(item_layout, but_delete);
+        openConfirmationDialog(item_layout, but_delete, materials);
+    }
+
+    /**
+     * Opens a confirmation dialog for deleting the client.
+     */
+    private void openConfirmationDialog(View item_layout, View but_delete, Materials materials) {
+        ConfirmationDialog dialog = new ConfirmationDialog(
+                getContext(),
+                "Подтверждение",
+                "Вы уверены, что хотите удалить материал?",
+                (dialogInterface, which) -> {
+                    if (which == DialogInterface.BUTTON_POSITIVE) {
+                        viewModel.delete(materials);
+                        AnimationHelper.cancelAnimation(item_layout, but_delete);
+                        adapter.removeMaterials(materials);
+                        positionSelection = -1;
+                        prevButDelete = null;
+                        prevItemLayout = null;
+                    } else if (which == DialogInterface.BUTTON_NEGATIVE) {
+                    }
+                });
+
+        dialog.show();
     }
 
     /**
