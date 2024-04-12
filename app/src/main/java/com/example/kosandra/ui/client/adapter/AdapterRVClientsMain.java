@@ -70,7 +70,14 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
         notifyDataSetChanged();
     }
 
-    public void removeClient(Client client){
+    /**
+     * Removes a specific client from the list of clients.
+     *
+     * @param client The client object to be removed from the list.
+     *               This method removes a given client object from the list of clients maintained by this class.
+     *               It then notifies any observers that the underlying data has changed.
+     */
+    public void removeClient(Client client) {
         clients.remove(client);
         notifyDataSetChanged();
     }
