@@ -71,6 +71,11 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
         notifyDataSetChanged();
     }
 
+    public void removeMaterials(Materials material) {
+        materials.remove(material);
+        notifyDataSetChanged();
+    }
+
     public class MaterialHolder extends RecyclerView.ViewHolder {
         CircleImageView material_image;
         TextView tv_material_name;
@@ -145,8 +150,6 @@ public class AdapterRvMaterialsMain extends RecyclerView.Adapter<AdapterRvMateri
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {
                 Materials material = materials.get(position);
                 rvItemClickListener.onDeleteClick(item_layout, but_delete, material);
-                materials.remove(position);
-                notifyItemRemoved(position);
             }
         }
 

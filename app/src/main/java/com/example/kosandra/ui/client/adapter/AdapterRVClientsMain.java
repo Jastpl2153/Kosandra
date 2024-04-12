@@ -70,6 +70,11 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
         notifyDataSetChanged();
     }
 
+    public void removeClient(Client client){
+        clients.remove(client);
+        notifyDataSetChanged();
+    }
+
     public class ClientHolder extends RecyclerView.ViewHolder {
         private CircleImageView client_image;
         private TextView tv_client_name;
@@ -143,8 +148,6 @@ public class AdapterRVClientsMain extends RecyclerView.Adapter<AdapterRVClientsM
             if (rvItemClickListener != null && position != RecyclerView.NO_POSITION) {
                 Client client = clients.get(position);
                 rvItemClickListener.onDeleteClick(item_layout, but_delete, client);
-                clients.remove(position);
-                notifyItemRemoved(position);
             }
         }
 
