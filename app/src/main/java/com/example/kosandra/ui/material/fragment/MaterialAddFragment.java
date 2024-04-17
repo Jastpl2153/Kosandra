@@ -150,8 +150,6 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
             if (validateEmptyFields() && validateCodeMaterial()) {
                 try {
                     viewModel.insert(initMaterial());
-                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-                    navController.popBackStack();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -159,6 +157,8 @@ public class MaterialAddFragment extends Fragment implements GalleryHandlerInter
                 handleEmptyFields();
             }
         });
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+        navController.popBackStack();
     }
 
     /**

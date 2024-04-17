@@ -92,6 +92,7 @@ public class MaterialTabFragment extends Fragment implements RvItemClickListener
         viewModel.getMaterialsList(typeMaterial).observe(getViewLifecycleOwner(), materials -> {
             if (materials != null) {
                 adapter.setMaterials(materials);
+                allMaterialFilter.clear();
                 allMaterialFilter.addAll(materials);
             }
         });

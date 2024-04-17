@@ -46,6 +46,7 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
     private FragmentClientHairstyleBinding binding;
     private HairstyleVisit hairstyleVisit;
     private HairstyleVisitViewModel viewModel;
+    private int countUseMaterialView = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,10 +99,12 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
 
     /**
      * editHairstyle method opens a dialog for editing the hairstyle.
+     * It also records the amount of material used
      */
     private void editHairstyle() {
         AddEditHairstyleDialog dialog = new AddEditHairstyleDialog();
         dialog.setArguments(initBundleClient());
+        countUseMaterialView = hairstyleVisit.getCodeMaterial().length;
         dialog.show(getParentFragmentManager(), "DialogAddHairstyle");
     }
 
@@ -160,6 +163,7 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
             binding.priceCardHairstyle.setText(String.valueOf(hairstyleVisit.getHaircutCost()));
             binding.priceMaterialCardHairstyle.setText(String.valueOf(hairstyleVisit.getMaterialCost()));
             binding.weightCardHairstyle.setText(String.valueOf(hairstyleVisit.getMaterialWeight()));
+            clearViewUseMaterial();
             initSetUseMaterials();
         }
     }
@@ -177,6 +181,15 @@ public class ClientHairstyleFragment extends Fragment implements OpenImageFullSc
             count.setText(String.valueOf(hairstyleVisit.getCountMaterial()[i]));
 
             binding.layoutCardHairstyle.addView(view);
+        }
+    }
+
+    /**
+     * Deletes the list of materials used for updating.
+     */
+    private void clearViewUseMaterial(){
+        for (int i = 0; i < countUseMaterialView; i++) {
+            binding.layoutCardHairstyle.removeViewAt(binding.layoutCardHairstyle.getChildCount() - (countUseMaterialView - i));
         }
     }
 

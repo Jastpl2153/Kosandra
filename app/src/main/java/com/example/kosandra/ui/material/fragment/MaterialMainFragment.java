@@ -34,6 +34,7 @@ public class MaterialMainFragment extends Fragment implements SearchRecyclerView
     private FragmentMainMaterialsBinding binding;
     private List<Fragment> fragmentList = new ArrayList<>();
     private SearchView searchView;
+    private AdapterViewPager2 adapterViewPager2;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMainMaterialsBinding.inflate(inflater, container, false);
@@ -43,8 +44,6 @@ public class MaterialMainFragment extends Fragment implements SearchRecyclerView
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initFragmentMaterial();
-        setAdapterMediator();
         binding.butAddMaterials.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_material_to_add_material_navigation));
         requireActivity().addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.STARTED);
     }
@@ -62,7 +61,7 @@ public class MaterialMainFragment extends Fragment implements SearchRecyclerView
      * Sets up adapter mediator for ViewPager2 with provided fragments and corresponding tabs.
      */
     private void setAdapterMediator() {
-        AdapterViewPager2 adapterViewPager2 = new AdapterViewPager2(this, fragmentList);
+        adapterViewPager2 = new AdapterViewPager2(this, fragmentList);
         binding.pagerFragmentMaterial.setAdapter(adapterViewPager2);
         new TabLayoutMediator(binding.tabTypeMaterials, binding.pagerFragmentMaterial, (tab, position) -> {
             switch (position) {
@@ -82,13 +81,24 @@ public class MaterialMainFragment extends Fragment implements SearchRecyclerView
         }).attach();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (fragmentList.isEmpty()) {
+            initFragmentMaterial();
+        }
+        if (adapterViewPager2  == null) {
+            setAdapterMediator();
+        }
+    }
+
     /**
      * Called when the Fragment is no longer visible to the user. Clears and sets the adapter to null.
      */
     @Override
     public void onPause() {
         super.onPause();
-        binding.pagerFragmentMaterial.setAdapter(null);
+        adapterViewPager2 = null;
     }
 
     /**
@@ -167,9 +177,11 @@ public class MaterialMainFragment extends Fragment implements SearchRecyclerView
     @Override
     public void filter(String text) {
         int currentItem = binding.pagerFragmentMaterial.getCurrentItem();
-        Fragment fragment = fragmentList.get(currentItem);
-        if (fragment instanceof MaterialTabFragment) {
-            ((MaterialTabFragment) fragment).filter(text);
+        if (currentItem < fragmentList.size()) {
+            Fragment fragment = fragmentList.get(currentItem);
+            if (fragment instanceof MaterialTabFragment) {
+                ((MaterialTabFragment) fragment).filter(text);
+            }
         }
     }
 }
